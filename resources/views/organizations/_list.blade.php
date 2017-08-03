@@ -75,7 +75,8 @@
                 data-country="{{$organization->country}}">
                 <i class="zmdi zmdi-edit txt-warning"></i>
                 </a>
-                <a href="javascript:void(0)" class="text-inverse sa-warning" title="" data-name="{{$organization->name}}" data-toggle="tooltip" data-original-title="Delete">
+                <a href="javascript:void(0)" class="text-inverse sa-warning" data-id="{{$organization->id}}"
+                data-name="{{$organization->name}}" data-toggle="tooltip" data-original-title="Delete">
                 <i class="zmdi zmdi-delete txt-danger"></i>
                 </a>
               </td>

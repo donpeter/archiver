@@ -17,17 +17,8 @@
   <!-- JavaScript -->
   
   <!-- jQuery -->
-  <script src="{{asset('vendors/bower_components/jquery/dist/jquery.min.js')}}"></script>
+  <script src="{{asset('js/bundle.min.js')}}"></script>
 
-  <!-- Bootstrap Core JavaScript -->
-  <script src="{{asset('vendors/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-  
-  <!-- Slimscroll JavaScript -->
-  <script src="{{asset('dist/js/jquery.slimscroll.js')}}"></script>
-  
-  <!-- Switchery JavaScript -->
-  <script src="{{asset('vendors/bower_components/switchery/dist/switchery.min.js')}}"></script>
-  <!-- Fancy Dropdown JS -->
   <script src="{{asset('dist/js/dropdown-bootstrap-extended.js')}}"></script>
   
   <!-- Init JavaScript -->

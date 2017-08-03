@@ -12,10 +12,10 @@
           <a href="javascript:void(0);" data-toggle="collapse" data-target="#ecom_dr"><div class="pull-left"><i class=" ti-archive mr-20"></i><span class="right-nav-text">{{trans_choice('navbar.file',2)}}</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
           <ul id="ecom_dr" class="collapse collapse-level-1">
             <li>
-              <a href="{{route('archive.index')}}">File List</a>
+              <a href="{{route('file.index')}}">File List</a>
             </li>
             <li>
-              <a href="{{route('archive.create')}}">Add New</a>
+              <a href="{{route('file.create')}}">Manage</a>
             </li>
           </ul>
         </li>
@@ -23,10 +23,10 @@
           <a href="javascript:void(0);" data-toggle="collapse" data-target="#app_dr"><div class="pull-left"><i class="pe-7s-photo mr-20"></i><span class="right-nav-text">{{trans_choice('navbar.media',1)}}</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
           <ul id="app_dr" class="collapse collapse-level-1">
             <li>
-              <a href="chats.html">Add</a>
+              <a href="{{route('media.index')}}">Add</a>
             </li>
             <li>
-              <a href="calendar.html">List</a>
+              <a href="{{route('media.create')}}">Manage</a>
             </li>
           </ul>
         </li>
@@ -37,7 +37,7 @@
               <a href="{{route('archive.index')}}">Archive List</a>
             </li>
             <li>
-              <a href="{{route('archive.create')}}">Add</a>
+              <a href="{{route('archive.create')}}">Manage</a>
             </li>
           </ul>
         </li>

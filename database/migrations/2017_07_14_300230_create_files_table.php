@@ -17,6 +17,7 @@ class CreateFilesTable extends Migration
             $table->increments('id');
             $table->string('ref',64)->unique();
             $table->string('title');
+            $table->string('desc')->nullable();
             $table->unsignedInteger('sender');
             $table->unsignedInteger('reciver');
             $table->string('type',8);

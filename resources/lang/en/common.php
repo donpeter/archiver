@@ -14,6 +14,7 @@ return [
     'name' => 'Name|Names',
     'desc' => 'Description|Descriptions',
     'ref' => 'Reference',
+    'title' => 'Title',
     'sort' => 'Activate to sort column ascending',
     'add' => 'Add new',
     'edit' => 'Edit',
@@ -30,6 +31,13 @@ return [
     'type' => 'Type',
     'archive' => 'Archive|Archives',
     'success' => ':action successfully',
+    'manage' => 'Manage',
+    'file' => 'File|Files',
+    'sender' => 'Sender',
+    'reciever' => 'Reciever',
+    'prepaired' => 'Prepaired',
+    'signed' => 'Signed',
+    'status' => 'Status'
 
 
 ];

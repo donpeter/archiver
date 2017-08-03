@@ -42,6 +42,7 @@
 
 @push('vendorStyles')
     <link href="{{asset('css/datatable.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="//cdn.datatables.net/select/1.2.2/css/select.dataTables.min.css" rel="stylesheet" type="text/css">
     <link href="{{asset('css/countrySelect.min.css')}}" rel="stylesheet" type="text/css">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 

@@ -40,3 +40,23 @@ Route::resource('archive', 'ArchiveController');
 |
 */
 Route::resource('organization', 'OrganizationController');
+
+/*
+|--------------------------------------------------------------------------
+| Files Routes (Resource)
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for the File 
+|
+*/
+Route::resource('file', 'FileController');
+
+/*
+|--------------------------------------------------------------------------
+| Media Manager Routes (Resource)
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for the File 
+|
+*/
+Route::resource('media', 'MediaController');

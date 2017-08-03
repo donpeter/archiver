@@ -58,7 +58,8 @@ class OrganizationController extends Controller
      */
     public function store(OrganizationRequest $request)
     {
-         $organization = Organization::create($request->all());
+         $organization = [Organization::create($request->all())];
+         $organization = $this->parser($organization)[0];
         $name = $request->input('name');
         if($request->ajax()){
             return response()->json(['message'=>['title' => __('created').'!', 'desc' => $name.' Created Succesfully'],'organization'=>$organization], 200);
@@ -100,7 +101,8 @@ class OrganizationController extends Controller
     {
        // return response($organization);
         $organization->update($request->all());
-        $updatedOrg= Organization::where('id', $organization->id)->first();
+        $updatedOrg = [Organization::where('id', $organization->id)->first()];
+        $updatedOrg = $this->parser($updatedOrg)[0];
         if($request->ajax()){
             $updated = __('updated');
             return response()
@@ -120,7 +122,13 @@ class OrganizationController extends Controller
      */
     public function destroy(Organization $organization)
     {
-        //
+        $name = $organization->name;
+        $organization->delete();
+
+        return response()->json([
+            'message'=> $name.' '.__('common.deleted'),
+            'title' => __('common.deleted')
+            ],200);
     }
 
     private function parser($organizations)
@@ -128,15 +136,17 @@ class OrganizationController extends Controller
         $parsedOrganization = [];
         foreach ($organizations as $organization) {
             $parsedOrganization[] = (object)[
+                                        'id' => $organization->id,
                                         'name' => $organization->name,
-                                        'type' => $organization->archive->name,
                                         'desc' => $organization->desc,
                                         'license' => $organization->license,
                                         'location' => $organization->location,
                                         'country' => $organization->country,
+                                        'archive' => $organization->archive->name,
+                                        'archive_id' => $organization->archive_id,
+
                                     ];
         }
-        $organizations = $parsedOrganization;
         return $parsedOrganization;
     }
 }
