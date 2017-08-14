@@ -1,4 +1,3 @@
 {
-    "/css/datatable.min.css": "/css/datatable.min.css",
-    "/js/organization.min.js": "/js/organization.min.js"
+    "/js/app.js": "/js/app.js"
 }

@@ -22,7 +22,7 @@ return [
     'created' => 'Created',
     'delete'=>'Delete',
     'deleted' => 'Deleteted',
-    'list' => 'List of all',
+    'list' => 'List of all ',
     'action'=> 'Action',
     'license' => 'License',
     'address' => 'Address',
@@ -37,7 +37,9 @@ return [
     'reciever' => 'Reciever',
     'prepaired' => 'Prepaired',
     'signed' => 'Signed',
-    'status' => 'Status'
+    'status' => 'Status',
+    'filter' => 'Filter',
+    'organization' => 'Organization|Organizations',
 
 
 ];

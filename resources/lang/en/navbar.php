@@ -22,6 +22,8 @@ return [
     'setting' => 'Setting|Settings',
     'language' => 'Language|Languages',
     'file' => 'File|Files',
+    'mail' => 'Mail|Mails',
+    'document' => 'Document|Documents'
 
 
 ];

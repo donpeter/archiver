@@ -107,7 +107,7 @@ strong {
   font-weight: bold; }
 
 body {
-  color: #878787;
+  color: rgba(255,255,255,0.8);
   font-family: "Roboto", sans-serif;
   font-size: 14px;
   font-style: normal;

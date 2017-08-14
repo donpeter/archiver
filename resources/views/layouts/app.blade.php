@@ -20,7 +20,7 @@
     
 </head>
 
-<body id='app'>
+<body>
     @include('layouts.header')
     <!-- Main Content -->
         <div class="page-wrapper">

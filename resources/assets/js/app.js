@@ -6,6 +6,11 @@
  */
 
 require('./bootstrap');
+require('./../bower/jquery-slimscroll/jquery.slimscroll.min')
+require('./../bower/sweetalert/dist/sweetalert.min')
+require('./../bower/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker')
+
+
 
 window.Vue = require('vue');
 
@@ -15,8 +20,35 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+Vue.component('document', require('./components/Document.vue'));
+Vue.component('document-list', require('./components/DocumentList.vue'));
+Vue.component('document-view', require('./components/DocumentView.vue'));
 
 const app = new Vue({
-    el: '#app'
+  el: '#app',
+  data: {
+    message: 'Hello Vue!',
+    signedDate: null,
+  },
+  methods: {
+    onView: function (item) {
+      console.log(item);
+    },
+    onFilter: function () {
+      console.log(this.signedDate);
+    }
+        
+          
+  },
+  mounted: function(){
+    $('.datetimepicker').datetimepicker({
+        locale: 'en',
+        format: 'DD/MM/YYYY'
+    });
+     $(".datetimepicker").on("dp.change", function (e) {
+        console.log('Date change: ', e.date.format('DD/MM/YY'));
+            this.signedDate = e.date.format('L');
+        }.bind(this));
+    
+  }
 });

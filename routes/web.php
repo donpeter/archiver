@@ -59,4 +59,4 @@ Route::resource('file', 'FileController');
 | Here is where you can register web routes for the File 
 |
 */
-Route::resource('media', 'MediaController');
+Route::resource('document', 'DocumentController');

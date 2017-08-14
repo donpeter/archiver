@@ -50,10 +50,5 @@
     <link href="{{asset('vendors/bower_components/sweetalert/dist/sweetalert.css')}}" rel="stylesheet" type="text/css">
 @endpush
 @push('scripts')
-    <!-- Sweet-Alert  -->
-    <script src="{{asset('vendors/bower_components/sweetalert/dist/sweetalert.min.js')}}"></script>
-    <script src="//unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="{{asset('js/organization.min.js')}}"></script>
-    
-
+<script src="{{asset('js/organization.min.js')}}"></script>
 @endpush

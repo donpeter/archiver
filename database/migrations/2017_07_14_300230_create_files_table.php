@@ -15,20 +15,13 @@ class CreateFilesTable extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('ref',64)->unique();
-            $table->string('title');
-            $table->string('desc')->nullable();
-            $table->unsignedInteger('sender');
-            $table->unsignedInteger('reciver');
-            $table->string('type',8);
-            $table->string('ext',32);
-            $table->timestamp('prepaired');
-            $table->timestamp('signed')->nullable();
-            $table->string('status', 20)->default('pending');
+            $table->string('name');
+            $table->string('alt')->nullable();
+            $table->string('caption')->nullable();
+            $table->string('type')->nullable();
+            $table->unsignedInteger('size');
+            $table->string('slug');
             $table->timestamps();
-
-            $table->foreign('sender')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('reciver')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Organization;
 
 class FileController extends Controller
 {
@@ -13,7 +14,7 @@ class FileController extends Controller
      */
     public function index()
     {
-        return view('files.index');
+        
     }
 
     /**
@@ -23,7 +24,8 @@ class FileController extends Controller
      */
     public function create()
     {
-        //
+        $organizations = Organization::all();
+        return view('files.index', compact('organizations'));
     }
 
     /**
@@ -34,7 +36,12 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         return  response()->json(print_r($request->file('files')));
+
+         // foreach ($files as $file => $value) {
+         //     # code...
+         // }
+
     }
 
     /**
