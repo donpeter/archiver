@@ -1,5 +1,5 @@
 <template>
-        <!-- sample modal content -->
+  <!-- Document modal content -->
   <div class="modal fade bs-example-modal-lg" id="viewModal" tabindex="-1" role="dialog" :aria-labelledby="document.title" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">

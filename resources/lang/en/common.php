@@ -13,6 +13,10 @@ return [
     */
     'name' => 'Name|Names',
     'desc' => 'Description|Descriptions',
+    'organization' => 'Organization|Organizations',
+    'archive' => 'Archive|Archives',
+    'document' => 'Document|Documents',
+    'success' => ':action successfully',
     'ref' => 'Reference',
     'title' => 'Title',
     'sort' => 'Activate to sort column ascending',
@@ -20,6 +24,8 @@ return [
     'edit' => 'Edit',
     'cancel'=> 'Cancel',
     'created' => 'Created',
+    'createdName' => ':Name Successfully Created',
+    'date' => 'Date',
     'delete'=>'Delete',
     'deleted' => 'Deleteted',
     'list' => 'List of all ',
@@ -29,8 +35,6 @@ return [
     'location' => 'Location',
     'country' =>'Country',
     'type' => 'Type',
-    'archive' => 'Archive|Archives',
-    'success' => ':action successfully',
     'manage' => 'Manage',
     'file' => 'File|Files',
     'sender' => 'Sender',
@@ -39,7 +43,9 @@ return [
     'signed' => 'Signed',
     'status' => 'Status',
     'filter' => 'Filter',
-    'organization' => 'Organization|Organizations',
+    'from' => 'From',
+    'to' => 'to',
+    'addNew'=> 'Add New'
 
 
 ];

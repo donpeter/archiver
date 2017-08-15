@@ -23,6 +23,8 @@ window.Vue = require('vue');
 Vue.component('document', require('./components/Document.vue'));
 Vue.component('document-list', require('./components/DocumentList.vue'));
 Vue.component('document-view', require('./components/DocumentView.vue'));
+Vue.component('pagination', require('laravel-vue-pagination'));
+
 
 const app = new Vue({
   el: '#app',

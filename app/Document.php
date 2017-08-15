@@ -30,7 +30,7 @@ class Document extends Model
     *
     */
     public function setPrepairedOnAttribute($date){
-      $this->attributes['prepaired_on'] = Carbon::parse($date);
+      $this->attributes['prepaired_on'] = Carbon::createFromFormat('d/m/Y',$date);
     }
 
     /**
@@ -38,7 +38,11 @@ class Document extends Model
     *
     */
     public function setSignedOnAttribute($date){
-      $this->attributes['signed_on'] = Carbon::parse($date);
+        if (is_null($date)) {
+            $this->attributes['signed_on'] = null;
+        }else {
+            $this->attributes['signed_on'] = Carbon::createFromFormat('d/m/Y',$date);
+        }
     }
 
     /**
@@ -57,6 +61,26 @@ class Document extends Model
     public function files()
     {
         return $this->belongsToMany('App\File')->withTimestamps();
+    }
+
+    /**
+     * Get the Organization related to the mail.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function from()
+    {
+        return $this->belongsTo('App\Organization', 'sender');
+    }
+
+    /**
+     * Get the Organization related to the mail.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function to()
+    {
+        return $this->belongsTo('App\Organization', 'receiver');
     }
 
 }

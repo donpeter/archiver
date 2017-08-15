@@ -1,6 +1,5 @@
 require('./../../bower/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker')
 require('./../../bower/bootstrap-fileinput/js/fileinput.min')
-require('./../custom/datatable/datatable.min')
 lightbox = require('lightbox2')
 
 $(function(){
@@ -9,10 +8,10 @@ $(function(){
     $("#files").fileinput();
   }
   
-  // $('.datetimepicker').datetimepicker({
-  //     locale: 'en',
-  //     format: 'DD/MM/YYYY'
-  // });
+  $('.datetimepicker').datetimepicker({
+      locale: 'en',
+      format: 'DD/MM/YYYY'
+  });
   if($(".select2").length){
     $(".select2").select2();
   }

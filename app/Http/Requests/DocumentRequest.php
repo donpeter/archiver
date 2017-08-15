@@ -31,8 +31,8 @@ class DocumentRequest extends FormRequest
             'sender' => 'required|integer',
             'receiver' => 'required|integer',
             'type' => 'required|string',
-            'prepaired_on' => 'required|date',
-            'signed_on' => 'nullable|after_or_equal:prepaired_on'
+            'prepaired_on' => 'required',
+            'signed_on' => 'nullable'
         ];
     }
 }

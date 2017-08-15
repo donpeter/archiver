@@ -70,6 +70,8 @@
 </template>
 
 <script>
+  require('./../custom/datatable/datatable.min')
+
     export default {
         data() {
           return {
@@ -79,11 +81,21 @@
             }
         },
         mounted() {
-          $.get( "/document", function (data) {
-                this.documents = data;
-                console.log('Fetching: ', data);
+          axios.get( "/document")
+            .then(function(res) {
+                this.documents = res.data;
+                console.log('Fetching: ', res.data);
               }.bind(this));
-          console.log('Documents Component mounted. ',this.myDocuments)
+          console.log('Documents Component mounted. ',this.myDocuments);
+            $('#organizations').DataTable({
+              "columns": [
+                         { "data": this.documents.name },
+                         { "data": this.documents.title },
+                         { "data": this.documents.sender },
+                         { "data": this.documents.reciver },
+                         { "data": this.documents.created_at } 
+                         ]
+            });
         },
         methods:  {
           onView: function (document) {

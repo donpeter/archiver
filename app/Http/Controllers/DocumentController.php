@@ -14,6 +14,17 @@ use App\Archive;
 class DocumentController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -23,15 +34,12 @@ class DocumentController extends Controller
         $archives = Archive::all();
         $organizations = Organization::all();
         $documents = Document::orderBy('created_at', 'desc')->get();
-        foreach ($documents as $document ) {
-            $document->files = $document->files()->get();
-        }
-        if($request->ajax()){
-            return response()->json($documents,200);
-        }else {
-            return view('documents.index', compact('documents','organizations'));
-        }
+        $this->parse($documents);
+
+        return view('documents.index', compact('documents','organizations'));
+        
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -68,7 +76,7 @@ class DocumentController extends Controller
             foreach ($request->file('files') as $file) {
                 $ext = $file->getClientOriginalExtension();
                 $fileName = $file->getClientOriginalName();
-                $fileName = getFileName($fileName, $ext); //Remove Extension from name
+                $fileName = $document->title;
                 $size = $file->getSize();
                 $slug = $path.createSlug($fileName);
                 $newSlug = $slug.".{$ext}";
@@ -93,7 +101,14 @@ class DocumentController extends Controller
             }
             $document->files()->attach(array_map("static::fileId", $files));
         }
-        return response()->json(['document' => $document, 'files' => $files]);
+        $documents = Document::orderBy('created_at', 'desc')->get();
+        if($request->ajax()){
+            return response()->json(['data'=>['document' => $document, 'files' => $files]]);
+        }else {
+            flash(__('common.createdName', ['name' => $document->title]))->success()->important();
+            return redirect()->route('document.index');
+        }
+
         
 
     }
@@ -140,7 +155,22 @@ class DocumentController extends Controller
      */
     public function destroy(document $document)
     {
-        //
+        //return response($document->files);
+        //Delete all related Files
+        $files=[];
+        foreach ($document->files as $file) {
+            $files[] = $file->slug;
+            $file->delete();
+        }
+        Storage::delete($files);
+        $name = $document->name;
+
+        $document->delete();
+
+        return response()->json([
+            'message'=> $name.' '.__('common.deleted'),
+            'title' => __('common.deleted')
+            ],200);        
     }
 
     private static function fileId($file)
@@ -151,6 +181,27 @@ class DocumentController extends Controller
     public function __set($name, $value)
     {
         $this->$name = $value;
+    }
+
+    //API Controlllers
+    public function getApi(Request $request)
+    {
+
+        $documents = Document::orderBy('created_at', 'desc')->get();
+        foreach ($documents as $document ) {
+            $document->files = $document->files()->get();
+        }
+         return response()->json(['data'=>$documents],200);
+        
+    }
+
+    private function parse($documents)
+    {
+        foreach ($documents as $document ) {
+            $document->files = $document->files()->get();
+            $document->from = $document->from->name;
+            $document->to = $document->to->name;
+        }
     }
 
 }

@@ -17,6 +17,8 @@
     <!-- Custom CSS -->
     <link href="{{asset('dist/css/style.css')}}" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/css/flag-icon.css" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/custom.css')}}" rel="stylesheet" type="text/css">
+
     
 </head>
 

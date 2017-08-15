@@ -20,6 +20,17 @@
           </ul>
         </li>
         <li>
+          <a href="javascript:void(0);" class="{{currentPage('organization') ? 'active' :''}}" data-toggle="collapse" data-target="#app_org"><div class="pull-left"><i class="pe-7s-culture mr-20"></i><span class="right-nav-text">{{trans_choice('navbar.organization',2)}} </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+          <ul id="app_org" class="collapse collapse-level-1">
+            <li>
+              <a href="{{route('organization.index')}}">List</a>
+            </li>
+            <li>
+              <a href="{{route('organization.create')}}">Add</a>
+            </li>
+          </ul>
+        </li>
+        <li>
           <a href="javascript:void(0);" data-toggle="collapse" data-target="#app_dr"><div class="pull-left"><i class="pe-7s-photo mr-20"></i><span class="right-nav-text">{{trans_choice('navbar.file',1)}}</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
           <ul id="app_dr" class="collapse collapse-level-1">
             <li>
@@ -41,20 +52,7 @@
             </li>
           </ul>
         </li>
-        <li>
-          <a href="javascript:void(0);" class="{{currentPage('organization') ? 'active' :''}}" data-toggle="collapse" data-target="#app_org"><div class="pull-left"><i class="pe-7s-culture mr-20"></i><span class="right-nav-text">{{trans_choice('navbar.organization',2)}} </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
-          <ul id="app_org" class="collapse collapse-level-1">
-            <li>
-              <a href="{{route('organization.index')}}">List</a>
-            </li>
-            <li>
-              <a href="{{route('organization.create')}}">Add</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="widgets.html"><div class="pull-left"><i class="zmdi zmdi-flag mr-20"></i><span class="right-nav-text">widgets</span></div><div class="pull-right"><span class="label label-warning">8</span></div><div class="clearfix"></div></a>
-        </li>
+        
         <li><hr class="light-grey-hr mb-10"/></li>
         <li class="navigation-header">
           <span>Settings</span> 

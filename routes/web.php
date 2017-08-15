@@ -60,3 +60,4 @@ Route::resource('file', 'FileController');
 |
 */
 Route::resource('document', 'DocumentController');
+Route::get('documents', 'DocumentController@getApi');
