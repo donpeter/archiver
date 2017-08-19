@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Factory as Auth;
 use App\Http\Requests\DocumentRequest;
 use Carbon\Carbon;
 use Storage;
 
+
 use App\Document;
 use App\File;
 use App\Organization;
-use App\Archive;
+use App\Folder;
 class DocumentController extends Controller
 {
     /**
@@ -31,12 +33,12 @@ class DocumentController extends Controller
      */
     public function index(Request $request)
     {
-        $archives = Archive::all();
+        $folders = Folder::all();
         $organizations = Organization::all();
         $documents = Document::orderBy('created_at', 'desc')->get();
         $this->parse($documents);
 
-        return view('documents.index', compact('documents','organizations'));
+        return view('documents.index', compact('documents','organizations','folders'));
         
     }
 
@@ -49,7 +51,8 @@ class DocumentController extends Controller
     public function create()
     {
         $organizations = Organization::all();
-        return view('documents.create', compact('organizations'));
+        $folders = Folder::all();
+        return view('documents.create', compact('organizations','folders'));
     }
 
     /**
@@ -64,10 +67,11 @@ class DocumentController extends Controller
                 'ref' => $request->ref,
                 'title' => $request->title,
                 'desc' => $request->desc,
-                'sender' => $request->sender,
-                'receiver' => $request->receiver,
                 'type' => $request->type,
-                'prepaired_on' => $request->prepaired_on,
+                'user_id' => 1,//Auth::user()->id,
+                'folder_id' => $request->folder_id,
+                'organization_id' => $request->organization_id,
+                'written_on' => $request->written_on,
                 'signed_on' => $request->signed_on
             ]); 
         $files = [];
@@ -76,7 +80,7 @@ class DocumentController extends Controller
             foreach ($request->file('files') as $file) {
                 $ext = $file->getClientOriginalExtension();
                 $fileName = $file->getClientOriginalName();
-                $fileName = $document->title;
+                $newName = $fileName = $document->title;
                 $size = $file->getSize();
                 $slug = $path.createSlug($fileName);
                 $newSlug = $slug.".{$ext}";
@@ -86,13 +90,14 @@ class DocumentController extends Controller
                 while(File::whereSlug($newSlug)->exists()){
                     $num++;
                     $newSlug = $slug."_{$num}.{$ext}";
+                    $newName = $fileName." {$num}";
                 }
 
                 //Store the file in the public folder,
                 $storageName = substr($newSlug, 12);
                 $file->storeAs($path,$storageName);
                $files[] =  File::create([
-                        'name' => $fileName,
+                        'name' => $newName,
                         'alt' => $fileName,
                         'type' => $file->getMimeType(),
                         'size' => $size,
@@ -108,9 +113,6 @@ class DocumentController extends Controller
             flash(__('common.createdName', ['name' => $document->title]))->success()->important();
             return redirect()->route('document.index');
         }
-
-        
-
     }
 
     /**
@@ -121,7 +123,8 @@ class DocumentController extends Controller
      */
     public function show(Document $document)
     {
-        //
+        $document = $this->parse([$document])[0];
+        return response()->json(['data'=>$document],200);
     }
 
     /**
@@ -132,7 +135,6 @@ class DocumentController extends Controller
      */
     public function edit(Document $document)
     {
-        //
     }
 
     /**
@@ -183,7 +185,7 @@ class DocumentController extends Controller
         $this->$name = $value;
     }
 
-    //API Controlllers
+    //API Controlllers to  fetch all Documents
     public function getApi(Request $request)
     {
 
@@ -197,11 +199,16 @@ class DocumentController extends Controller
 
     private function parse($documents)
     {
+        $ret = [];
         foreach ($documents as $document ) {
-            $document->files = $document->files()->get();
-            $document->from = $document->from->name;
-            $document->to = $document->to->name;
+            $document->files;
+            $document->user;
+            $document->folder;
+            $document->organization;
+
+            $ret[] = $document;
         }
+        return $ret;
     }
 
 }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Archive extends Model
+class Folder extends Model
 {
     
     /**
@@ -29,9 +29,9 @@ class Archive extends Model
      *
      *@var App\Organization::class
      */
-    public function  organization()
+    public function  documents()
     {
-        return $this->hasMany('App\Organization');
+        return $this->hasMany('App\Document');
     }
 
 }

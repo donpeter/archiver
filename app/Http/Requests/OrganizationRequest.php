@@ -25,7 +25,7 @@ class OrganizationRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255|min:3',
-            'desc' => 'nullable|max:255|min:5',
+            'email' => 'nullable|email|unique:organizations|max:255|min:5',
             'location' => 'nullable|min:5'
         ];
     }

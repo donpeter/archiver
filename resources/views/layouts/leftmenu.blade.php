@@ -42,13 +42,13 @@
           </ul>
         </li>
         <li>
-          <a class="{{currentPage('archive') ? 'active' :''}} " href="javascript:void(0);" data-toggle="collapse" data-target="#app_cat"><div class="pull-left"><i class="icon-folder-alt mr-20"></i><span class="right-nav-text">{{trans_choice('navbar.archive',2)}} </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+          <a class="{{currentPage('folder') ? 'active' :''}} " href="javascript:void(0);" data-toggle="collapse" data-target="#app_cat"><div class="pull-left"><i class="icon-folder-alt mr-20"></i><span class="right-nav-text">{{trans_choice('navbar.folder',2)}} </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
           <ul id="app_cat" class="collapse collapse-level-1">
             <li>
-              <a href="{{route('archive.index')}}">Archive List</a>
+              <a href="{{route('folder.index')}}">Folder List</a>
             </li>
             <li>
-              <a href="{{route('archive.create')}}">Manage</a>
+              <a href="{{route('folder.create')}}">Manage</a>
             </li>
           </ul>
         </li>

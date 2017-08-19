@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use App\Archive;
+use App\Folder;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -27,8 +27,8 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot();
-        Route::bind('archive', function($ref){
-            return Archive::where('ref',$ref)->first();
+        Route::bind('folder', function($ref){
+            return Folder::where('ref',$ref)->first();
         });
     }
 

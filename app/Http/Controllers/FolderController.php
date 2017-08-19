@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreArchive;
-use App\Archive;
+use App\Http\Requests\StoreFolderRequest;
+use App\Folder;
+use App\Organization;
 
-class ArchiveController extends Controller
+class FolderController extends Controller
 {
      /**
      * Create a new controller instance.
@@ -28,12 +29,12 @@ class ArchiveController extends Controller
     public function index()
     {
 
-        $archives = Archive::all();
-        /*foreach ($archives as $key => $value) {
+        $folders = Folder::all();
+        /*foreach ($folders as $key => $value) {
             dd($value->name);
         }*/
         
-        return view('archives.index',compact('archives'));
+        return view('folders.index',compact('folders'));
     }
 
     /**
@@ -41,10 +42,10 @@ class ArchiveController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Archive $archive)
+    public function create(Folder $folder)
     {
-        $archives = Archive::all();
-       return view('archives.create',compact('archive','archives'));
+        $folders = Folder::all();
+       return view('folders.create',compact('folder','folders'));
     }
 
     /**
@@ -53,35 +54,42 @@ class ArchiveController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreArchive $request)
+    public function store(StoreFolderRequest $request)
     {
-        Archive::create($request->all());
-        return redirect()->route('archive.create');
-        
+        Folder::create($request->all());
+        return redirect()->route('folder.create');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  Archive  $archive
+     * @param  Folder  $folder
      * @return \Illuminate\Http\Response
      */
-    public function show(Archive $archive)
+    public function show(Folder $folder)
     {
-        //
-        dd($archive);
+        foreach ($folder->documents as $document) {
+            $document->parse();
+        }
+        $folders = Folder::all();
+        $organizations = Organization::all();
+        $documents = $folder->documents;
+        return view('documents.index', compact('documents','organizations','folders'));
+        
+        return response()->json($folder);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Archive  $archive
+     * @param  Folder  $folder
      * @return \Illuminate\Http\Response
      */
-    public function edit(Archive $archive)
+    public function edit(Folder $folder)
     {
-        $archives = Archive::all();
-        return view('archives.create',compact('archive','archives'));
+
+        $folders = Folder::all();
+        return view('folders.create',compact('folder','folders'));
     }
 
     /**
@@ -91,10 +99,10 @@ class ArchiveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Archive $archive)
+    public function update(Request $request, Folder $folder)
     {
-        $archive->update($request->all());
-        return $archive;
+        $folder->update(['ref' => $folder->ref,'desc'=>$request->desc, 'name' => $request->name]);
+        return $folder;
      }
 
     /**
@@ -103,14 +111,17 @@ class ArchiveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy( Archive $archive)
+    public function destroy( Folder $folder)
     {
-        $name = $archive->name;
-        $archive->delete();
+        $name = $folder->name;
+        $folder->delete();
 
         return response()->json([
             'message'=> $name.' '.__('common.deleted'),
             'title' => __('common.deleted')
             ],200);
     }
+
+
+    
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreArchive extends FormRequest
+class StoreFolderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,9 +16,11 @@ class StoreArchive extends FormRequest
         //dd($this->request);
         $user = $this->user();
         //dd($user);
-        if($user->username == 'admin' || ($user->type) >= 2 )
-         return true;
-        return false;
+        if($user->role == 'admin' || $user->role == 'staff'){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     /**
@@ -29,7 +31,7 @@ class StoreArchive extends FormRequest
     public function rules()
     {
         return [
-            'ref' => 'required|unique:archives|max:20|min:5',
+            'ref' => 'required|unique:folders|max:64|min:3',
             'name' => 'required|max:255',
         ];
     }

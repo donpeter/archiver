@@ -23,13 +23,13 @@ Route::get('/locale/{locale}', 'LanguageController@setLocale')->name('setLocale'
 
 /*
 |--------------------------------------------------------------------------
-| Archives Routes
+| Folders Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for the archive 
 |
 */
-Route::resource('archive', 'ArchiveController');
+Route::resource('folder', 'FolderController');
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +40,8 @@ Route::resource('archive', 'ArchiveController');
 |
 */
 Route::resource('organization', 'OrganizationController');
+Route::get('organizations', 'DocumentController@getAllApi');
+
 
 /*
 |--------------------------------------------------------------------------

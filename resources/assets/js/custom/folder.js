@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // Setup - add a text input to each footer cell
-    $('#archives tfoot th').each( function () {
+    $('#folders tfoot th').each( function () {
         var title = $(this).text();
         if(title != 'Action')
         var className = 'search-filter';
@@ -8,7 +8,7 @@ $(document).ready(function() {
     } );
  
     // DataTable
-     table = $('#archives').DataTable({
+     table = $('#folders').DataTable({
                     dom: 'Bfrtip',
                     buttons: [
                         'copy', 'csv', 'excel', 'pdf', 'print'
@@ -32,16 +32,16 @@ $(document).ready(function() {
   if( $('#editModal').length > 0 ){
     $('#editModal').on('show.bs.modal', function (event) {
       var edit = $(event.relatedTarget) // edit that triggered the modal
-      var ref = edit.data('ref') // Extract info from data-* attributes
-      var name = edit.data('name') // Extract info from data-* attributes
-      var desc = edit.data('desc') // Extract info from data-* attributes
+      var ref = edit.data('ref'); // Extract info from data-* attributes
+      var name = edit.data('name'); // Extract info from data-* attributes
+      var desc = edit.data('desc'); // Extract info from data-* attributes
       // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-      var modal = $(this)
+      var modal = $(this);
       // modal.find('.modal-title').text('New message to ' + recipient)
-      modal.find('.modal-body #ref').val(ref)
-      modal.find('.modal-body #name').val(name)
-      modal.find('.modal-body #desc').val(desc)
+      modal.find('.modal-body #ref').val(ref);
+      modal.find('.modal-body #name').val(name);
+      modal.find('.modal-body #desc').val(desc);
     })
     .submit(function(eventObj) {
       eventObj.preventDefault(); //prevent form from submitting
@@ -54,14 +54,14 @@ $(document).ready(function() {
                   name: name,
                   desc : desc
                 };
-      //Update The Archive
-      axios.patch('/archive/'+ref,data)
+      //Update The folder
+      axios.patch('/folder/'+ref,data)
             .then(function (res) {
                 console.log(res.data);
                 $('#editModal').modal('hide');
                 swal({
                   title: "Updated!",
-                  text: "Archive has been successfully updated",
+                  text: "Folder has been successfully updated",
                   timer: 2500,
                   showConfirmButton: true
                 });
@@ -74,7 +74,7 @@ $(document).ready(function() {
               .catch(function (err) {
                swal({
                   title: "Error!",
-                  text: "Archive could not be updated",
+                  text: "Folder could not be updated",
                   timer: 2500,
                   type: 'error',
                   showConfirmButton: true
@@ -84,7 +84,7 @@ $(document).ready(function() {
     });
   }
 
-  //Deleting an  Archive
+  //Deleting an  folder
   $('#sa-warning,.sa-warning').on('click',function(e){
     var row = $(this).parents('tr');
     var ref = $(this).data('ref') // Extract info from data-* attributes
@@ -99,7 +99,7 @@ $(document).ready(function() {
           closeOnConfirm: true,
           //showLoaderOnConfirm: true,
       }, function(){ 
-          axios.delete('/archive/'+ref)
+          axios.delete('/folder/'+ref)
                 .then(function (res) {
                   swal({
                   title: res.data.title,
@@ -115,7 +115,7 @@ $(document).ready(function() {
                 .catch(function (err) {
                    swal({
                      title: "Error!",
-                     text: name +" Archive could not be deleted",
+                     text: name +" folder could not be deleted",
                      timer: 4500,
                      type: 'error',
                      showConfirmButton: true

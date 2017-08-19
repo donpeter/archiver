@@ -86,30 +86,30 @@
                   {!! $errors->first('type', '<span class ="help-block">:message</span> ') !!}
                 </div>
 
-                <div class="form-group{{ $errors->has('sender') ? ' has-error' : '' }}">
-                  {!!Form::label('sender', trans_choice('common.organization',1), ['class' => 'control-label mb-10 '])!!}
-                  <select id='sender' name="sender" class="form-control" data-style="btn-primary btn-outline" tabindex="-98">
-                    @foreach($organizations as $organization)
-                      <option data-tokens="{{$organization->id }}" value="{{$organization->id }}" {{(old('sender') == $organization->id ) ? 'selected="selected"': '' }} >{{$organization->name }}</option>
+                <div class="form-group{{ $errors->has('folder_id') ? ' has-error' : '' }}">
+                  {!!Form::label('folder_id', trans_choice('common.folder',1), ['class' => 'control-label mb-10 '])!!}
+                  <select id='folder_id' name="folder_id" class="form-control" data-style="btn-primary btn-outline" tabindex="-98">
+                    @foreach($folders as $folder)
+                      <option data-tokens="{{$folder->id }}" value="{{$folder->id }}" {{(old('folder_id') == $folder->id ) ? 'selected="selected"': '' }} >{{$folder->name }}</option>
                     @endforeach
                   </select>
-                  {!! $errors->first('sender', '<span class ="help-block">:message</span> ') !!}
+                  {!! $errors->first('folder_id', '<span class ="help-block">:message</span> ') !!}
                 </div> 
 
-                <div class="form-group{{ $errors->has('receiver') ? ' has-error' : '' }}">
-                  {!!Form::label('receiver', trans_choice('common.organization',1), ['class' => 'control-label mb-10 '])!!}
-                  <select id='receiver' name="receiver" class="form-control" data-style="btn-primary btn-primary" tabindex="-98">
+                <div class="form-group{{ $errors->has('organization_id') ? ' has-error' : '' }}">
+                  {!!Form::label('organization_id', trans_choice('common.organization',1), ['class' => 'control-label mb-10 '])!!}
+                  <select id='organization_id' name="organization_id" class="form-control" data-style="btn-primary btn-primary" tabindex="-98">
                     @foreach($organizations as $organization)
-                      <option data-tokens="{{$organization->id }}" value="{{$organization->id }}" {{(old('receiver') == $organization->id ) ? 'selected="selected"': '' }} >{{$organization->name }}</option>
+                      <option data-tokens="{{$organization->id }}" value="{{$organization->id }}" {{(old('organization_id') == $organization->id ) ? 'selected="selected"': '' }} >{{$organization->name }}</option>
                     @endforeach
                   </select>
-                  {!! $errors->first('receiver', '<span class ="help-block">:message</span> ') !!}
+                  {!! $errors->first('organization_id', '<span class ="help-block">:message</span> ') !!}
                 </div>  
 
-                <div class="form-group{{ $errors->has('prepaired_on') ? ' has-error' : '' }}">
-                  {!!Form::label('prepaired_on', trans_choice('common.prepaired',1), ['class' => 'control-label mb-10 '])!!}
-                  {!!Form::text('prepaired_on',null, ['class'=>'form-control datetimepicker', 'placeholder'=> trans_choice('common.prepaired',1)] )!!}
-                  {!! $errors->first('prepaired_on', '<span class ="help-block">:message</span> ') !!}
+                <div class="form-group{{ $errors->has('written_on') ? ' has-error' : '' }}">
+                  {!!Form::label('written_on', trans_choice('common.written',1), ['class' => 'control-label mb-10 '])!!}
+                  {!!Form::text('written_on',null, ['class'=>'form-control datetimepicker', 'placeholder'=> trans_choice('common.prepaired',1)] )!!}
+                  {!! $errors->first('written_on', '<span class ="help-block">:message</span> ') !!}
                 </div>    
 
                 <div class="form-group{{ $errors->has('signed_on') ? ' has-error' : '' }}">

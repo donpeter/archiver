@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Organization;
-use App\Archive;
+use App\Folder;
 use Illuminate\Http\Request;
 use App\Http\Requests\OrganizationRequest;
 
@@ -29,13 +29,7 @@ class OrganizationController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax()){
-            $organizations = Organization::all();
-            $organizations = $this->parser($organizations);
-            return response()->json( $organizations);
-        }else {
-            return view('organizations.index'); 
-        }
+        return view('organizations.index'); 
     }
 
     /**
@@ -45,9 +39,9 @@ class OrganizationController extends Controller
      */
     public function create()
     {
-        $archives = Archive::all();
+        $folders = Folder::all();
         $organizations = Organization::all();
-        return view('organizations.create', compact('archives','organizations'));  
+        return view('organizations.create', compact('folders','organizations'));  
     }
 
     /**
@@ -99,12 +93,11 @@ class OrganizationController extends Controller
      */
     public function update(Request $request, Organization $organization)
     {
-       // return response($organization);
         $organization->update($request->all());
         $updatedOrg = [Organization::where('id', $organization->id)->first()];
         $updatedOrg = $this->parser($updatedOrg)[0];
         if($request->ajax()){
-            $updated = __('updated');
+            $updated = __('common.updated');
             return response()
             ->json([
                 'message'=>['title' => $updated.'!', 'desc' => $updatedOrg->name.' '.__('common.success',['action'=>$updated])],
@@ -112,6 +105,13 @@ class OrganizationController extends Controller
         }else {
             return redirect()->back();
         }
+    }
+
+    public function getAllApi()
+    {
+        $organizations = Organization::all();
+        $organizations = $this->parser($organizations);
+        return response()->json( $organizations);
     }
 
     /**
@@ -138,13 +138,9 @@ class OrganizationController extends Controller
             $parsedOrganization[] = (object)[
                                         'id' => $organization->id,
                                         'name' => $organization->name,
-                                        'desc' => $organization->desc,
-                                        'license' => $organization->license,
+                                        'email' => $organization->email,
                                         'location' => $organization->location,
                                         'country' => $organization->country,
-                                        'archive' => $organization->archive->name,
-                                        'archive_id' => $organization->archive_id,
-
                                     ];
         }
         return $parsedOrganization;

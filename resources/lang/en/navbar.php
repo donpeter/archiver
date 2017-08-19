@@ -23,7 +23,8 @@ return [
     'language' => 'Language|Languages',
     'file' => 'File|Files',
     'mail' => 'Mail|Mails',
-    'document' => 'Document|Documents'
+    'document' => 'Document|Documents',
+    'folder' => 'Folder|Folders'
 
 
 ];

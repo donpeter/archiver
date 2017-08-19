@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('name');
            // $table->unsignedInteger('organization');
-            //$table->string('role')->default('user');
+            $table->string('role')->default('user');
             $table->rememberToken();
             $table->timestamps();
            // $table->foreign('organization')->references('id')->on('organizations')->onDelete('cascade');

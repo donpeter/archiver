@@ -12,8 +12,7 @@ class Document extends Model
      * @var array
      */
     protected $fillable = [
-         'ref', 'title','desc', 'sender', 'receiver', 'type',
-         'prepaired_on', 'signed_on'
+         'ref', 'title','desc', 'user_id', 'folder_id', 'type','organization_id', 'written_on', 'signed_on'
     ];
 
     /**
@@ -21,7 +20,7 @@ class Document extends Model
      *
      * @var array
      */
-    protected $dates = ['prepaired_on', 'signed_on'];
+    protected $dates = ['written_on', 'signed_on'];
 
 
 
@@ -29,8 +28,8 @@ class Document extends Model
     * Prepiared on Mututor
     *
     */
-    public function setPrepairedOnAttribute($date){
-      $this->attributes['prepaired_on'] = Carbon::createFromFormat('d/m/Y',$date);
+    public function setWrittenOnAttribute($date){
+      $this->attributes['written_on'] = Carbon::createFromFormat('d/m/Y',$date);
     }
 
     /**
@@ -46,7 +45,7 @@ class Document extends Model
     }
 
     /**
-    * Signed Mail Scope
+    * Signed Document Scope
     *
     */
     public function scopeSigned($query){
@@ -54,7 +53,7 @@ class Document extends Model
     }
 
     /**
-     * Get the Files related to the mail.
+     * Get the Files related to the Document.
      *
      * @return Illuminate\Database\Eloquent\Relations\belongsToMany
      */
@@ -64,23 +63,41 @@ class Document extends Model
     }
 
     /**
-     * Get the Organization related to the mail.
+     * Get the Organization related to the Document.
      *
      * @return Illuminate\Database\Eloquent\Relations\belongsToMany
      */
-    public function from()
+    public function organization()
     {
-        return $this->belongsTo('App\Organization', 'sender');
+        return $this->belongsTo('App\Organization');
     }
 
     /**
-     * Get the Organization related to the mail.
+     * Get the Organization related to the Document.
      *
      * @return Illuminate\Database\Eloquent\Relations\belongsToMany
      */
-    public function to()
+    public function folder()
     {
-        return $this->belongsTo('App\Organization', 'receiver');
+        return $this->belongsTo('App\Folder');
     }
 
+    /**
+     * Get the User related to the Document.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+
+    public function parse()
+    {
+        $this->files;
+        $this->user;
+        $this->folder;
+        $this->organization;
+    }
 }

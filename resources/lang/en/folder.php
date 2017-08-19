@@ -4,16 +4,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Archive Language Lines
+    | Folder Language Lines
     |--------------------------------------------------------------------------
     |
-    | The following language lines are used for the Archive page
+    | The following language lines are used for the Folder page
     | 
     |
     */
 
-    'title' => 'Archive|Archives',
-    'subtitle' => 'List of all archive folders',
+    'title' => 'Folder|Folders',
+    'subtitle' => 'List of all folder',
     
     
 

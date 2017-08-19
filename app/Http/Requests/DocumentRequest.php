@@ -28,11 +28,11 @@ class DocumentRequest extends FormRequest
             'title' => 'required|max:255|min:5',
             'desc' => 'nullable|min:5',
             'files' => 'required',
-            'sender' => 'required|integer',
-            'receiver' => 'required|integer',
+            'organization_id' => 'required|integer',
+            'folder_id' => 'required|integer',
             'type' => 'required|string',
-            'prepaired_on' => 'required',
-            'signed_on' => 'nullable'
+            'written_on' => 'required',
+            'signed_on' => 'required'
         ];
     }
 }

@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', trans_choice('archive.title',1))
+@section('title', trans_choice('common.folder',1))
 
 @section('content')
   <div class="row">
     <div class="col-sm-12">
-      @include('archives._list',['editable' => false])  
+      @include('folders._list',['editable' => false])  
     </div>  
   </div>  
   

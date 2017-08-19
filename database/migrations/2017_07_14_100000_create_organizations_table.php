@@ -16,15 +16,10 @@ class CreateOrganizationsTable extends Migration
         Schema::create('organizations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('desc')->nullable();
-            $table->string('license')->nullable();
-            $table->string('country')->nullable();
             $table->string('location')->nullable();
-            $table->unsignedInteger('archive_id');
+            $table->string('country')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
-            $table->timestamp('deleted_at')->nullable();
-
-            $table->foreign('archive_id')->references('id')->on('archives');
         });
     }
 

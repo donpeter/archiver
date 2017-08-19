@@ -18,15 +18,17 @@ class CreateDocumentsTable extends Migration
             $table->string('ref',124)->unique();
             $table->string('title');
             $table->text('desc')->nullable();
-            $table->unsignedInteger('sender');
-            $table->unsignedInteger('receiver');
             $table->string('type',16);
-            $table->timestamp('prepaired_on');
-            $table->timestamp('signed_on')->nullable();
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('folder_id');
+            $table->unsignedInteger('organization_id');
+            $table->timestamp('written_on');
+            $table->timestamp('signed_on');
             $table->timestamps();
 
-            $table->foreign('sender')->references('id')->on('organizations')->onDelete('cascade');
-            $table->foreign('receiver')->references('id')->on('organizations')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users');//->onDelete('cascade');
+            $table->foreign('folder_id')->references('id')->on('folders')->onDelete('cascade');
+            $table->foreign('organization_id')->references('id')->on('organizations');//->onDelete('cascade');
         });
     }
 

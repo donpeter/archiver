@@ -27,12 +27,16 @@ let mix = require('laravel-mix');
 mix.scripts([
   'resources/assets/js/custom/editabletable/editabletable.min.js',
   'resources/assets/js/custom/editabletable/editabletable.js',
-  ],'public/js/editabletable.js', 'public/js');
-mix.scripts([
+  ],'public/js/editabletable.js', 'public/js');*/
+
+
+/*mix.scripts([
   'resources/assets/js/custom/datatable/datatable.min.js',
   'resources/assets/js/custom/datatable/datatable.js',
-  'resources/assets/js/custom/archive.js',
-  ],'public/js/archive.js', 'public/js');*/
+  'resources/assets/bower/axios/dist/axios.min.js',
+  'resources/assets/bower/sweetalert/dist/sweetalert.min.js',
+  'resources/assets/js/custom/folder.js',
+  ],'public/js/folder.js', 'public/js');*/
 
 // mix.scripts([
 // 'resources/assets/bower/jquery/dist/jquery.min.js',
@@ -40,13 +44,16 @@ mix.scripts([
 // 'resources/assets/bower/jquery-slimscroll/jquery.slimscroll.min.js',
 
 // ],'public/js/bundle.min.js', 'public/js');
-// mix.scripts([
-//   'resources/assets/bower/sweetalert/dist/sweetalert.min.js',
-//   'resources/assets/bower/axios/dist/axios.min.js',
-//   'resources/assets/js/custom/datatable/datatable.min.js',
-//   'resources/assets/js/custom/organization.js',
 
-//   ],'public/js/organization.min.js', 'public/js');
+/*mix.scripts([
+  'resources/assets/bower/sweetalert/dist/sweetalert.min.js',
+  'resources/assets/bower/axios/dist/axios.min.js',
+  'resources/assets/js/custom/datatable/datatable.min.js',
+  'resources/assets/js/custom/organization.js',
+
+  ],'public/js/organization.min.js', 'public/js');*/
+
+
 
 mix.scripts([
   'resources/assets/bower/axios/dist/axios.min.js',

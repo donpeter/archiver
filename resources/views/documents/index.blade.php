@@ -34,10 +34,10 @@
                         {{__('common.title')}}
                       </th>
                       <th class="sorting" >
-                        {{__('common.from')}}
+                        {{trans_choice('common.organization', 1)}}
                       </th>
                       <th class="sorting">
-                       {{ __('common.to')}}
+                       {{ trans_choice('common.folder', 1)}}
                       </th>
                       <th class="sorting">
                         {{__('common.date')}}
@@ -56,10 +56,10 @@
                         {{__('common.title')}}
                       </th>
                       <th class="sorting" >
-                        {{__('common.from')}}
+                        {{trans_choice('common.organization', 1)}}
                       </th>
                       <th class="sorting">
-                       {{ __('common.to')}}
+                       {{ trans_choice('common.folder', 1)}}
                       </th>
                       <th class="sorting">
                         {{__('common.date')}}
@@ -74,8 +74,8 @@
                     <tr role="row" class="odd" data-id="{{$document->id}}">
                       <td tabindex="1" class="sorting_1">{{$document->ref}}</td>
                       <td tabindex="1">{{$document->title}}</td>
-                      <td tabindex="1">{{$document->from}} </td>
-                      <td tabindex="1">{{$document->to}}</td>
+                      <td tabindex="1">{{$document->organization->name }} </td>
+                      <td tabindex="1">{{$document->folder->name}}</td>
                       <td tabindex="1" class="dateTable">{{$document->created_at}}</td>
                       <td tabindex="1">
                         <a href="javascript:void(0)" class="text-inverse pr-5 sa-view" title="view" data-target="tooltip" data-toggle="tooltip" data-original-title="View"   >
@@ -174,48 +174,24 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h6 class="modal-title" id="title"> View Docment </h6>
+          <h6 class="modal-title" id="title">{{trans_choice('common.folder', 2)}}: <span id="docFolder" ></span> </h6>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-8">
-              <h6>{{__('common.ref')}} : 123-456-678</h6>
-              <h6 class="mb-15">{{__('common.title')}} : My Document</h6>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus eos deserunt molestiae, consequuntur veritatis animi necessitatibus, veniam unde aliquam architecto libero aspernatur provident dolore excepturi, omnis fugit quo dicta pariatur.
-              </p>
+              <h6>{{__('common.ref')}} : <span id="docRef"></span></h6>
+              <h6 class="mb-15">{{__('common.title')}} : <span id="docTitle"></span></h6>
+              <p id="docDesc"></p>
             </div>
             <div class="col-sm-4">
-              <h6 class="inline">User: </h6> Peter <br> 
-              <h6 class="inline">Recipant: </h6> Another Organization <br>
-              <h6 class="inline">Received Date:</h6> 25th, Aug 2017 <br> 
-              <h6 class="inline">Approved Date:</h6> 25th, Sep 2017 <br>
+              <h6 class="inline">{{trans_choice('common.user', 1)}}: </h6><span id="docUser"></span><br> 
+              <h6 class="inline" id="target">{{__('common.to')}}: </h6><span id="docTarget"></span><br>
+              <h6 class="inline">Received Date: </h6><span id="docRecieved"></span><br> 
+              <h6 class="inline">Written Date: </h6><span id="docWritten"></span><br>
+              <h6 class="inline">Approved Date: </h6><span id="docSigned"></span><br>
             </div>
           </div>
-          <div class="row mt-30" >
-            <div class="col-md-4 single-img "  >
-              <div class="img-preview">
-                <a  href="/upload/files/08-17/11.jpg" data-lightbox="My file Name" data-title="My file Name">
-                  <img  src="/upload/files/08-17/11.jpg" class="img-thumbnail" alt="My file alt" max-height="250">
-                  <i class="zmdi zmdi-aspect-ratio-alt zmdi-hc-3x mdc-text-light-blue"></i>
-                </a>
-              </div>
-            </div>
-            <div class="col-md-4 single-img "  >
-              <div class="img-preview">
-                <a  href="/upload/files/08-17/latest_1.png" data-lightbox="My file Name" data-title="My file Name">
-                  <img  src="/upload/files/08-17/latest_1.png" class="img-thumbnail" alt="My file alt" max-height="250">
-                  <i class="zmdi zmdi-aspect-ratio-alt zmdi-hc-3x mdc-text-light-blue"></i>
-                </a>
-              </div>
-            </div>
-            <div class="col-md-4 single-img "  >
-              <div class="img-preview">
-                <a  href="/upload/files/08-17/latest_2.png" data-lightbox="My file Name" data-title="My file Name">
-                  <img  src="/upload/files/08-17/latest_2.png" class="img-thumbnail" alt="My file alt" max-height="250">
-                  <i class="zmdi zmdi-aspect-ratio-alt zmdi-hc-3x mdc-text-light-blue"></i>
-                </a>
-              </div>
-            </div>
+          <div class="row mt-30" id="docImages" >
           </div>
 
         </div>

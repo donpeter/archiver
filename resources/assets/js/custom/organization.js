@@ -50,10 +50,7 @@ $(function(){
 
       _token: form.find('input[name=_token]').val(),
       name: form.find('#name').val(),
-      desc: form.find('#desc').val(),
-      archive_id: form.find('#archive_id').val(),
-      archive: form.find('#archive_id option:selected').text(),
-      license: form.find('#license').val(),
+      email: form.find('#email').val(),
       location: form.find('#location').val(),
       country: form.find('#country').val()
     };
@@ -68,10 +65,8 @@ $(function(){
    })
    // using the done promise callback
    .done(function(response) {
-    addNewRow(table, response.organization);
-     form.each(function(){
-         this.reset();
-     }); 
+    addNewRow(table, response.organization); //Add the newly created row to the Dataable
+    form[0].reset(); //Reset the form
      swal({
           title:response.message.title,
           text: response.message.desc,
@@ -80,18 +75,20 @@ $(function(){
         });   
    })
    // here we will handle errors and validation messages
-   .fail(function(data){
-      if(data.status ===422){
-        var errors = data.responseJSON;
+   .fail(function(err){
+      console.log(err);
+      if(err.status ===422){
+        var errors = err.responseJSON;
         $.map(errors ,function(error, value){
           addErrorClass(value,error);
          // console.log(value+' , '); 
          // console.log(error); 
 
-        })
+        }) 
+      }else{
         setTimeout(window.location.reload(), 4500)
- 
       }
+
     })
    //Reset all form input and reenable submit
    .always(function() {
@@ -111,48 +108,44 @@ $(function(){
         var edit = $(event.relatedTarget) // edit that triggered the modal
         var id = edit.data('id') // Extract info from data-* attributes
         var name = edit.data('name') // Extract info from data-* attributes
-        var desc = edit.data('desc') // Extract info from data-* attributes
-        var archive = edit.data('archive') // Extract info from data-* attributes
-        var license = edit.data('license') // Extract info from data-* attributes
+        var email = edit.data('email') // Extract info from data-* attributes
         var location = edit.data('location') // Extract info from data-* attributes
         var country = edit.data('country') // Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
         modal.find('.modal-title').text('Edit ' + name)
-        modal.find('.modal-body #id').val(id)
+        modal.attr('current', id);
+        console.log('ID: ',modal.attr('current') )
         modal.find('.modal-body #name').val(name)
-        modal.find('.modal-body #desc').val(desc)
-        modal.find('.modal-body #archive_id').val(archive)
-        modal.find('.modal-body #license').val(license)
+        modal.find('.modal-body #email').val(email)
         modal.find('.modal-body #location').val(location)
         modal.find('.modal-body #country').val(country)
       })
       .submit(function(eventObj) {
         eventObj.preventDefault(); //prevent form from submitting
-        $("input[type=submit]").attr('disabled','disabled'); //Disable Mutiple Submittions
+        eventObj.stopPropagation();
+        console.log('updated');
         var modal = $('#editModal');
+        modal.find("input[type=submit]").attr('disabled','disabled'); //Disable Mutiple Submittions
+
         var _token = modal.find('.modal-body input[name=_token]').val();
         var _method = modal.find('.modal-body input[name=_method]').val();
-        var id = modal.find('.modal-body #id').val();
-        var ref=  modal.find('.modal-body #ref').val();
+        var id = modal.attr('current') // Extract info from data-* attributes
         var name = modal.find('.modal-body #name').val();
-        var desc =  modal.find('.modal-body #desc').val();
-        var archive = modal.find('.modal-body #archive_id').val();
-        var license = modal.find('.modal-body #license').val();
+        var email =  modal.find('.modal-body #email').val();
         var location = modal.find('.modal-body #location').val();
         var country = modal.find('.modal-body #country').val();
         var organization = {
                     _token: _token,
                     _method : _method,
                     name: name,
-                    desc : desc,
-                    archive_id : archive,
-                    license : license,
+                    email : email,
                     location : location,
                     country : country
                   };
         //Send Update Request for the organization 
+        console.log('Organization', organization);
         $.ajax({
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
             url         : '/organization/'+id, // the url where we want to POST
@@ -186,7 +179,6 @@ $(function(){
         })
         .always(function() {
           $("input[type=submit]").removeAttr('disabled'); //Disable Mutiple Submittions
-          row.select();
         })
       });
     });
@@ -246,28 +238,26 @@ $(function(){
   /*HELPER FUNTIONS*/
 
   //Add adds a new Row
-  function addNewRow(table, data){
+  function addNewRow(table, organization){
     var rowNode = table
         .row.add( [ 
-         data.name, 
-         data.archive, 
-         data.location,
-         data.country,
-         `<a href="javascript:void(0)" class="text-inverse pr-5" title="edit" data-target="#viewModal" data-toggle="modal" data-original-title="View" data-name="organization.name" data-desc="organization->desc">
+         organization.name, 
+         organization.email, 
+         organization.location,
+         organization.country,
+         `<a href="javascript:void(0)" class="text-inverse pr-5" data-toggle="tooltip" title="View">
              <i class="zmdi zmdi-eye txt-success"></i>
              </a>
-             <a href="javascript:void(0)" class="text-inverse pr-5" title="edit" data-target="#editModal" data-toggle="modal" data-original-title="Edit"
-              data-id="${data.id}"
-              data-name="${data.name}" 
-              data-desc="${data.desc}"
-              data-archive="${data.archive_id}" 
-              data-license="${data.license}" 
-              data-location="${data.location}" 
-              data-country="${data.country}"
+             <a href="javascript:void(0)" class="text-inverse pr-5" title="Edit" data-target="#editModal" data-toggle="modal"
+              data-id="${organization.id}"
+              data-name="${organization.name}" 
+              data-email="${organization.email}"
+              data-location="${organization.location}" 
+              data-country="${organization.country}"
               >
              <i class="zmdi zmdi-edit txt-warning"></i>
              </a>
-             <a href="javascript:void(0)" class="text-inverse sa-warning" data-id="${data.id}" data-name="${data.name}" data-toggle="tooltip" data-original-title="Delete">
+             <a href="javascript:void(0)" class="text-inverse sa-warning" data-id="${organization.id}" data-name="${organization.name}" data-toggle="tooltip" title="Delete">
              <i class="zmdi zmdi-delete txt-danger"></i>
              </a>`
          ] )
