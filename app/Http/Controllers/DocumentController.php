@@ -36,10 +36,10 @@ class DocumentController extends Controller
         $folders = Folder::all();
         $organizations = Organization::all();
         $documents = Document::orderBy('created_at', 'desc')->get();
-        $this->parse($documents);
-
+        foreach ($documents as $document) {
+            $document->parse();
+        }
         return view('documents.index', compact('documents','organizations','folders'));
-        
     }
 
 
@@ -123,7 +123,7 @@ class DocumentController extends Controller
      */
     public function show(Document $document)
     {
-        $document = $this->parse([$document])[0];
+        $document->parse();
         return response()->json(['data'=>$document],200);
     }
 
@@ -195,20 +195,6 @@ class DocumentController extends Controller
         }
          return response()->json(['data'=>$documents],200);
         
-    }
-
-    private function parse($documents)
-    {
-        $ret = [];
-        foreach ($documents as $document ) {
-            $document->files;
-            $document->user;
-            $document->folder;
-            $document->organization;
-
-            $ret[] = $document;
-        }
-        return $ret;
     }
 
 }
