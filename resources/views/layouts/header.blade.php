@@ -19,6 +19,8 @@
       </div>
       <div id="mobile_only_nav" class="mobile-only-nav pull-right">
         <ul class="nav navbar-right top-nav pull-right">
+        <li><a href="{{route('logout')}}" class="text-info"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+
         <!-- Settings -->
           <li>
             <a id="open_right_sidebar" href="javascript:void(0);"><i class="zmdi zmdi-settings top-nav-icon"></i></a>

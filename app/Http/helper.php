@@ -1,3 +1,4 @@
+
 <?php 
 
 function activePath($url){
@@ -13,9 +14,6 @@ function activePage($url){
    $path = substr($absPath, strripos($absPath,$url));
    
    return strlen($path) == strlen($url);
-   return $path;
-   return strstr($path, $url);
-
 }
 
 /**
