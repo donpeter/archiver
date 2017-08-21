@@ -1,7 +1,21 @@
 <?php 
 
-function currentPage($url = "/"){
-    return strstr(request()->path(), $url);
+function activePath($url){
+   $path = request()->path();
+   if (strlen($url) == 1 &&  strlen($path) > 1 ) {
+        return false;
+   }
+   return strstr($path, $url);
+}
+
+function activePage($url){
+   $absPath = request()->path();
+   $path = substr($absPath, strripos($absPath,$url));
+   
+   return strlen($path) == strlen($url);
+   return $path;
+   return strstr($path, $url);
+
 }
 
 /**

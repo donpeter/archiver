@@ -10,71 +10,57 @@
       <p class="text-muted">{{trans('folder.subtitle')}}</p>
       <div class="table-wrap mt-20">
         <div class="table-responsive">
-          <table id="organizations" class="table table-hover display mb-30 dataTable no-footer" style="cursor: pointer;" role="grid">
+          <table id="users" class="table table-hover display mb-30 dataTable no-footer" style="cursor: pointer;" role="grid">
             <thead>
               <tr role="row">
                 <th class="sorting">
                   {{trans_choice('common.name',1)}}
                 </th>
                 <th class="sorting" >
-                  {{trans_choice('common.email',1)}}
+                  {{trans_choice('common.username',1)}}
                 </th>
                 <th class="sorting" >
-                  {{trans_choice('common.location',1)}}
+                  {{trans_choice('common.email',1)}}
                 </th>
                 <th class="sorting">
-                  {{trans_choice('common.country',1)}}
+                  {{trans_choice('common.role',1)}}
                 </th>
-              @if($editable)
-                <th class="sorting" style="width: 10%;">Action</th>
-              @endif
+                <th class="sorting" style="width: 10%;">{{__('common.action')}}</th>
               </tr>
             </thead>
             <tfoot>
               <tr role="row">
-                <th class="sorting_asc" >
+                <th class="sorting">
                   {{trans_choice('common.name',1)}}
                 </th>
-
+                <th class="sorting" >
+                  {{trans_choice('common.username',1)}}
+                </th>
                 <th class="sorting" >
                   {{trans_choice('common.email',1)}}
                 </th>
-
                 <th class="sorting">
-                  {{trans_choice('common.location',1)}}
+                  {{trans_choice('common.role',1)}}
                 </th>
-
-                <th class="sorting">
-                  {{trans_choice('common.country',1)}}
-                </th>
-
-                <th class="sorting">
-                  {{trans_choice('common.action',1)}}
-                </th>
-                
+                <th class="sorting" style="width: 10%;">{{__('common.action')}}</th>
+              </tr>
             </tfoot>
             <tbody>
-            @foreach($organizations as $key => $organization) 
+            @foreach($users as $user) 
             <tr role="row" class="odd">
-              <td tabindex="1" class="sorting_1">{{$organization->name}}</td>
-              <td tabindex="1">{{$organization->email}}</td>
-              <td tabindex="1">{{$organization->location}}</td>
-              <td tabindex="1">{{$organization->country}}</td>
+              <td tabindex="1" class="sorting_1">{{$user->name}}</td>
+              <td tabindex="1">{{$user->username}}</td>
+              <td tabindex="1">{{$user->email}}</td>
+              <td tabindex="1">{{$user->role}}</td>
             @if($editable)
               <td tabindex="1">
-                <a href="javascript:void(0)" class="text-inverse pr-5" data-toggle="tooltip" data-original-title="{{__('common.view')}}">
+                <a href="/user/{{$user->id}}/documents" class="text-inverse pr-5" data-toggle="tooltip" data-original-title="{{__('common.view')}}">
                 <i class="zmdi zmdi-eye txt-success"></i>
                 </a>
-                <a href="javascript:void(0)" class="text-inverse pr-5" title="{{__('common.edit')}}" data-target="#editModal" data-toggle="modal" data-original-title="{{__('common.edit')}}" 
-                data-id="{{$organization->id}}" 
-                data-name="{{$organization->name}}" 
-                data-email="{{$organization->email}}"  
-                data-location="{{$organization->location}}" 
-                data-country="{{$organization->country}}">
+                <a href="javascript:void(0)" class="text-inverse pr-5" title="{{__('common.edit')}}" data-target="#editModal" data-toggle="modal" data-original-title="{{__('common.edit')}}" data-id="{{$user->id}}" >
                 <i class="zmdi zmdi-edit txt-warning"></i>
                 </a>
-                <a href="javascript:void(0)" class="text-inverse sa-warning" data-id="{{$organization->id}}"
-                data-name="{{$organization->name}}" data-toggle="tooltip" data-original-title="{{__('common.delete')}}">
+                <a href="javascript:void(0)" class="text-inverse sa-warning" data-id="{{$user->id}}" data-toggle="tooltip" data-original-title="{{__('common.delete')}}">
                 <i class="zmdi zmdi-delete txt-danger"></i>
                 </a>
               </td>
@@ -96,7 +82,7 @@
               <h5 class="modal-title" id="editModalLabel">{{__('common.edit')}} {{trans_choice('folder.title',1)}}</h5>
             </div>
             <div class="modal-body">
-              @include('organizations._form',['modal'=>true,'route' =>['organization.update',1]])
+              @include('users._form',['modal'=>true,'route' =>['user.update',1]])
                
             </div>
 

@@ -39,8 +39,10 @@ Route::resource('folder', 'FolderController');
 | Here is where you can register web routes for the Organization 
 |
 */
-Route::resource('organization', 'OrganizationController');
-Route::get('organizations', 'DocumentController@getAllApi');
+Route::resource('organization', 'OrganizationController', ['except' => [
+    'show', 'edit'
+]]);
+Route::get('organizations', 'OrganizationController@getAllApi');
 
 
 /*
@@ -61,5 +63,24 @@ Route::resource('file', 'FileController');
 | Here is where you can register web routes for the File 
 |
 */
-Route::resource('document', 'DocumentController');
+Route::resource('document', 'DocumentController', ['except' => [
+    'update', 'edit'
+]]);
 Route::get('documents', 'DocumentController@getApi');
+
+/*
+|--------------------------------------------------------------------------
+| Users Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for the User 
+|
+*/
+Route::resource('user', 'UserController', ['only' => [
+    'index', 'store','update', 'destroy'
+]]);
+Route::get('users', 'UserController@getAllApi');
+Route::get('logout', 'UserController@logout');
+Route::get('user/{id}/documents', 'UserController@index');
+
+

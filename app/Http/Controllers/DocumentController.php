@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\DocumentRequest;
 use Carbon\Carbon;
 use Storage;
@@ -68,7 +68,7 @@ class DocumentController extends Controller
                 'title' => $request->title,
                 'desc' => $request->desc,
                 'type' => $request->type,
-                'user_id' => 1,//Auth::user()->id,
+                'user_id' => Auth::id(),
                 'folder_id' => $request->folder_id,
                 'organization_id' => $request->organization_id,
                 'written_on' => $request->written_on,

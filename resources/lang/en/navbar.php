@@ -24,7 +24,9 @@ return [
     'file' => 'File|Files',
     'mail' => 'Mail|Mails',
     'document' => 'Document|Documents',
-    'folder' => 'Folder|Folders'
+    'folder' => 'Folder|Folders',
+    'all' => 'All',
+    'manage' => 'Manage',
 
 
 ];

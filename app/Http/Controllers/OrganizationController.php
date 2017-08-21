@@ -31,6 +31,14 @@ class OrganizationController extends Controller
     {
         return view('organizations.index'); 
     }
+    
+    public function getAllApi()
+    {
+        $organizations = Organization::all();
+        $organizations = $this->parser($organizations);
+        return response()->json( $organizations);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -63,28 +71,6 @@ class OrganizationController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Organization  $organization
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Organization $organization)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Organization  $organization
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Organization $organization)
-    {
-        
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -107,13 +93,7 @@ class OrganizationController extends Controller
         }
     }
 
-    public function getAllApi()
-    {
-        $organizations = Organization::all();
-        $organizations = $this->parser($organizations);
-        return response()->json( $organizations);
-    }
-
+    
     /**
      * Remove the specified resource from storage.
      *
