@@ -77,10 +77,13 @@ mix.scripts([
   // ], 'public/js/documents');
 
 
-  mix.scripts([
+  /*mix.scripts([
     'resources/assets/bower/sweetalert/dist/sweetalert.min.js',
     'resources/assets/bower/axios/dist/axios.min.js',
     'resources/assets/js/custom/datatable/datatable.min.js',
     'resources/assets/js/custom/user.js',
 
-    ],'public/js/user.min.js', 'public/js');
+    ],'public/js/user.min.js', 'public/js');*/
+
+
+    mix.sass('public/src/scss/style.scss', 'public/css');

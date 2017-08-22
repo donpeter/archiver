@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 use App\Http\Requests\DocumentRequest;
 use Carbon\Carbon;
 use Storage;
@@ -159,6 +160,8 @@ class DocumentController extends Controller
     {
         //return response($document->files);
         //Delete all related Files
+        $this->authorize('delete', $document);
+
         $files=[];
         foreach ($document->files as $file) {
             $files[] = $file->slug;
@@ -188,6 +191,7 @@ class DocumentController extends Controller
     //API Controlllers to  fetch all Documents
     public function getApi(Request $request)
     {
+
 
         $documents = Document::orderBy('created_at', 'desc')->get();
         foreach ($documents as $document ) {

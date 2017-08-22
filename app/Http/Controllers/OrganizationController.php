@@ -29,7 +29,9 @@ class OrganizationController extends Controller
      */
     public function index(Request $request)
     {
-        return view('organizations.index'); 
+        $folders = Folder::all();
+        $organizations = Organization::all();
+        return view('organizations.index', compact('folders','organizations')); 
     }
     
     public function getAllApi()
