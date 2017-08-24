@@ -55,7 +55,7 @@ mix.scripts([
 
 
 
-/*mix.scripts([
+mix.scripts([
   'resources/assets/bower/axios/dist/axios.min.js',
   'resources/assets/bower/bootstrap-fileinput/js/fileinput.min.js',
   'resources/assets/js/custom/datatable/datatable.min.js',
@@ -70,7 +70,7 @@ mix.scripts([
     'resources/assets/bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
     'resources/assets/bower/sweetalert/dist/sweetalert.css',
     'node_modules/lightbox2/dist/css/lightbox.min.css',
-    ],'public/css/document.min.css' );*/
+    ],'public/css/document.min.css' );
 
   //   mix.js([
   //   'resources/assets/js/custom/document.js'
@@ -86,4 +86,4 @@ mix.scripts([
     ],'public/js/user.min.js', 'public/js');*/
 
 
-    mix.sass('public/src/scss/style.scss', 'public/css');
+/*    mix.sass('public/src/scss/style.scss', 'public/css');*/

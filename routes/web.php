@@ -67,6 +67,7 @@ Route::resource('document', 'DocumentController', ['except' => [
     'update', 'edit'
 ]]);
 Route::get('documents', 'DocumentController@getApi');
+Route::post('document/{document}/email', 'DocumentController@email');
 
 /*
 |--------------------------------------------------------------------------

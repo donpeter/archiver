@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Auth;
+use Mail;
+
 
 use App\Http\Requests\DocumentRequest;
 use Carbon\Carbon;
@@ -14,6 +16,8 @@ use App\Document;
 use App\File;
 use App\Organization;
 use App\Folder;
+
+use App\Mail\SendDocument;
 class DocumentController extends Controller
 {
     /**
@@ -78,6 +82,7 @@ class DocumentController extends Controller
         $files = [];
         if($request->hasFile('files')){
             $path= "files/".date('m-y')."/";
+            $nums =0;
             foreach ($request->file('files') as $file) {
                 $ext = $file->getClientOriginalExtension();
                 $fileName = $file->getClientOriginalName();
@@ -86,12 +91,13 @@ class DocumentController extends Controller
                 $slug = $path.createSlug($fileName);
                 $newSlug = $slug.".{$ext}";
                 $num = 0;
+                $newName = $fileName.= ($nums)? " {$nums}" : ''; 
+                $nums++;
 
                 //Generate a Unique Slug for uploaded file
                 while(File::whereSlug($newSlug)->exists()){
                     $num++;
                     $newSlug = $slug."_{$num}.{$ext}";
-                    $newName = $fileName." {$num}";
                 }
 
                 //Store the file in the public folder,
@@ -156,7 +162,7 @@ class DocumentController extends Controller
      * @param  \App\Document  $document
      * @return \Illuminate\Http\Response
      */
-    public function destroy(document $document)
+    public function destroy(Document $document)
     {
         //return response($document->files);
         //Delete all related Files
@@ -198,6 +204,17 @@ class DocumentController extends Controller
             $document->files = $document->files()->get();
         }
          return response()->json(['data'=>$documents],200);
+        
+    }
+    //API Controlllers to  fetch all Documents
+    public function email(Document $document, Request $request)
+    {
+        $document->files;
+        $when = Carbon::now()->addSeconds(5);
+        Mail::to($request->to)
+            ->cc($request->cc)
+            ->send( new SendDocument($document, $request));
+        return response()->json(['document'=> $document, 'request' => $request->all()]);
         
     }
 

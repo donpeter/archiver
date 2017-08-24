@@ -105,30 +105,32 @@ $(function(){
 
     /* DOCUMENT SINGLE INSTANCE READ*/
     $(document).on('click','.sa-view',function(e){
-        $('#viewDocument').modal('show');
+        var viewDocument = $('#viewDocument');
+        viewDocument.modal('show');
         var row = $(this).parents('tr');
         var id = row.data('id');
         console.log('Viewing: ',id);
+        var doc;
         $.getJSON( "/document/"+id, function( res ) {
-          var data = res.data;
+          doc = res.data;
           console.log(res);
           var imgsHtml = [];
           //Select The Modal 
          var viewModal = $('#viewDocument');
-         viewModal.find('#docRef').text(data.ref);
-         viewModal.find('#docTitle').text(data.title);
-         viewModal.find('#docDesc').text(data.desc);
-         viewModal.find('#docUser').text(data.user.name);
-         viewModal.find('#docFolder').text(data.folder.name);
-         viewModal.find('#docTarget').text(data.organization.name);
-         viewModal.find('#docWritten').text(moment(data.written_on).format('DD-MM-YYYY'));
-         viewModal.find('#docSigned').text(moment(data.signed_on).format('DD-MM-YYYY'));
-         viewModal.find('#docCreated').text(moment(data.created_at).format('DD-MM-YYYY'));
-         $.each(data.files, function(key, img) {
+         viewModal.find('#docRef').text(doc.ref);
+         viewModal.find('#docTitle').text(doc.title);
+         viewModal.find('#docDesc').text(doc.desc);
+         viewModal.find('#docUser').text(doc.user.name);
+         viewModal.find('#docFolder').text(doc.folder.name);
+         viewModal.find('#docTarget').text(doc.organization.name);
+         viewModal.find('#docWritten').text(moment(doc.written_on).format('DD-MM-YYYY'));
+         viewModal.find('#docSigned').text(moment(doc.signed_on).format('DD-MM-YYYY'));
+         viewModal.find('#docCreated').text(moment(doc.created_at).format('DD-MM-YYYY'));
+         $.each(doc.files, function(key, img) {
            imgsHtml.push(`
               <div class="col-md-4 single-img "  >
                 <div class="img-preview">
-                  <a  href="/upload/${img.slug}" data-lightbox="${data.title }" data-title="${img.name }">
+                  <a  href="/upload/${img.slug}" data-lightbox="${doc.title }" data-title="${img.name }">
                     <img  src="/upload/${img.slug}" class="img-thumbnail" alt="${img.alt}" max-height="250">
                     <i class="zmdi zmdi-aspect-ratio-alt zmdi-hc-3x mdc-text-light-blue"></i>
                   </a>
@@ -137,15 +139,66 @@ $(function(){
             `);
          });
          viewModal.find('#docImages').hide().html(imgsHtml).fadeIn(2000);
-          // $.each( data, function( key, val ) {
-          //   items.push( "<li id='" + key + "'>" + val + "</li>" );
-          // });
-         
-          // $( "<ul/>", {
-          //   "class": "my-new-list",
-          //   html: items.join( "" )
-          // }).appendTo( "body" );
         });
+
+        viewDocument.find('#emailDocument').on('click', function () {
+          var emailDocumentModal = $('#emailDocumentModal');
+          emailDocumentModal.modal('show');
+          viewDocument.modal('hide');
+
+          /*Pre-Fill The Email Document Form*/
+          emailDocumentModal.find('#to').val(doc.user.email);
+          emailDocumentModal.find('#cc').val(doc.organization.email);
+          emailDocumentModal.find('#emailSubject').val(doc.title);
+          emailDocumentModal.find('#emailMessage').val(doc.desc);
+
+          //Email The Document to the recipient 
+          emailDocumentModal.find('#emailForm').submit(function (e) {
+            e.preventDefault();
+            $('button[type="submit"]').attr('disabled','disabled');
+
+
+            var to = emailDocumentModal.find('#to').val();
+            var cc = emailDocumentModal.find('#cc').val();
+            //var bcc = emailDocumentModal.find('#bcc').val();
+            var subject = emailDocumentModal.find('#emailSubject').val();
+            var message = emailDocumentModal.find('#emailMessage').val();
+            var _token = emailDocumentModal.find('input[name=_token]').val();
+
+            var email = {
+              _token: _token,
+              to : to,
+              cc: cc,
+              subject: subject,
+              message: message
+            };
+
+            axios.post('/document/'+id+'/email', email)
+              .then(function (res) {
+                console.log('Email Sent');
+              })
+              .catch(function (err) {//Listen For any possible error
+                console.log('Error: Email Failed');
+                  swal({
+                   title: 'Message Not Delivered',
+                   type: 'error',
+                   text: 'Email was not sent successfully',
+                   timer: 3500,
+                   showConfirmButton: true
+                  }); 
+              });
+              $('button[type="submit"]').removeAttr('disabled');
+              swal({
+                 title: 'Message Sent',
+                 type: 'success',
+                 text: 'Email successfully sent',
+                 timer: 3500,
+                 showConfirmButton: true
+              });
+          });
+
+        })
+
     });
     /* END SINGLE INSTANCE READ */
     /* END CRUD (READ) FUNTIONS*/
@@ -200,4 +253,6 @@ $(function(){
   }
 
    /* END CRUD (DELETE) */
+
+
 });

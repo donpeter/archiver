@@ -196,7 +196,8 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-info text-left ml-10" data-dismiss="modal">Edit</button>
+          <button type="button" class="btn btn-success text-left ml-10" id="emailDocument">Email</button>
+          <button type="button" class="btn btn-info text-left ml-10" >Edit</button>
           <button type="button" class="btn btn-danger text-left" data-dismiss="modal" >Close</button>
         </div>
       </div>
@@ -204,6 +205,56 @@
     </div>
     <!-- /.modal-dialog -->
   </div>
+
+  <!-- Email M3odal -->
+  <div aria-hidden="true" role="dialog" tabindex="-1" id="emailDocumentModal" class="modal fade" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+          <h4 class="modal-title">Compose</h4>
+        </div>
+        <div class="modal-body">
+          <form role="form" class="form-horizontal" id="emailForm">
+            {{csrf_field()}}
+            <div class="form-group">
+              <label class="col-lg-2 control-label" >To</label>
+              <div class="col-lg-10">
+                <input type="text" placeholder="" id="to" class="form-control" required="required">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label">Cc / Bcc</label>
+              <div class="col-lg-10">
+                <input type="text" placeholder="" id="cc" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label">Subject</label>
+              <div class="col-lg-10">
+                <input type="text" placeholder="" id="emailSubject" class="form-control"  required="required">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label">Message</label>
+              <div class="col-lg-10">
+                <textarea class="textarea_editor form-control" rows="5" placeholder="Enter text ..." id="emailMessage"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-lg-offset-2 col-lg-10">
+              
+                <button class="btn btn-success" type="submit" >Send</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
   
 @endsection
 
