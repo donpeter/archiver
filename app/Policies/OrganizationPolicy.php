@@ -19,7 +19,7 @@ class OrganizationPolicy
      */
     public function update(User $user, Organization $organization)
     {
-        return $user->isAdmin();
+        return  $user->isStaff();
     }
 
     /**
@@ -31,6 +31,13 @@ class OrganizationPolicy
      */
     public function delete(User $user, Organization $organization)
     {
-        return $user->isAdmin();
+       return $user->isStaff();
+    }
+
+    public function before($user, $ability)
+    {
+        if ($user->isAdmin()) {
+            return true;
+        }
     }
 }

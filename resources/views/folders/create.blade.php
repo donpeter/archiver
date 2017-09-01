@@ -73,7 +73,6 @@
     <link href="{{asset('css/sweetalert.css')}}" rel="stylesheet" type="text/css">
 @endpush
 @push('scripts')
-    <!-- Sweet-Alert  -->
-    <script src="{{asset('js/folder.js')}}"></script>
+    <script src="{{asset('js/folder.min.js')}}"></script>
 
 @endpush

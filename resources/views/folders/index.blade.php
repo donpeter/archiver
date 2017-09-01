@@ -11,10 +11,10 @@
   
 @endsection
 
-@push('scripts')
-    <script src="{{asset('js/datatable.js')}}"></script>
-@endpush
-
 @push('vendorStyles')
     <link href="{{asset('css/datatable.min.css')}}" rel="stylesheet" type="text/css">
+@endpush
+
+@push('scripts')
+    <script src="{{asset('js/folder.min.js')}}"></script>
 @endpush

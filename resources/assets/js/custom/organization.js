@@ -219,12 +219,12 @@ $(function(){
             .catch(function (err) {
                swal({
                  title: "Error!",
-                 text: name +" Archive could not be deleted",
+                 text: name +" Archive Could Not Be Deleted",
                  timer: 4500,
                  type: 'error',
                  showConfirmButton: true
                }); 
-               setTimeout(window.location.reload(), 4500)
+               //setTimeout(window.location.reload(), 4500)
             });
           
       });
@@ -239,27 +239,32 @@ $(function(){
 
   //Add adds a new Row
   function addNewRow(table, organization){
-    var rowNode = table
-        .row.add( [ 
+    var actionHtml = `
+          <a href="javascript:void(0)" class="text-inverse pr-5" data-toggle="tooltip" title="View">
+          <i class="zmdi zmdi-eye txt-success"></i>
+          </a>
+          <a href="javascript:void(0)" class="text-inverse pr-5" title="Edit" data-target="#editModal" data-toggle="modal"
+           data-id="${organization.id}"
+           data-name="${organization.name}" 
+           data-email="${organization.email}"
+           data-location="${organization.location}" 
+           data-country="${organization.country}"
+           >
+          <i class="zmdi zmdi-edit txt-warning"></i>
+          </a>`
+    if(canDelete(organization,['staff']) ){
+      actionHtml += `
+      <a href="javascript:void(0)" class="text-inverse sa-warning" data-id="${organization.id}" data-name="${organization.name}" data-toggle="tooltip" title="Delete">
+        <i class="zmdi zmdi-delete txt-danger"></i>
+      </a>`;
+    }
+          
+    var rowNode = table.row.add( [ 
          organization.name, 
          organization.email, 
          organization.location,
          organization.country,
-         `<a href="javascript:void(0)" class="text-inverse pr-5" data-toggle="tooltip" title="View">
-             <i class="zmdi zmdi-eye txt-success"></i>
-             </a>
-             <a href="javascript:void(0)" class="text-inverse pr-5" title="Edit" data-target="#editModal" data-toggle="modal"
-              data-id="${organization.id}"
-              data-name="${organization.name}" 
-              data-email="${organization.email}"
-              data-location="${organization.location}" 
-              data-country="${organization.country}"
-              >
-             <i class="zmdi zmdi-edit txt-warning"></i>
-             </a>
-             <a href="javascript:void(0)" class="text-inverse sa-warning" data-id="${organization.id}" data-name="${organization.name}" data-toggle="tooltip" title="Delete">
-             <i class="zmdi zmdi-delete txt-danger"></i>
-             </a>`
+         actionHtml
          ] )
         .draw()
         .node();
@@ -281,3 +286,6 @@ $(function(){
   }
   /* END HELPER FUNTIONS*/
 });
+
+
+

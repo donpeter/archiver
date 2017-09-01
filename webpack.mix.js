@@ -36,7 +36,7 @@ mix.scripts([
   'resources/assets/bower/axios/dist/axios.min.js',
   'resources/assets/bower/sweetalert/dist/sweetalert.min.js',
   'resources/assets/js/custom/folder.js',
-  ],'public/js/folder.js', 'public/js');*/
+  ],'public/js/folder.min.js', 'public/js');*/
 
 // mix.scripts([
 // 'resources/assets/bower/jquery/dist/jquery.min.js',
@@ -49,6 +49,7 @@ mix.scripts([
   'resources/assets/bower/sweetalert/dist/sweetalert.min.js',
   'resources/assets/bower/axios/dist/axios.min.js',
   'resources/assets/js/custom/datatable/datatable.min.js',
+  'resources/assets/js/custom/functions.js',
   'resources/assets/js/custom/organization.js',
 
   ],'public/js/organization.min.js', 'public/js');*/
@@ -63,6 +64,7 @@ mix.scripts([
   //'resources/assets/bower/moment/min/moment-with-locales.min.js'
   'node_modules/lightbox2/dist/js/lightbox.min.js',
   'resources/assets/bower/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js',
+  'resources/assets/js/custom/functions.js',
   'resources/assets/js/custom/document-create.js',
   ],'public/js/document.min.js', 'public/js')
   .styles([

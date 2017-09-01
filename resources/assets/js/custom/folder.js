@@ -7,7 +7,7 @@ $(document).ready(function() {
         $(this).html( '<input type="text" class="form-control '+className+'return "  placeholder="Search  '+title+'" />' );
     } );
  
-    // DataTable
+    // DataTable 
      table = $('#folders').DataTable({
                     dom: 'Bfrtip',
                     buttons: [

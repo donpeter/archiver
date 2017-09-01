@@ -12,9 +12,6 @@
 */
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
@@ -80,6 +77,7 @@ Route::post('document/{document}/email', 'DocumentController@email');
 Route::resource('user', 'UserController', ['only' => [
     'index', 'store','update', 'destroy'
 ]]);
+Route::get('user/auth', 'UserController@getAuthUser');
 Route::get('users', 'UserController@getAllApi');
 Route::get('logout', 'UserController@logout');
 Route::get('user/{id}/documents', 'UserController@index');

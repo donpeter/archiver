@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
 use App\Http\Requests\CreateUserRequest;
 use App\User;
@@ -97,5 +97,15 @@ class UserController extends Controller
     {
         Auth::logout();
         return redirect()->route('login');
+    }
+
+
+    public function getAuthUser()
+    {
+        if (Auth::check()) {
+            return  response()->json(['user' => Auth::user()],200);
+        }else {
+            return  response()->json(['error' => 'No logged in User found'],400);
+        }
     }
 }

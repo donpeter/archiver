@@ -36,7 +36,7 @@
       <a href="{{route('organization.index')}}" class="{{activePath('organization') ? 'active' :''}}" data-toggle="collapse" data-target="#app_org"><div class="pull-left"><i class="pe-7s-culture mr-20"></i><span class="right-nav-text">{{trans_choice('navbar.organization',2)}} </span></div><div class="clearfix"></div></a>
       
     </li>
-    <li>
+    {{-- <li>
       <a href="javascript:void(0);" data-toggle="collapse" data-target="#app_dr"><div class="pull-left"><i class="pe-7s-photo mr-20"></i><span class="right-nav-text">{{trans_choice('navbar.file',1)}}</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
       <ul id="app_dr" class="collapse collapse-level-1">
         <li>
@@ -51,7 +51,7 @@
           </a>
         </li>
       </ul>
-    </li>
+    </li> --}}
     <li>
       <a class="{{activePath('folder') ? 'active' :''}} " href="javascript:void(0);" data-toggle="collapse" data-target="#app_cat"><div class="pull-left"><i class="icon-folder-alt mr-20"></i><span class="right-nav-text">{{trans_choice('navbar.folder',2)}} </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
       <ul id="app_cat" class="collapse collapse-level-1">

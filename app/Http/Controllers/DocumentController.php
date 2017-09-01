@@ -16,6 +16,7 @@ use App\Document;
 use App\File;
 use App\Organization;
 use App\Folder;
+use App\User;
 
 use App\Mail\SendDocument;
 class DocumentController extends Controller
@@ -40,11 +41,12 @@ class DocumentController extends Controller
     {
         $folders = Folder::all();
         $organizations = Organization::all();
+        $users = User::all();
         $documents = Document::orderBy('created_at', 'desc')->get();
         foreach ($documents as $document) {
             $document->parse();
         }
-        return view('documents.index', compact('documents','organizations','folders'));
+        return view('documents.index', compact('documents','organizations','folders','users'));
     }
 
 

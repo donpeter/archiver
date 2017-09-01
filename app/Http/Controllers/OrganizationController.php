@@ -81,6 +81,7 @@ class OrganizationController extends Controller
      */
     public function update(Request $request, Organization $organization)
     {
+        $this->authorize('update', $organization);
         $organization->update($request->all());
         $updatedOrg = [Organization::where('id', $organization->id)->first()];
         $updatedOrg = $this->parser($updatedOrg)[0];
@@ -104,6 +105,8 @@ class OrganizationController extends Controller
      */
     public function destroy(Organization $organization)
     {
+        $this->authorize('delete', $organization);
+
         $name = $organization->name;
         $organization->delete();
 

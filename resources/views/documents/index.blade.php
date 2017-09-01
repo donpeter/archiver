@@ -26,10 +26,11 @@
               <div class="table-responsive">
                 <table id="documents" class="table table-hover display mb-30 dataTable no-footer" style="cursor: pointer;" role="grid">
                   <thead>
-                    <tr role="row">
+                    <tr role="row" style="width: 15%;">
                       <th class="sorting">
                         {{__('common.ref')}}
                       </th>
+                      
                       <th class="sorting" >
                         {{__('common.title')}}
                       </th>
@@ -41,6 +42,9 @@
                       </th>
                       <th class="sorting">
                         {{__('common.date')}}
+                      </th>
+                      <th class="sorting" style="width: 8%;">
+                        {{__('common.type')}}
                       </th>
                       <th class="sorting" style="width: 10%;">
                         {{__('common.action')}}
@@ -49,7 +53,7 @@
                   </thead>
                   <tfoot>
                     <tr role="row">
-                      <th class="sorting">
+                      <th class="sorting" style="width: 15%;">
                         {{__('common.ref')}}
                       </th>
                       <th class="sorting" >
@@ -63,6 +67,10 @@
                       </th>
                       <th class="sorting">
                         {{__('common.date')}}
+                      </th>
+
+                      <th class="sorting" style="width: 8%;">
+                        {{__('common.type')}}
                       </th>
                       <th class="sorting" style="width: 10%;">
                         {{__('common.action')}}
@@ -73,20 +81,34 @@
                     @foreach($documents as $document)
                     <tr role="row" class="odd" data-id="{{$document->id}}">
                       <td tabindex="1" class="sorting_1">{{$document->ref}}</td>
+                      
                       <td tabindex="1">{{$document->title}}</td>
                       <td tabindex="1">{{$document->organization->name }} </td>
                       <td tabindex="1">{{$document->folder->name}}</td>
-                      <td tabindex="1" class="dateTable">{{$document->created_at}}</td>
+                      <td tabindex="1" class="dateTable">{{$document->written_on}}</td>
+                      <td tabindex="1" class="sorting_1">
+                        @if($document->type == 'incomming')
+                          <i class="fa fa-paper-plane text-success" title="Incomming" data-target="tooltip" data-toggle="tooltip" data-original-title="Incomming"></i>
+                        @else
+                          <i class="fa fa-paper-plane fa-rotate-180 text-info" title="Outgoing" data-target="tooltip" data-toggle="tooltip" data-original-title="Outgoing"></i>
+                        @endif
+                        <span class="sr-only">{{$document->type}}</span>
+                      </td>
                       <td tabindex="1">
                         <a href="javascript:void(0)" class="text-inverse pr-5 sa-view" title="view" data-target="tooltip" data-toggle="tooltip" data-original-title="View"   >
                         <i class="zmdi zmdi-eye txt-success"></i>
                         </a>
-                        <a href="javascript:void(0)" class="text-inverse pr-5" title="edit" data-target="tooltip" data-toggle="tooltip" data-original-title="Edit" >
+                        @can('update',$document)
+                        <a href="javascript:void(0)" class="text-inverse pr-5 sa-edit" title="edit" data-target="tooltip" data-toggle="tooltip" data-original-title="Edit" >
                         <i class="zmdi zmdi-edit txt-warning"></i>
                         </a>
+                        @endcan
+
+                        @can('delete',$document)
                         <a href="javascript:void(0)"  class="text-inverse sa-warning" data-toggle="tooltip"  data-original-title="Delete">
                         <i class="zmdi zmdi-delete txt-danger"></i>
                         </a>
+                        @endcan
                       </td>
                     </tr>
                     @endforeach
@@ -110,7 +132,7 @@
           <div class="panel-body">
               <div class="col-sm-12 col-xs-12">
                 <a class="btn btn-success btn-block mb-10" href="/document/create" >{{__('common.addNew').' '.trans_choice('common.document',1)}}</a>
-                <div class="form-wrap">
+                <div class="form-wrap" id="dataTableFilters">
 
                   
                   <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
@@ -119,31 +141,32 @@
                     {!! $errors->first('type', '<span class ="help-block">:message</span> ') !!}
                   </div>
 
-                  <div class="form-group{{ $errors->has('archive') ? ' has-error' : '' }}">
-                    {!!Form::label('archive', trans_choice('common.archive',1), ['class' => 'control-label mb-10 '])!!}
-                    {!!Form::select('archive', ['incomming' => 'Lefke Belediyesi', 'outgoing' => 'Outgoing'], 'incomming', ['placeholder' => trans_choice('common.archive',1), 'class' => 'form-control'])!!}
-                    {!! $errors->first('archive', '<span class ="help-block">:message</span> ') !!}
-                  </div>
-
-
-                  <div class="form-group{{ $errors->has('sender') ? ' has-error' : '' }}">
-                    {!!Form::label('sender', trans_choice('common.organization',1), ['class' => 'control-label mb-10 '])!!}
-                    <select id='sender' name="sender" class="form-control" data-style="btn-primary btn-outline" tabindex="-98">
-                      @foreach($organizations as $organization)
-                        <option data-tokens="{{$organization->id }}" value="{{$organization->id }}" {{(old('sender') == $organization->id ) ? 'selected="selected"': '' }} >{{$organization->name }}</option>
+                  <div class="form-group">
+                    {!!Form::label('user', trans_choice('common.folder',1), ['class' => 'control-label mb-10 '])!!}
+                    <select id='folder' name="folder" class="form-control" data-style="btn-primary btn-outline" tabindex="-98">
+                      @foreach($folders as $folder)
+                        <option data-tokens="{{$folder->name }}" value="{{$folder->name }}" >{{$folder->name }}</option>
                       @endforeach
                     </select>
-                    {!! $errors->first('sender', '<span class ="help-block">:message</span> ') !!}
                   </div> 
 
-                  <div class="form-group{{ $errors->has('receiver') ? ' has-error' : '' }}">
-                    {!!Form::label('receiver', trans_choice('common.organization',1), ['class' => 'control-label mb-10 '])!!}
-                    <select id='receiver' name="receiver" class="form-control" data-style="btn-primary btn-primary" tabindex="-98">
-                      @foreach($organizations as $organization)
-                        <option data-tokens="{{$organization->id }}" value="{{$organization->id }}" {{(old('receiver') == $organization->id ) ? 'selected="selected"': '' }} >{{$organization->name }}</option>
+
+                  <div class="form-group">
+                    {!!Form::label('user', trans_choice('common.user',1), ['class' => 'control-label mb-10 '])!!}
+                    <select id='user' name="user" class="form-control" data-style="btn-primary btn-outline" tabindex="-98">
+                      @foreach($users as $user)
+                        <option data-tokens="{{$user->name }}" value="{{$user->name }}" >{{$user->name }}</option>
                       @endforeach
                     </select>
-                    {!! $errors->first('receiver', '<span class ="help-block">:message</span> ') !!}
+                  </div> 
+
+                  <div class="form-group">
+                    {!!Form::label('organization', trans_choice('common.organization',1), ['class' => 'control-label mb-10 '])!!}
+                    <select id='organization' name="organization" class="form-control">
+                      @foreach($organizations as $organization)
+                        <option data-tokens="{{$organization->name }}" value="{{$organization->name }}">{{$organization->name }}</option>
+                      @endforeach
+                    </select>
                   </div>  
 
                   <div class="form-group{{ $errors->has('prepaired_on') ? ' has-error' : '' }}">
@@ -155,9 +178,8 @@
                   <div class="form-group{{ $errors->has('signed_on') ? ' has-error' : '' }}">
                     {!!Form::label('signed_on', trans_choice('common.signed',1), ['class' => 'control-label mb-10 '])!!}
                     <input placeholder="Signed" name="signed_on" type="text" id="signed_on" class="form-control date datetimepicker" v-model="signedDate">
-                    {!! $errors->first('signed_on', '<span class ="help-block">:message</span> ') !!}
                   </div>  
-
+                  <button class="btn btn-success btn-block mb-10" id="resetFilters">{{__('common.reset')}}</button>
                 </div>
               </div>
           </div>
@@ -168,8 +190,8 @@
   </div>
   <!-- /Row -->
 
-  <!-- Document modal content -->
-  <div class="modal fade bs-example-modal-lg" id="viewDocument" tabindex="-1" role="dialog" aria-labelledby="View Document" aria-hidden="true" style="display: none;">
+  <!-- Document view modal content -->
+  <div class="modal fade " id="viewDocument" tabindex="-1" role="dialog" aria-labelledby="View Document" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -205,9 +227,36 @@
     </div>
     <!-- /.modal-dialog -->
   </div>
+  <!-- /Document view modal content -->
+  <!-- Edit M3odal -->
+  <div class="modal fade " id="editDocumentModal" tabindex="-1" role="dialog" aria-labelledby="Edit Document" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h6 class="modal-title" id="title">{{trans_choice('common.folder', 2)}}: <span id="docFolder" ></span> </h6>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            @include('documents._form',compact('organizations','folders'))
+
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-info text-left ml-10" data-dismiss="modal" >{{__('common.save')}}</button>
+          <button type="button" class="btn btn-danger text-left" data-dismiss="modal" >Cancel</button>
+          {!!Form::close()!!} 
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /Edit modal -->
 
   <!-- Email M3odal -->
-  <div aria-hidden="true" role="dialog" tabindex="-1" id="emailDocumentModal" class="modal fade" style="display: none;">
+  <div class="modal fade" id="emailDocumentModal" aria-hidden="true" role="dialog" aria-labelledby="Email Document" tabindex="-1"  style="display: none;">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -254,7 +303,7 @@
     </div>
     <!-- /.modal-dialog -->
   </div>
-  <!-- /.modal -->
+  <!-- /Email modal -->
   
 @endsection
 
