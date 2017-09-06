@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Organization;
 
+use App\File;
 class FileController extends Controller
 {
     /**
@@ -84,8 +85,9 @@ class FileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(File $file)
     {
-        //
+        $file->delete();
+        return response()->json(['message' => 'File deleted'], 200);
     }
 }

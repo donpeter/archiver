@@ -8,6 +8,7 @@ use Mail;
 
 
 use App\Http\Requests\DocumentRequest;
+use App\Http\Requests\DocumentUpddateRequest;
 use Carbon\Carbon;
 use Storage;
 
@@ -153,9 +154,45 @@ class DocumentController extends Controller
      * @param  \App\Document  $document
      * @return \Illuminate\Http\Response
      */
-    public function update(documentRequest $request, Document $document)
+    public function update(DocumentUpddateRequest $request, Document $document)
     {
-        //
+        $files = [];
+        if($request->hasFile('files')){
+            $path= "files/".date('m-y')."/";
+            $nums =0;
+            foreach ($request->file('files') as $file) {
+                $ext = $file->getClientOriginalExtension();
+                $fileName = $file->getClientOriginalName();
+                $newName = $fileName = $document->title;
+                $size = $file->getSize();
+                $slug = $path.createSlug($fileName);
+                $newSlug = $slug.".{$ext}";
+                $num = 0;
+                $newName = $fileName.= ($nums)? " {$nums}" : ''; 
+                $nums++;
+
+                //Generate a Unique Slug for uploaded file
+                while(File::whereSlug($newSlug)->exists()){
+                    $num++;
+                    $newSlug = $slug."_{$num}.{$ext}";
+                }
+
+                //Store the file in the public folder,
+                $storageName = substr($newSlug, 12);
+                $file->storeAs($path,$storageName);
+               $files[] =  File::create([
+                        'name' => $newName,
+                        'alt' => $fileName,
+                        'type' => $file->getMimeType(),
+                        'size' => $size,
+                        'slug' => $newSlug,
+                    ]);
+            }
+            $document->files()->attach(array_map("static::fileId", $files));
+        }
+        $document->update($request->all());
+        flash(__('common.updatedName', ['name' => $document->title]))->success()->important();
+        return redirect()->route('document.index');
     }
 
     /**

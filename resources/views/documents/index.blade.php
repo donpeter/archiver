@@ -149,17 +149,6 @@
                       @endforeach
                     </select>
                   </div> 
-
-
-                  <div class="form-group">
-                    {!!Form::label('user', trans_choice('common.user',1), ['class' => 'control-label mb-10 '])!!}
-                    <select id='user' name="user" class="form-control" data-style="btn-primary btn-outline" tabindex="-98">
-                      @foreach($users as $user)
-                        <option data-tokens="{{$user->name }}" value="{{$user->name }}" >{{$user->name }}</option>
-                      @endforeach
-                    </select>
-                  </div> 
-
                   <div class="form-group">
                     {!!Form::label('organization', trans_choice('common.organization',1), ['class' => 'control-label mb-10 '])!!}
                     <select id='organization' name="organization" class="form-control">
@@ -167,18 +156,7 @@
                         <option data-tokens="{{$organization->name }}" value="{{$organization->name }}">{{$organization->name }}</option>
                       @endforeach
                     </select>
-                  </div>  
-
-                  <div class="form-group{{ $errors->has('prepaired_on') ? ' has-error' : '' }}">
-                    {!!Form::label('prepaired_on', trans_choice('common.prepaired',1), ['class' => 'control-label mb-10 '])!!}
-                    {!!Form::text('prepaired_on',null, ['class'=>'form-control datetimepicker', 'placeholder'=> trans_choice('common.prepaired',1)] )!!}
-                    {!! $errors->first('prepaired_on', '<span class ="help-block">:message</span> ') !!}
-                  </div>    
-
-                  <div class="form-group{{ $errors->has('signed_on') ? ' has-error' : '' }}">
-                    {!!Form::label('signed_on', trans_choice('common.signed',1), ['class' => 'control-label mb-10 '])!!}
-                    <input placeholder="Signed" name="signed_on" type="text" id="signed_on" class="form-control date datetimepicker" v-model="signedDate">
-                  </div>  
+                  </div>
                   <button class="btn btn-success btn-block mb-10" id="resetFilters">{{__('common.reset')}}</button>
                 </div>
               </div>
@@ -203,12 +181,12 @@
             <div class="col-sm-8">
               <h6>{{__('common.ref')}} : <span id="docRef"></span></h6>
               <h6 class="mb-15">{{__('common.title')}} : <span id="docTitle"></span></h6>
+              <h6>{{trans_choice('common.desc',1)}} </h6>
               <p id="docDesc"></p>
             </div>
             <div class="col-sm-4">
               <h6 class="inline">{{trans_choice('common.user', 1)}}: </h6><span id="docUser"></span><br> 
               <h6 class="inline" id="target">{{__('common.to')}}: </h6><span id="docTarget"></span><br>
-              <h6 class="inline">Received Date: </h6><span id="docRecieved"></span><br> 
               <h6 class="inline">Written Date: </h6><span id="docWritten"></span><br>
               <h6 class="inline">Approved Date: </h6><span id="docSigned"></span><br>
             </div>
@@ -244,8 +222,8 @@
 
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-info text-left ml-10" data-dismiss="modal" >{{__('common.save')}}</button>
-          <button type="button" class="btn btn-danger text-left" data-dismiss="modal" >Cancel</button>
+            <button type="button" class="btn btn-danger text-left" data-dismiss="modal" >Cancel</button>
+          <button type="submit" class="btn btn-info text-left ml-10"  >{{__('common.save')}}</button>
           {!!Form::close()!!} 
         </div>
       </div>

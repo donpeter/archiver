@@ -20,6 +20,13 @@ class FilePolicy
      */
     public function delete(User $user, File $file)
     {
-        return $user->isAdmin();
+       return $user->id === $file->user_id;
+    }
+
+    public function before($user, $ability)
+    {
+        if ($user->isAdmin()) {
+            return true;
+        }
     }
 }

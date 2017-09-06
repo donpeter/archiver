@@ -65,7 +65,6 @@ $(function(){
         // Format The Date 
         var dates = $('.dateTable');
         dates.each(function(index,item){
-            console.log('Date : ', item.innerText);
             item.innerText = moment(item.innerText).format('DD-MM-YYYY');
         })
 
@@ -113,7 +112,6 @@ $(function(){
             var doc;
             $.getJSON( "/document/"+id, function( res ) {
               doc = res.data;
-              console.log(res);
               var imgsHtml = [];
               //Select The Modal 
              viewDocumentModal.find('#docRef').text(doc.ref);
@@ -171,10 +169,9 @@ $(function(){
                   subject: subject,
                   message: message
                 };
-
+                setTimeout(emailDocumentModal.modal('hide'),1500);
                 axios.post('/document/'+id+'/email', email)
                   .then(function (res) {
-                    console.log('Email Sent');
                     swal({
                        title: 'Message Sent',
                        type: 'success',
@@ -185,7 +182,7 @@ $(function(){
                     $('button[type="submit"]').removeAttr('disabled');
                   })
                   .catch(function (err) {//Listen For any possible error
-                        console.log('Error: Email Failed');
+                        console.err('Email Error',err);
                         swal({
                             title: 'Message Not Delivered',
                             type: 'error',
@@ -213,34 +210,77 @@ $(function(){
             var doc;
             $.getJSON( "/document/"+id, function( res ) {
               doc = res.data;
-              console.log(res);
+              $('#updateDocument').attr('action','/document/'+doc.id)
               var imgsHtml = [];
               //Select The Modal 
              var editDocumentModal = $('#editDocumentModal');
              editDocumentModal.find('input[name=ref]').val(doc.ref);
              editDocumentModal.find('input[name=title]').val(doc.title);
-             editDocumentModal.find('input[name=desc]').val(doc.desc);
+             editDocumentModal.find('textarea[name=desc]').val(doc.desc);
              editDocumentModal.find('select[name=type]').val(doc.type);
              //editDocumentModal.find('input[name=user_id]').val(doc.user.name);
-             editDocumentModal.find('select[name=folder_id]').val(doc.folder.name);
-             editDocumentModal.find('select[name=organization_id]').val(doc.organization.name);
-             editDocumentModal.find('input[name=written_on]').val(moment(doc.written_on).format('DD-MM-YYYY'));
-             editDocumentModal.find('input[name=signed_on]').val(moment(doc.signed_on).format('DD-MM-YYYY'));
+             editDocumentModal.find('select[name=folder_id]').val(doc.folder_id);
+             editDocumentModal.find('select[name=organization_id]').val(doc.organization_id);
+             editDocumentModal.find('input[name=written_on]').val(moment(doc.written_on).format('DD/MM/YYYY'));
+             editDocumentModal.find('input[name=signed_on]').val(moment(doc.signed_on).format('DD/MM/YYYY'));
              var imgsHtml;
               $.each(doc.files, function(key, img) {
                imgsHtml.push(`
                   <div class="col-md-4 single-img "  >
                     <div class="img-preview">
-                      <a  href="/upload/${img.slug}" data-lightbox="${doc.title }" data-title="${img.name }">
+                      <span data-img=${img.id}>  
                         <img  src="/upload/${img.slug}" class="img-thumbnail" alt="${img.alt}" max-height="250">
-                        <i class="zmdi zmdi-aspect-ratio-alt zmdi-hc-3x mdc-text-light-blue"></i>
-                      </a>
+                        <i class="zmdi zmdi-delete zmdi-hc-3x mdc-text-red-700"></i>
+                      </span>
                     </div>
                   </div>
                 `);
              });
              editDocumentModal.find('#editDocImages').hide().html(imgsHtml).fadeIn(2000);
+
+             /*emailDocumentModal.find('#updateDocument').submit(function (e) {
+               //e.preventDefault;
+               $(this).find('button[type=submit]').attr('disabled','disabled');
+
+
+             })*/
+
             });
+
+            // Delete Sinle Image 
+            $(document).on('click','.single-img .zmdi-delete',function(e){
+              var imgSpan = $(this).parent()
+              var img = $(imgSpan).data('img');
+              swal({   
+                   title: "Are you sure?",   
+                   text: "You will not be able to recover "+title+"!",   
+                   type: "warning",   
+                   showCancelButton: true,   
+                   confirmButtonColor: "red",   
+                   confirmButtonText: "Yes, delete it!",   
+                   closeOnConfirm: true,
+                   //showLoaderOnConfirm: true,
+               }, function(){ 
+                  axios.delete('/file/'+img).then(function(res){
+                    $(imgSpan).hide('slow');
+                  })
+                  .catch(function(err) {
+                    console.error(err);
+                    swal({
+                      title: "Error!",
+                      text: "Unable to delete file",
+                      timer: 4500,
+                      type: 'error',
+                      showConfirmButton: true
+                    }); 
+                    setTimeout(window.location.reload(), 4500);
+                  });
+               });
+              
+
+            });
+
+
         });
 
         /* CRUD (DELETE) */
@@ -250,7 +290,6 @@ $(function(){
           var id = row.data('id');
           var ref = datas[0] //$(this).data('ref') // Extract info from data-* attributes
           var title = datas[1]// $(this).data('title') // Extract info from data-* attributes
-          console.log("id: ",id);
           swal({   
                title: "Are you sure?",   
                text: "You will not be able to recover "+title+"!",   
@@ -263,7 +302,6 @@ $(function(){
            }, function(){ 
                axios.delete('/document/'+id)
                  .then(function (res) {
-                   console.log(res);
                    swal({
                      title: res.data.title,
                      type: 'success',
@@ -274,9 +312,9 @@ $(function(){
                    table.row( row )
                      .remove()
                      .draw();
-                   console.log(res.data.message );
                  })
                  .catch(function (err) {
+                    console.error(err);
                     swal({
                       title: "Error!",
                       text: name +" Archive could not be deleted",
@@ -284,7 +322,7 @@ $(function(){
                       type: 'error',
                       showConfirmButton: true
                     }); 
-                    setTimeout(window.location.reload(), 4500)
+                    setTimeout(window.location.reload(), 4500);
                  }); 
            });
 
@@ -325,21 +363,18 @@ $(function(){
         //Filter base on Document Folder
         // dataTableFilters.find('#organization').change( function () {
         //     var organization = this.value;
-        //     console.log('organization', organization);
+
         //     var filteredData = table
         //         .column( 2 )
         //         .data()
         //         .filter( function ( value, index ) {
-        //             console.log('value', value);
         //             return value == organization ? true : false;
         //         } );
-        //     console.log('filteredData', filteredData);
         // });
 
         //Filter base on Document Organization
         // dataTableFilters.find('#organization').change( function () {
         //     var organization = this.value;
-        //     console.log('organization', organization);
         //     table
         //         .column( 2 )
         //         .search( this.value )
