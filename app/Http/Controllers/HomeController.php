@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Document;
+use App\File;
+use App\Organization;
+use App\Folder;
+use App\User;
 class HomeController extends Controller
 {
     /**
@@ -14,8 +18,6 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        
-        
     }
 
     /**
@@ -25,6 +27,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $folders = Folder::all();
+        $documents = Document::orderBy('created_at', 'desc')->take(5)->get();
+        foreach ($documents as $document) {
+            $document->parse();
+        }
+        return view('home', compact('documents','folders'));
     }
 }

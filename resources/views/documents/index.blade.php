@@ -191,7 +191,7 @@
   <!-- /Row -->
 
   <!-- Document view modal content -->
-  <div class="modal fade " id="viewDocument" tabindex="-1" role="dialog" aria-labelledby="View Document" aria-hidden="true" style="display: none;">
+  <div class="modal fade " id="viewDocumentModal" tabindex="-1" role="dialog" aria-labelledby="View Document" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">

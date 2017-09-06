@@ -11,7 +11,7 @@
           <div class="logo-wrap">
             <a href="index.html">
               <img class="brand-img" src="{{asset('dist/img/logo.png')}}" alt="brand"/>
-              <span class="brand-text">{{__('site.name')}}</span>
+              <span class="brand-text">{{__('site.name')}} Peter</span>
             </a>
           </div>
         </div>  
