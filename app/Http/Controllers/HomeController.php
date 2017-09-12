@@ -28,10 +28,14 @@ class HomeController extends Controller
     public function index()
     {
         $folders = Folder::all();
+        $folderCount = Folder::count();
+        $organizationCount = Organization::count();
+        $documentCount = Document::count();
+        $userCount = User::count();
         $documents = Document::orderBy('created_at', 'desc')->take(5)->get();
         foreach ($documents as $document) {
             $document->parse();
         }
-        return view('home', compact('documents','folders'));
+        return view('home', compact('documents','folders','folderCount','organizationCount','documentCount','userCount'));
     }
 }

@@ -27,6 +27,15 @@
     {!!Form::text('email',null, ['class'=>'form-control', 'placeholder'=> trans_choice('common.email',1)] )!!}
     {!! $errors->first('email', '<span class ="help-block">:message</span> ') !!}
   </div>
+  @if($modal)
+  <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+    {!!Form::label('password', trans_choice('common.password',1), ['class' => 'control-label mb-10 '])!!}
+    {!!Form::password('password', ['class'=>'form-control', 'placeholder'=> trans_choice('common.password',1)] )!!}
+    {!! $errors->first('password', '<span class ="help-block">:message</span> ') !!}
+  </div>
+  @endif
+
+
   
   <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
     {!!Form::label('role', trans_choice('common.role',1), ['class' => 'control-label mb-10 '])!!}

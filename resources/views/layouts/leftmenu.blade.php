@@ -27,7 +27,7 @@
         </li>
         <li>
           <a href="{{route('document.create')}}" class="{{activePage('document/create') ? 'active-page' :''}}">
-            {{__('navbar.manage').' '.trans_choice('navbar.document', 2) }}
+            {{__('common.add').' '.trans_choice('navbar.document', 1) }}
           </a>
         </li>
       </ul>
@@ -71,22 +71,11 @@
     @if(Auth::user()->role === 'admin')
     <li><hr class="light-grey-hr mb-10"/></li>
     <li class="navigation-header">
-      <span>Settings</span> 
+      <span>{{trans_choice('navbar.setting',2)}}</span> 
       <i class="zmdi zmdi-more"></i>
     </li>
     <li>
       <a href="{{route('user.index')}}" class="{{activePath('user') ? 'active' :''}} data-toggle="collapse" data-target="#ui_dr"><div class="pull-left"><i class="icon-people mr-20"></i><span class="right-nav-text">{{trans_choice('navbar.user',2)}}</span></div> <div class="clearfix"></div></a>
-    </li>
-    <li>
-      <a href="javascript:void(0);" data-toggle="collapse" data-target="#form_dr"><div class="pull-left"><i class="ti-settings mr-20"></i><span class="right-nav-text">{{trans_choice('navbar.setting',2)}}</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
-      <ul id="form_dr" class="collapse collapse-level-1 two-col-list">
-        <li>
-          <a href="">Basic Forms</a>
-        </li>
-        <li>
-          <a href="">form Layout</a>
-        </li>
-      </ul>
     </li>
    
     <li><hr class="light-grey-hr mb-10"/></li>

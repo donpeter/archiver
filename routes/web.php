@@ -37,7 +37,7 @@ Route::resource('folder', 'FolderController');
 |
 */
 Route::resource('organization', 'OrganizationController', ['except' => [
-    'show', 'edit'
+     'edit'
 ]]);
 Route::get('organizations', 'OrganizationController@getAllApi');
 

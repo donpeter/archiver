@@ -18,8 +18,8 @@
                 <div class="container-fluid">
                   <div class="row">
                     <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                      <span class="txt-light block counter"><span class="counter-anim">914,001</span></span>
-                      <span class="weight-500 uppercase-font txt-light block font-13">visits</span>
+                      <span class="txt-light block counter"><span class="counter-anim">{{$userCount}}</span></span>
+                      <span class="weight-500 uppercase-font txt-light block font-13">{{trans_choice('common.user', 2)}}</span>
                     </div>
                     <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
                       <i class="zmdi zmdi-male-female txt-light data-right-rep-icon"></i>
@@ -39,11 +39,11 @@
                 <div class="container-fluid">
                   <div class="row">
                     <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                      <span class="txt-light block counter"><span class="counter-anim">46.41</span>%</span>
-                      <span class="weight-500 uppercase-font txt-light block">bounce rate</span>
+                      <span class="txt-light block counter"><span class="counter-anim">{{$folderCount}}</span></span>
+                      <span class="weight-500 uppercase-font txt-light block">{{trans_choice('common.folder',2) }}</span>
                     </div>
                     <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-                      <i class="zmdi zmdi-redo txt-light data-right-rep-icon"></i>
+                      <i class="icon-folder-alt txt-light data-right-rep-icon"></i>
                     </div>
                   </div>	
                 </div>
@@ -60,8 +60,8 @@
                 <div class="container-fluid">
                   <div class="row">
                     <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                      <span class="txt-light block counter"><span class="counter-anim">4,054,876</span></span>
-                      <span class="weight-500 uppercase-font txt-light block">pageviews</span>
+                      <span class="txt-light block counter"><span class="counter-anim">{{$documentCount}}</span></span>
+                      <span class="weight-500 uppercase-font txt-light block">{{trans_choice('common.document',2)}}</span>
                     </div>
                     <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
                       <i class="zmdi zmdi-file txt-light data-right-rep-icon"></i>
@@ -81,11 +81,11 @@
                 <div class="container-fluid">
                   <div class="row">
                     <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                      <span class="txt-light block counter"><span class="counter-anim">46.43</span>%</span>
-                      <span class="weight-500 uppercase-font txt-light block">growth rate</span>
+                      <span class="txt-light block counter"><span class="counter-anim">{{$organizationCount}}</span></span>
+                      <span class="weight-500 uppercase-font txt-light block">{{trans_choice('common.organization',2)}}</span>
                     </div>
                     <div class="col-xs-6 text-center  pl-0 pr-0 pt-25  data-wrap-right">
-                      <div id="sparkline_4" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+                      <i class="pe-7s-culture txt-light data-right-rep-icon"></i>
                     </div>
                   </div>	
                 </div>

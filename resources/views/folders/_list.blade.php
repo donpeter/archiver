@@ -40,6 +40,9 @@
                 <td tabindex="1">{{$folder->desc}}</td>
               @if($editable)
                 <td tabindex="1">
+                  <a href="{{$folder->ref}}" class="text-inverse pr-5 sa-view" title="view" data-target="tooltip" data-toggle="tooltip" data-original-title="View"   >
+                  <i class="zmdi zmdi-eye txt-success"></i>
+                  </a>
                   <a href="javascript:void(0)" class="text-inverse pr-10" title="edit" data-target="#editModal" data-toggle="modal" data-original-title="Edit" data-ref="{{$folder->ref}}" data-name="{{$folder->name}}" data-desc="{{$folder->desc}}">
                   <i class="zmdi zmdi-edit txt-warning"></i>
                   </a>

@@ -68,15 +68,10 @@ class FolderController extends Controller
      */
     public function show(Folder $folder)
     {
-        foreach ($folder->documents as $document) {
-            $document->parse();
-        }
         $folders = Folder::all();
         $organizations = Organization::all();
         $documents = $folder->documents;
         return view('documents.index', compact('documents','organizations','folders'));
-        
-        return response()->json($folder);
     }
 
     /**

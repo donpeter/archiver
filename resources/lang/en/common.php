@@ -57,7 +57,9 @@ return [
     'filter' => 'Filter',
     'from' => 'From',
     'to' => 'to',
-    'addNew'=> 'Add New'
+    'addNew'=> 'Add New',
+    'logout' => 'Logout',
+    'reset' => 'Reset'
 
 
 ];

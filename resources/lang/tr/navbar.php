@@ -13,6 +13,7 @@ return [
     */
 
     'dashboard' => 'Gösterge Paneli',
+    'reference' => 'Referans',
     'archive' => 'Arşiv|Arşiv',
     'media' => 'Media|Medias',
     'category' => 'Kategori|kategoriler',
@@ -20,7 +21,11 @@ return [
     'user' => 'Kullanıcı|Kullanıcılar',
     'setting' => 'Ayar|Ayarlar',
     'language' => 'Dil|Diller',
-    'file' => 'Dosya|Dosyalar',
+    'folder' => 'Dosya|Dosyalar',
+    'document' => 'Evrakl|Evraklar',
+    'setting' => 'Ayar|Ayarlar',
+    'all' => 'Her'
+
 
 
 ];

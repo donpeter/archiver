@@ -157,7 +157,7 @@
                       @endforeach
                     </select>
                   </div>
-                  <button class="btn btn-success btn-block mb-10" id="resetFilters">{{__('common.reset')}}</button>
+                  <button class="btn btn-info btn-block mb-10" id="resetFilters">{{__('common.reset').' '.__('common.filter')}}</button>
                 </div>
               </div>
           </div>

@@ -41,6 +41,21 @@ class OrganizationController extends Controller
         return response()->json( $organizations);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  Organization  $organization
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Organization $organization)
+    {
+        $folders = Folder::all();
+        $organizations = Organization::all();
+        $documents = $organization->documents;
+        return view('documents.index', compact('documents','organizations','folders'));
+        
+    }
+
 
     /**
      * Show the form for creating a new resource.

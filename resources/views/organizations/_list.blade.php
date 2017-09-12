@@ -62,7 +62,7 @@
               <td tabindex="1">{{$organization->country}}</td>
             @if($editable)
               <td tabindex="1">
-                <a href="javascript:void(0)" class="text-inverse pr-5" data-toggle="tooltip" data-original-title="{{__('common.view')}}">
+                <a href="organization/{{$organization->id}}" class="text-inverse pr-5" data-toggle="tooltip" data-original-title="{{__('common.view')}}">
                 <i class="zmdi zmdi-eye txt-success"></i>
                 </a>
                 @can('update',$organization)

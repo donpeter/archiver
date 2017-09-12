@@ -18,6 +18,15 @@ class Organization extends Model
          'location',
          'email',
     ];
+    /**
+     * Eloquent Model Relation
+     *
+     *@var App\Organization::class
+     */
+    public function  documents()
+    {
+        return $this->hasMany('App\Document');
+    }
 
     
   

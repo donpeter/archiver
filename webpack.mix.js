@@ -66,13 +66,13 @@ mix.scripts([
   'resources/assets/bower/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js',
   'resources/assets/js/custom/functions.js',
   'resources/assets/js/custom/document-create.js',
-  ],'public/js/document.min.js', 'public/js');/*
+  ],'public/js/document.min.js', 'public/js')
   .styles([
     'resources/assets/bower/bootstrap-fileinput/css/fileinput.min.css',
     'resources/assets/bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
     'resources/assets/bower/sweetalert/dist/sweetalert.css',
     'node_modules/lightbox2/dist/css/lightbox.min.css',
-    ],'public/css/document.min.css' );*/
+    ],'public/css/document.min.css' );
 
   //   mix.js([
   //   'resources/assets/js/custom/document.js'
