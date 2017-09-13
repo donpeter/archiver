@@ -197,7 +197,6 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-success text-left ml-10" id="emailDocument">Email</button>
-          <button type="button" class="btn btn-info text-left ml-10" >Edit</button>
           <button type="button" class="btn btn-danger text-left" data-dismiss="modal" >Close</button>
         </div>
       </div>
