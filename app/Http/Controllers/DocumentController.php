@@ -91,7 +91,7 @@ class DocumentController extends Controller
                 $slug = createSlug($imgName).".{$ext}";
                 $s3 = Storage::disk('s3');
 
-                if($s3->put("{$imgName}.{$ext}", file_get_contents($image), 'public')){
+                if($s3->put($slug, file_get_contents($image), 'public')){
                     $images[] =  File::create([
                         'name' => $imgName,
                         'alt' => $imgName,
