@@ -97,7 +97,7 @@ class DocumentController extends Controller
                         'alt' => $imgName,
                         'type' => $image->getMimeType(),
                         'size' => $size,
-                        'slug' => $newSlug,
+                        'slug' => $slug,
                     ]);
                 }
                 
