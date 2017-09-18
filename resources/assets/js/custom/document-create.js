@@ -1,4 +1,6 @@
 $(function(){
+  var IMGPATH = 'https://s3.us-east-2.amazonaws.com/lefkebelediyesi/'
+
     var newDocument = $('#addDocument');
     if (newDocument.length) {
         $("#files").fileinput();
@@ -106,6 +108,7 @@ $(function(){
              } );
          } );
 
+
         /* DOCUMENT SINGLE INSTANCE READ*/
         $(document).on('click','.sa-view',function(e){
             var viewDocumentModal = $('#viewDocumentModal');
@@ -130,8 +133,8 @@ $(function(){
                imgsHtml.push(`
                   <div class="col-md-4 single-img "  >
                     <div class="img-preview">
-                      <a  href="/upload/${img.slug}" data-lightbox="${doc.title }" data-title="${img.name }">
-                        <img  src="/upload/${img.slug}" class="img-thumbnail" alt="${img.alt}" max-height="250">
+                      <a  href="${IMGPATH}${img.slug}" data-lightbox="${doc.title }" data-title="${img.name }">
+                        <img  src="${IMGPATH}${img.slug}" class="img-thumbnail" alt="${img.alt}" max-height="250">
                         <i class="zmdi zmdi-aspect-ratio-alt zmdi-hc-3x mdc-text-light-blue"></i>
                       </a>
                     </div>
@@ -232,7 +235,7 @@ $(function(){
                   <div class="col-md-4 single-img "  >
                     <div class="img-preview">
                       <span data-img=${img.id}>  
-                        <img  src="/upload/${img.slug}" class="img-thumbnail" alt="${img.alt}" max-height="250">
+                        <img  src="${IMGPATH}${img.slug}" class="img-thumbnail" alt="${img.alt}" max-height="250">
                         <i class="zmdi zmdi-delete zmdi-hc-3x mdc-text-red-700"></i>
                       </span>
                     </div>

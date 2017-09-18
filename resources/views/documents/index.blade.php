@@ -71,13 +71,13 @@
                       <th class="sorting" data-name='date' style= 'width: 10%'>
                         {{__('common.date')}}
                       </th>
-                      <th class="sorting">
+                      <th class="sorting" ata-name='user'>
                         {{trans_choice('common.user', 1)}}
                       </th>
                       <th class="sorting" data-name='type'>
                         {{__('common.type')}}
                       </th>
-                      <th class="sorting" style="width: 11%;">
+                      <th class="sorting" ata-name='action' style="width: 11%;">
                         {{__('common.action')}}
                       </th>
                     </tr>
