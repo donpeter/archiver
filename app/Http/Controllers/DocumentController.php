@@ -82,11 +82,27 @@ class DocumentController extends Controller
                 'written_on' => $request->written_on,
                 'signed_on' => $request->signed_on
             ]); 
-        $files = [];
+        $images = [];
         if($request->hasFile('files')){
-            $path= "files/".date('m-y')."/";
-            $nums =0;
-            foreach ($request->file('files') as $file) {
+            foreach ($request->file('files') as $key => $image) {
+                $ext = $image->getClientOriginalExtension();
+                $imgName = $document->title.($key + 1);
+                $size = $image->getSize();
+                $slug = createSlug($imgName).".{$ext}";
+                $s3 = Storage::disk('s3');
+
+                if($s3->put("{$imgName}.{$ext}", file_get_contents($image), 'public')){
+                    $images[] =  File::create([
+                        'name' => $imgName,
+                        'alt' => $imgName,
+                        'type' => $image->getMimeType(),
+                        'size' => $size,
+                        'slug' => $newSlug,
+                    ]);
+                }
+                
+            }
+            /*foreach ($request->file('files') as $file) {
                 $ext = $file->getClientOriginalExtension();
                 $fileName = $file->getClientOriginalName();
                 $newName = $fileName = $document->title;
@@ -113,8 +129,8 @@ class DocumentController extends Controller
                         'size' => $size,
                         'slug' => $newSlug,
                     ]);
-            }
-            $document->files()->attach(array_map("static::fileId", $files));
+            }*/
+            $document->files()->attach(array_map("static::fileId", $images));
         }
         $documents = Document::orderBy('created_at', 'desc')->get();
         if($request->ajax()){

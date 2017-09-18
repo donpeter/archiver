@@ -52,6 +52,7 @@ return [
     'sender' => 'Sender',
     'reciever' => 'Reciever',
     'prepaired' => 'Prepaired',
+    'written' => 'Written',
     'signed' => 'Signed',
     'status' => 'Status',
     'filter' => 'Filter',

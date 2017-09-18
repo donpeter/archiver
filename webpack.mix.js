@@ -66,7 +66,7 @@ mix.scripts([
   'resources/assets/bower/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js',
   'resources/assets/js/custom/functions.js',
   'resources/assets/js/custom/document-create.js',
-  ],'public/js/document.min.js', 'public/js')
+  ],'public/js/document.min.js', 'public/js') /*
   .styles([
     'resources/assets/bower/bootstrap-fileinput/css/fileinput.min.css',
     'resources/assets/bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',

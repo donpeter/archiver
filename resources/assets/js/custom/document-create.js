@@ -74,10 +74,13 @@ $(function(){
 
         // Setup - add a text input to each footer cell
          $('#documents tfoot th').each( function () {
+
              var title = $(this).text().trim().toLowerCase();
+             var id  =$(this).data('name') ? $(this).data('name').trim().toLowerCase() + 's' : '';
+            console.log('ids ', id);
              if(title !== 'Action'){
                var className = 'search-filter';
-               $(this).html( '<input type="text" class="form-control '+className+'return "  placeholder="Search  '+title+'" id="'+title+'s" />' );
+               $(this).html( '<input type="text" class="form-control '+className+'return "  placeholder="Search  '+title+'" id="'+id +'" />' );
              }      
          } );
 
@@ -182,7 +185,7 @@ $(function(){
                     $('button[type="submit"]').removeAttr('disabled');
                   })
                   .catch(function (err) {//Listen For any possible error
-                        console.err('Email Error',err);
+                        console.log('Email Error',err);
                         swal({
                             title: 'Message Not Delivered',
                             type: 'error',
@@ -265,7 +268,7 @@ $(function(){
                     $(imgSpan).hide('slow');
                   })
                   .catch(function(err) {
-                    console.error(err);
+                    console.log(err);
                     swal({
                       title: "Error!",
                       text: "Unable to delete file",
@@ -314,7 +317,7 @@ $(function(){
                      .draw();
                  })
                  .catch(function (err) {
-                    console.error(err);
+                    console.log(err);
                     swal({
                       title: "Error!",
                       text: name +" Archive could not be deleted",
@@ -338,20 +341,23 @@ $(function(){
 
         //Filter base on Document Organization
         dataTableFilters.find('#organization').change( function () {
-            var el = $('tfoot #organizations');
-            searchColumn(el, this.value)
+            $('tfoot #organizations')
+              .val(this.value)
+              .keyup();;
         });
 
         //Filter base on Document Folder
         dataTableFilters.find('#folder').change( function () {
-           var el = $('tfoot #folders');
-            searchColumn(el, this.value)
+            $('tfoot #folders')
+              .val(this.value)
+              .keyup();;
         });
 
         //Filter base on Document Type Incoming or Outgoing
         dataTableFilters.find('#type').change( function () {
-            var el = $('tfoot #types');
-            searchColumn(el, this.value)
+            $('tfoot #types')
+              .val(this.value)
+              .keyup();;
         });
 
         //Reset Fliter
@@ -383,8 +389,3 @@ $(function(){
     }
 
 });
-
-function searchColumn(el, value) {
-    el.val(value);
-    el.keyup();    
-}

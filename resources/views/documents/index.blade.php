@@ -26,12 +26,12 @@
               <div class="table-responsive">
                 <table id="documents" class="table table-hover display mb-30 dataTable no-footer" style="cursor: pointer;" role="grid">
                   <thead>
-                    <tr role="row" style="width: 15%;">
+                    <tr role="row" >
                       <th class="sorting">
                         {{__('common.ref')}}
                       </th>
                       
-                      <th class="sorting" >
+                      <th class="sorting" style="width: 20%;" >
                         {{__('common.title')}}
                       </th>
                       <th class="sorting" >
@@ -40,39 +40,44 @@
                       <th class="sorting">
                        {{ trans_choice('common.folder', 1)}}
                       </th>
-                      <th class="sorting">
+                      <th class="sorting" >
                         {{__('common.date')}}
                       </th>
-                      <th class="sorting" style="width: 8%;">
+                      <th class="sorting">
+                        {{trans_choice('common.user', 1)}}
+                      </th>
+                      <th class="sorting" style="width: 5%;">
                         {{__('common.type')}}
                       </th>
-                      <th class="sorting" style="width: 10%;">
+                      <th class="sorting" style="width: 11%;">
                         {{__('common.action')}}
                       </th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr role="row">
-                      <th class="sorting" style="width: 15%;">
+                      <th class="sorting"  data-name="refernce" style="width: 15%;">
                         {{__('common.ref')}}
                       </th>
-                      <th class="sorting" >
+                      <th class="sorting" data-name='title' >
                         {{__('common.title')}}
                       </th>
-                      <th class="sorting" >
+                      <th class="sorting" data-name='organization'>
                         {{trans_choice('common.organization', 1)}}
                       </th>
-                      <th class="sorting">
+                      <th class="sorting" data-name='folder'>
                        {{ trans_choice('common.folder', 1)}}
                       </th>
-                      <th class="sorting">
+                      <th class="sorting" data-name='date' style= 'width: 10%'>
                         {{__('common.date')}}
                       </th>
-
-                      <th class="sorting" style="width: 8%;">
+                      <th class="sorting">
+                        {{trans_choice('common.user', 1)}}
+                      </th>
+                      <th class="sorting" data-name='type'>
                         {{__('common.type')}}
                       </th>
-                      <th class="sorting" style="width: 10%;">
+                      <th class="sorting" style="width: 11%;">
                         {{__('common.action')}}
                       </th>
                     </tr>
@@ -86,6 +91,7 @@
                       <td tabindex="1">{{$document->organization->name }} </td>
                       <td tabindex="1">{{$document->folder->name}}</td>
                       <td tabindex="1" class="dateTable">{{$document->written_on}}</td>
+                      <td tabindex="1">{{$document->user->name}}</td>
                       <td tabindex="1" class="sorting_1">
                         @if($document->type == 'incomming')
                           <i class="fa fa-paper-plane text-success" title="Incomming" data-target="tooltip" data-toggle="tooltip" data-original-title="Incomming"></i>

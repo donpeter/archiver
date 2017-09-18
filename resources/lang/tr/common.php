@@ -26,7 +26,7 @@ return [
     'admin' => 'Yönetim',
     'staff' => 'Personel',
     'success' => ':action başarılı',
-    'title' => 'Başlık',
+    'title' => 'Konu',
     'email' => 'Email',
     'sort' => 'Sütunu artan olarak sıralamak için etkinleştir',
     'add' => 'Yeni ekle',
