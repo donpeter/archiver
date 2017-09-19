@@ -84,24 +84,6 @@ class DocumentController extends Controller
             ]); 
         $images = [];
         if($request->hasFile('files')){
-            foreach ($request->file('files') as $key => $image) {
-                $ext = $image->getClientOriginalExtension();
-                $imgName = $document->title.($key + 1);
-                $size = $image->getSize();
-                $slug = createSlug($imgName).".{$ext}";
-                $s3 = Storage::disk('s3');
-
-                if($s3->put($slug, file_get_contents($image), 'public')){
-                    $images[] =  File::create([
-                        'name' => $imgName,
-                        'alt' => $imgName,
-                        'type' => $image->getMimeType(),
-                        'size' => $size,
-                        'slug' => $slug,
-                    ]);
-                }
-                
-            }
             /*foreach ($request->file('files') as $file) {
                 $ext = $file->getClientOriginalExtension();
                 $fileName = $file->getClientOriginalName();
@@ -130,6 +112,24 @@ class DocumentController extends Controller
                         'slug' => $newSlug,
                     ]);
             }*/
+            foreach ($request->file('files') as $image) {
+                $ext = $image->getClientOriginalExtension();
+                $date = new DateTime();
+                $imgName = $document->title.'_'.$date->getTimestamp();
+                $size = $image->getSize();
+                $slug = createSlug($imgName).".{$ext}";
+                $s3 = Storage::disk('s3');
+                if($s3->put($slug, file_get_contents($image), 'public')){
+                    $images[] =  File::create([
+                        'name' => $imgName,
+                        'alt' => $imgName,
+                        'type' => $image->getMimeType(),
+                        'size' => $size,
+                        'slug' => $slug,
+                    ]);
+                }
+            }
+
             $document->files()->attach(array_map("static::fileId", $images));
         }
         $documents = Document::orderBy('created_at', 'desc')->get();
@@ -172,9 +172,10 @@ class DocumentController extends Controller
      */
     public function update(DocumentUpddateRequest $request, Document $document)
     {
-        $files = [];
+        $images = [];
         if($request->hasFile('files')){
-            $path= "files/".date('m-y')."/";
+
+            /*$path= "files/".date('m-y')."/";
             $nums =0;
             foreach ($request->file('files') as $file) {
                 $ext = $file->getClientOriginalExtension();
@@ -203,8 +204,25 @@ class DocumentController extends Controller
                         'size' => $size,
                         'slug' => $newSlug,
                     ]);
+            }*/
+            foreach ($request->file('files') as $image) {
+                $ext = $image->getClientOriginalExtension();
+                $date = new DateTime();
+                $imgName = $document->title.'_'.$date->getTimestamp();
+                $size = $image->getSize();
+                $slug = createSlug($imgName).".{$ext}";
+                $s3 = Storage::disk('s3');
+                if($s3->put($slug, file_get_contents($image), 'public')){
+                    $images[] =  File::create([
+                        'name' => $imgName,
+                        'alt' => $imgName,
+                        'type' => $image->getMimeType(),
+                        'size' => $size,
+                        'slug' => $slug,
+                    ]);
+                }
             }
-            $document->files()->attach(array_map("static::fileId", $files));
+            $document->files()->attach(array_map("static::fileId", $images));
         }
         $document->update($request->all());
         flash(__('common.updatedName', ['name' => $document->title]))->success()->important();
@@ -225,10 +243,11 @@ class DocumentController extends Controller
 
         $files=[];
         foreach ($document->files as $file) {
-            $files[] = $file->slug;
+            if(Storage::disk('s3')->exists($file->slug)) {
+                Storage::disk('s3')->delete($file->slug)
+            }
             $file->delete();
         }
-        Storage::delete($files);
         $name = $document->name;
 
         $document->delete();
