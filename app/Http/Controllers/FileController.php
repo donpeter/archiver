@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Organization;
-
+use  Storage;
 use App\File;
 class FileController extends Controller
 {
@@ -87,7 +87,9 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
-        $file->delete();
+        if(Storage::disk('s3')->exists($file->slug)) {
+            Storage::disk('s3')->delete($file->slug);
+        }
         return response()->json(['message' => 'File deleted'], 200);
     }
 }
