@@ -244,7 +244,7 @@ class DocumentController extends Controller
         $files=[];
         foreach ($document->files as $file) {
             if(Storage::disk('s3')->exists($file->slug)) {
-                Storage::disk('s3')->delete($file->slug)
+                Storage::disk('s3')->delete($file->slug);
             }
             $file->delete();
         }
