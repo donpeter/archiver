@@ -61,7 +61,8 @@ class DocumentController extends Controller
     {
         $organizations = Organization::all();
         $folders = Folder::all();
-        return view('documents.create', compact('organizations','folders'));
+        $users = User::all();
+        return view('documents.create', compact('organizations','folders','users'));
     }
 
     /**
@@ -77,7 +78,7 @@ class DocumentController extends Controller
                 'title' => $request->title,
                 'desc' => $request->desc,
                 'type' => $request->type,
-                'user_id' => Auth::id(),
+                'user_id' => ($request->user_id) ? $request->user_id : Auth::id(),
                 'folder_id' => $request->folder_id,
                 'organization_id' => $request->organization_id,
                 'written_on' => $request->written_on,
@@ -120,6 +121,13 @@ class DocumentController extends Controller
                 $size = $image->getSize();
                 $slug = createSlug($imgName).".{$ext}";
                 $s3 = Storage::disk('s3');
+                $images[] =  File::create([
+                        'name' => $imgName,
+                        'alt' => $imgName,
+                        'type' => $image->getMimeType(),
+                        'size' => $size,
+                        'slug' => $slug,
+                    ]);/*
                 if($s3->put($slug, file_get_contents($image), 'public')){
                     $images[] =  File::create([
                         'name' => $imgName,
@@ -128,7 +136,7 @@ class DocumentController extends Controller
                         'size' => $size,
                         'slug' => $slug,
                     ]);
-                }
+                }*/
             }
 
             $document->files()->attach(array_map("static::fileId", $images));

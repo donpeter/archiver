@@ -1,11 +1,11 @@
 @extends('layouts.app')
-@section('title', trans_choice('navbar.organization',1))
+@section('title', trans_choice('navbar.document',1))
 
-@section('pageTitle', trans_choice('navbar.organization',2))
+@section('pageTitle', trans_choice('navbar.document',2))
 
 @section('breadcrumb')
   <li><a href="{{route('home')}}">{{trans_choice('navbar.dashboard',1) }}</a></li>
-  <li><a href="{{route('organization.index')}}"><span>{{trans_choice('navbar.file',2)}}</span></a></li>
+  <li><a href="{{route('document.index')}}"><span>{{trans_choice('navbar.file',2)}}</span></a></li>
   <li class="active"><span>{{__('common.manage').' ' .trans_choice('navbar.file',1)}}</span></li>
 @endsection
 @section('content')
@@ -85,6 +85,18 @@
                   {!!Form::select('type', ['incomming' => 'Incomming', 'outgoing' => 'Outgoing'], 'incomming', ['placeholder' => trans_choice('common.type',1), 'class' => 'form-control'])!!}
                   {!! $errors->first('type', '<span class ="help-block">:message</span> ') !!}
                 </div>
+
+                @if(Auth::user()->role === 'admin')
+                  <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
+                    {!!Form::label('user_id', trans_choice('common.user',1), ['class' => 'control-label mb-10 '])!!}
+                    <select id='user_id' name="user_id" class="form-control" data-style="btn-primary btn-outline" tabindex="-98">
+                      @foreach($users as $user)
+                        <option data-tokens="{{$user->id }}" value="{{$user->id }}" {{(old('user_id') == $user->id ) ? 'selected="selected"': '' }} >{{$user->name }}</option>
+                      @endforeach
+                    </select>
+                    {!! $errors->first('user_id', '<span class ="help-block">:message</span> ') !!}
+                  </div> 
+                @endif
 
                 <div class="form-group{{ $errors->has('folder_id') ? ' has-error' : '' }}">
                   {!!Form::label('folder_id', trans_choice('common.folder',1), ['class' => 'control-label mb-10 '])!!}

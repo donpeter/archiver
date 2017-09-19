@@ -180,21 +180,21 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h6 class="modal-title" id="title">{{trans_choice('common.folder', 2)}}: <span id="docFolder" ></span> </h6>
+          <h3 class="modal-title" id="title">{{trans_choice('common.folder', 2)}}: <span id="docFolder" ></span> </h3>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-8">
-              <h6>{{__('common.ref')}} : <span id="docRef"></span></h6>
-              <h6 class="mb-15">{{__('common.title')}} : <span id="docTitle"></span></h6>
-              <h6>{{trans_choice('common.desc',1)}} </h6>
+              <h5 class="text-success inline mr-10">{{__('common.ref')}}:</h5> <span id="docRef"></span><br />
+              <h5 class="text-success inline mr-10">{{__('common.title')}}:</h5> <span id="docTitle"></span><br />
+              <h5 class="text-success inline mr-10">{{trans_choice('common.desc',1)}} </h5><br />
               <p id="docDesc"></p>
             </div>
             <div class="col-sm-4">
-              <h6 class="inline">{{trans_choice('common.user', 1)}}: </h6><span id="docUser"></span><br> 
-              <h6 class="inline" id="target">{{__('common.to')}}: </h6><span id="docTarget"></span><br>
-              <h6 class="inline">Written Date: </h6><span id="docWritten"></span><br>
-              <h6 class="inline">Approved Date: </h6><span id="docSigned"></span><br>
+              <h5 class="text-success inline mr-10">{{trans_choice('common.user', 1)}}: </h5><span id="docUser"></span><br> 
+              <h5 class="text-success inline mr-10" id="target">{{__('common.to')}}: </h5><span id="docTarget"></span><br>
+              <h5 class="text-success inline mr-10">Written Date: </h5><span id="docWritten"></span><br>
+              <h5 class="text-success inline mr-10">Approved Date: </h5><span id="docSigned"></span><br>
             </div>
           </div>
           <div class="row mt-30" id="docImages" >
