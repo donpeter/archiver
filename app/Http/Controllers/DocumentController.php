@@ -121,13 +121,6 @@ class DocumentController extends Controller
                 $size = $image->getSize();
                 $slug = createSlug($imgName).".{$ext}";
                 $s3 = Storage::disk('s3');
-                $images[] =  File::create([
-                        'name' => $imgName,
-                        'alt' => $imgName,
-                        'type' => $image->getMimeType(),
-                        'size' => $size,
-                        'slug' => $slug,
-                    ]);/*
                 if($s3->put($slug, file_get_contents($image), 'public')){
                     $images[] =  File::create([
                         'name' => $imgName,
@@ -136,7 +129,7 @@ class DocumentController extends Controller
                         'size' => $size,
                         'slug' => $slug,
                     ]);
-                }*/
+                }
             }
 
             $document->files()->attach(array_map("static::fileId", $images));
