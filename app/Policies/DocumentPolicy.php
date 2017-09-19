@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\User;
 use App\Document;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Carbon\Carbon;
 
 class DocumentPolicy
 {
@@ -19,7 +20,13 @@ class DocumentPolicy
      */
     public function update(User $user, Document $document)
     {
-         return $user->id === $document->user_id;
+         if($document->created_at->diffInMinutes(Carbon::now()) > 5 ){
+            return false;
+        }else ($user->isAdmin()) {
+            return true;
+        }else {
+            return $user->id === $document->user_id;
+        }
     }
 
     /**
@@ -31,13 +38,13 @@ class DocumentPolicy
      */
     public function delete(User $user, Document $document)
     {
-       return $user->id === $document->user_id;
-    }
-
-    public function before($user, $ability)
-    {
-        if ($user->isAdmin()) {
+        if($document->created_at->diffInMinutes(Carbon::now()) > 5 ){
+            return false;
+        }else ($user->isAdmin()) {
             return true;
+        }else {
+            return $user->id === $document->user_id;
         }
+
     }
 }
