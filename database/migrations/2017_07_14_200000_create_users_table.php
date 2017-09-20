@@ -25,6 +25,8 @@ class CreateUsersTable extends Migration
             $table->string('role')->default('user');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
+
            // $table->foreign('organization')->references('id')->on('organizations')->onDelete('cascade');
         });
     }

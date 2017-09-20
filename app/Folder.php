@@ -3,9 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Folder extends Model
 {
+
+    use SoftDeletes;   
+
+    protected $dates = ['deleted_at'];
+
     
     /**
      * The attributes that are mass assignable.
@@ -16,14 +23,6 @@ class Folder extends Model
         'name', 'ref', 'desc'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'id',
-    ];
     /**
      * Eloquent Model Relation
      *

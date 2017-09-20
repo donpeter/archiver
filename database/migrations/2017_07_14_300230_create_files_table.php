@@ -22,6 +22,8 @@ class CreateFilesTable extends Migration
             $table->unsignedInteger('size');
             $table->string('slug');
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

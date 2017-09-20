@@ -1,11 +1,4 @@
 $(document).ready(function() {
-    // Setup - add a text input to each footer cell
-    $('#folders tfoot th').each( function () {
-        var title = $(this).text();
-        if(title != 'Action')
-        var className = 'search-filter';
-        $(this).html( '<input type="text" class="form-control '+className+'return "  placeholder="Search  '+title+'" />' );
-    } );
  
     // DataTable 
      table = $('#folders').DataTable({
@@ -13,26 +6,16 @@ $(document).ready(function() {
                     buttons: [
                         'copy', 'csv', 'excel', 'pdf', 'print'
                     ],
-                    pageLength: 10,
+                    pageLength: 6,
                 });
- 
-    // Apply the search
-    table.columns().every( function () {
-        var that = this;
- 
-        $( 'input', this.footer() ).on( 'keyup change', function () {
-            if ( that.search() !== this.value ) {
-                that
-                    .search( this.value )
-                    .draw();
-            }
-        } );
-    } );
+     var folder_id;
   //Edit
   if( $('#editModal').length > 0 ){
     $('#editModal').on('show.bs.modal', function (event) {
       var edit = $(event.relatedTarget) // edit that triggered the modal
+      folder_id = edit.data('id'); // Extract info from data-* attributes
       var ref = edit.data('ref'); // Extract info from data-* attributes
+      console.log('folder_d', edit);
       var name = edit.data('name'); // Extract info from data-* attributes
       var desc = edit.data('desc'); // Extract info from data-* attributes
       // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -45,19 +28,24 @@ $(document).ready(function() {
     })
     .submit(function(eventObj) {
       eventObj.preventDefault(); //prevent form from submitting
+      $('button[type="submit"]').attr('disabled','disabled');
+
       var modal = $('#editModal');
       var ref=  modal.find('.modal-body #ref').val();
       var name = modal.find('.modal-body #name').val();
       var desc =  modal.find('.modal-body #desc').val();
+      var _token =  modal.find('.modal-body input[name=_token]').val();
       var data = {
+                  _token: _token,
                   ref:ref,
                   name: name,
                   desc : desc
                 };
       //Update The folder
-      axios.patch('/folder/'+ref,data)
+      axios.patch('/folder/'+folder_id,data)
             .then(function (res) {
                 console.log(res.data);
+                $('button[type="submit"]').removeAttr('disabled');
                 $('#editModal').modal('hide');
                 swal({
                   title: "Updated!",
@@ -72,6 +60,7 @@ $(document).ready(function() {
                 
               })
               .catch(function (err) {
+                $('button[type="submit"]').removeAttr('disabled');
                swal({
                   title: "Error!",
                   text: "Folder could not be updated",
@@ -87,7 +76,7 @@ $(document).ready(function() {
   //Deleting an  folder
   $('#sa-warning,.sa-warning').on('click',function(e){
     var row = $(this).parents('tr');
-    var ref = $(this).data('ref') // Extract info from data-* attributes
+    var id = $(this).data('id') // Extract info from data-* attributes
     var name = $(this).data('name') // Extract info from data-* attributes
     swal({   
           title: "Are you sure?",   
@@ -99,7 +88,7 @@ $(document).ready(function() {
           closeOnConfirm: true,
           //showLoaderOnConfirm: true,
       }, function(){ 
-          axios.delete('/folder/'+ref)
+          axios.delete('/folder/'+id)
                 .then(function (res) {
                   swal({
                   title: res.data.title,

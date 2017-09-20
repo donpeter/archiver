@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreFolderRequest;
 use App\Folder;
 use App\Organization;
+use App\User;
 
 class FolderController extends Controller
 {
@@ -28,13 +29,31 @@ class FolderController extends Controller
      */
     public function index()
     {
+        $trash = false;
 
         $folders = Folder::all();
         /*foreach ($folders as $key => $value) {
             dd($value->name);
         }*/
         
-        return view('folders.index',compact('folders'));
+        return view('folders.index',compact('folders','trash'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trash()
+    {
+        $trash = true;
+
+        $folders = Folder::onlyTrashed()->orderBy('deleted_at', 'desc')->get();
+        /*foreach ($folders as $key => $value) {
+            dd($value->name);
+        }*/
+        
+        return view('folders.index',compact('folders','trash'));
     }
 
     /**
@@ -56,8 +75,13 @@ class FolderController extends Controller
      */
     public function store(StoreFolderRequest $request)
     {
-        Folder::create($request->all());
-        return redirect()->route('folder.create');
+        $folder = Folder::create($request->all());
+        $name = $request->input('name');
+        if($request->ajax()){
+            return response()->json(['message'=>['title' => __('created').'!', 'desc' => $name.' Created Succesfully'],'folder'=> $folder], 200);
+        }else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -68,10 +92,16 @@ class FolderController extends Controller
      */
     public function show(Folder $folder)
     {
-        $folders = Folder::all();
-        $organizations = Organization::all();
+        $trash = false;
+        $folders = [];
+        $organizations = [];
+        $users = User::all();
         $documents = $folder->documents;
-        return view('documents.index', compact('documents','organizations','folders'));
+        foreach ($documents as $document) {
+            $organizations[] = $document->organization;
+            $folders[] = $document->folder;
+        }
+        return view('documents.index', compact('documents','organizations','folders','users','trash'));
     }
 
     /**
@@ -108,7 +138,18 @@ class FolderController extends Controller
      */
     public function destroy( Folder $folder)
     {
+        $this->authorize('delete', $folder);
+
         $name = $folder->name;
+        /*foreach ($document->files as $file) {//Delete all related Files
+            //Keeps  all Files Only Soft Delete 
+            if(Storage::disk('s3')->exists($file->slug)) {
+                Storage::disk('s3')->delete($file->slug);
+            }
+            $file->delete();
+        }*/
+        $folder->documents()->delete();
+
         $folder->delete();
 
         return response()->json([

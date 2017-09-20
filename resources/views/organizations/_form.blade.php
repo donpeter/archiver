@@ -1,4 +1,4 @@
-{!! Form::open( ['route' => $route, 'id'=>'addOrgranization'])!!}
+{!! Form::open( ['route' => $route, 'id'=>'addOrgranization', 'name' => 'createOrganization'])!!}
   @if($modal)
     {!!Form::hidden('_method', 'patch')!!} 
   @endif

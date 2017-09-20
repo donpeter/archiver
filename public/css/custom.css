@@ -5,6 +5,9 @@ div .alert{
   text-align: center;
   font-weight: bold;
 }
+.fixed-sidebar-left .side-nav > li > ul > li a {
+    color: #ddd;
+}
 
 .img-preview, .img-preview i {
       position: relative;
@@ -33,6 +36,13 @@ div .alert{
 }
 .inline{
 display: inline;
+}
+.add-input{
+  display: inherit;
+  text-align: right;
+}
+.kv-file-upload{
+  display: none;
 }
 #documents{
   font-size: 0.85em;

@@ -20,6 +20,8 @@ class CreateFoldersTable extends Migration
             $table->string('name');
             $table->string('desc')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

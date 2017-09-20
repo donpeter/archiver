@@ -20,9 +20,9 @@ class DocumentPolicy
      */
     public function update(User $user, Document $document)
     {
-         if($document->created_at->diffInMinutes(Carbon::now()) > 5 ){
+        if($document->created_at->diffInMinutes(Carbon::now()) > 5 ){
             return false;
-        }else ($user->isAdmin()) {
+        }else if ($user->isAdmin()) {
             return true;
         }else {
             return $user->id === $document->user_id;
@@ -40,11 +40,35 @@ class DocumentPolicy
     {
         if($document->created_at->diffInMinutes(Carbon::now()) > 5 ){
             return false;
-        }else ($user->isAdmin()) {
+        }else if($user->isAdmin()) {
             return true;
         }else {
             return $user->id === $document->user_id;
         }
 
+    }
+
+
+    /**
+     * Determine whether the user can delete the document.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Document  $document
+     * @return mixed
+     */
+    public function restore(User $user, Document $document)
+    {
+        if ($user->isStaff()) {
+            return true;
+        }else {
+            return $user->id === $document->user_id;
+        }
+    }
+
+    public function before($user, $ability)
+    {
+        if ($user->isAdmin()) {
+            return true;
+        }
     }
 }

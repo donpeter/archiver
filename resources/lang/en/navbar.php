@@ -27,6 +27,7 @@ return [
     'folder' => 'Folder|Folders',
     'all' => 'All',
     'manage' => 'Manage',
+    'trash' => 'Trash'
 
 
 ];

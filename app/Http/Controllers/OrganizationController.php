@@ -83,7 +83,7 @@ class OrganizationController extends Controller
         if($request->ajax()){
             return response()->json(['message'=>['title' => __('created').'!', 'desc' => $name.' Created Succesfully'],'organization'=>$organization], 200);
         }else {
-            return redirect()->route('organization.create');
+            return redirect()->back();
         }
     }
 

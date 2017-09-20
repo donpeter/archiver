@@ -4,8 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Document extends Model
 {
+    use SoftDeletes;   
     /**
      * The attributes that are mass assignable.
      *
@@ -20,7 +23,7 @@ class Document extends Model
      *
      * @var array
      */
-    protected $dates = ['written_on', 'signed_on'];
+    protected $dates = ['written_on', 'signed_on', 'deleted_at'];
 
 
 
@@ -91,7 +94,6 @@ class Document extends Model
     {
         return $this->belongsTo('App\User');
     }
-
 
     public function parse()
     {

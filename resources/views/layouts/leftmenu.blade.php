@@ -21,13 +21,18 @@
       </a>
       <ul id="ecom_dr" class="collapse collapse-level-1">
         <li>
+          <a href="{{route('document.create')}}" class="{{activePage('document/create') ? 'active-page' :''}}">
+            {{__('common.add').' '.trans_choice('navbar.document', 1) }}
+          </a>
+        </li>
+        <li>
           <a href="{{route('document.index')}}" class="{{activePage('document') ? 'active-page' :''}}">
             {{__('navbar.all').' '.trans_choice('navbar.document', 2) }}
           </a>
         </li>
         <li>
-          <a href="{{route('document.create')}}" class="{{activePage('document/create') ? 'active-page' :''}}">
-            {{__('common.add').' '.trans_choice('navbar.document', 1) }}
+          <a href="{{route('document.trash')}}" class="{{activePage('documents/trash') ? 'active-page' :''}}">
+            {{__('common.view').' '.trans_choice('navbar.trash', 1) }}
           </a>
         </li>
       </ul>

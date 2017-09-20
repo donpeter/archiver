@@ -71,7 +71,7 @@
                       <th class="sorting" data-name='date' style= 'width: 10%'>
                         {{__('common.date')}}
                       </th>
-                      <th class="sorting" ata-name='user'>
+                      <th class="sorting" data-name='user'>
                         {{trans_choice('common.user', 1)}}
                       </th>
                       <th class="sorting" data-name='type'>
@@ -89,7 +89,13 @@
                       
                       <td tabindex="1">{{$document->title}}</td>
                       <td tabindex="1">{{$document->organization->name }} </td>
-                      <td tabindex="1">{{$document->folder->name}}</td>
+                      <td tabindex="1">
+                        @if(isset($document->folder->name))
+                          {{$document->folder->name}}
+                        @else
+                          <del> Deleted</del>
+                        @endif
+                      </td>
                       <td tabindex="1" class="dateTable">{{$document->written_on}}</td>
                       <td tabindex="1">{{$document->user->name}}</td>
                       <td tabindex="1" class="sorting_1">
@@ -100,22 +106,33 @@
                         @endif
                         <span class="sr-only">{{$document->type}}</span>
                       </td>
-                      <td tabindex="1">
-                        <a href="javascript:void(0)" class="text-inverse pr-5 sa-view" title="view" data-target="tooltip" data-toggle="tooltip" data-original-title="View"   >
-                        <i class="zmdi zmdi-eye txt-success"></i>
-                        </a>
-                        @can('update',$document)
-                        <a href="javascript:void(0)" class="text-inverse pr-5 sa-edit" title="edit" data-target="tooltip" data-toggle="tooltip" data-original-title="Edit" >
-                        <i class="zmdi zmdi-edit txt-warning"></i>
-                        </a>
-                        @endcan
+                        <td tabindex="1">
+                          <a href="javascript:void(0)" class="text-inverse pr-5 sa-view"  data-target="tooltip" data-toggle="tooltip" data-original-title="{{__('common.view')}}"   >
+                          <i class="zmdi zmdi-eye txt-success"></i>
+                          </a>
+                          @if(!$trash)                         
+                            @can('update',$document)
+                            <a href="javascript:void(0)" class="text-inverse pr-5 sa-edit" data-target="tooltip" data-toggle="tooltip" data-original-title="{{__('common.edit')}}" >
+                            <i class="zmdi zmdi-edit txt-warning"></i>
+                            </a>
+                            @endcan
 
-                        @can('delete',$document)
-                        <a href="javascript:void(0)"  class="text-inverse sa-warning" data-toggle="tooltip"  data-original-title="Delete">
-                        <i class="zmdi zmdi-delete txt-danger"></i>
-                        </a>
-                        @endcan
-                      </td>
+                            @can('delete',$document)
+                            <a href="javascript:void(0)"  class="text-inverse sa-delete" data-toggle="tooltip"  data-original-title="{{__('common.delete')}}">
+                            <i class="zmdi zmdi-delete txt-danger"></i>
+                            </a>
+                            @endcan
+
+                          @else
+
+                            @can('restore',$document)
+                            <a href="javascript:void(0)"  class="text-inverse sa-restore" data-toggle="tooltip"  data-original-title="{{__('common.restore')}}">
+                            <i class="zmdi zmdi-undo text-warning zmdi-hc-lg"></i>
+                            </a>
+                            @endcan
+                          @endif
+                        </td>
+                      
                     </tr>
                     @endforeach
                   </tbody>
@@ -143,12 +160,20 @@
                   
                   <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
                     {!!Form::label('type', trans_choice('common.type',1), ['class' => 'control-label mb-10 '])!!}
-                    {!!Form::select('type', ['incomming' => 'Incomming', 'outgoing' => 'Outgoing'], 'incomming', ['placeholder' => trans_choice('common.type',1), 'class' => 'form-control'])!!}
+                    {!!Form::select('type', ['incomming' => __('common.incomming'), 'outgoing' => __('common.outgoing')], 'incomming', ['placeholder' => trans_choice('common.type',1), 'class' => 'form-control'])!!}
                     {!! $errors->first('type', '<span class ="help-block">:message</span> ') !!}
                   </div>
 
                   <div class="form-group">
-                    {!!Form::label('user', trans_choice('common.folder',1), ['class' => 'control-label mb-10 '])!!}
+                    {!!Form::label('user', trans_choice('common.user',1), ['class' => 'control-label mb-10 '])!!}
+                    <select id='user' name="user" class="form-control" data-style="btn-primary btn-outline" tabindex="-98">
+                      @foreach($users as $user)
+                        <option data-tokens="{{$user->name }}" value="{{$user->name }}" >{{$user->name }}</option>
+                      @endforeach
+                    </select>
+                  </div> 
+                  <div class="form-group">
+                    {!!Form::label('folder', trans_choice('common.folder',1), ['class' => 'control-label mb-10 '])!!}
                     <select id='folder' name="folder" class="form-control" data-style="btn-primary btn-outline" tabindex="-98">
                       @foreach($folders as $folder)
                         <option data-tokens="{{$folder->name }}" value="{{$folder->name }}" >{{$folder->name }}</option>

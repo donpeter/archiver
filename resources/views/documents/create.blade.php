@@ -105,6 +105,9 @@
                       <option data-tokens="{{$folder->id }}" value="{{$folder->id }}" {{(old('folder_id') == $folder->id ) ? 'selected="selected"': '' }} >{{$folder->name }}</option>
                     @endforeach
                   </select>
+                  <a href="" class="add-input text-info" data-target="#addFolderModal" data-toggle="modal" >
+                    {{__('common.add')}} {{trans_choice('common.folder',1)}}
+                  </a>
                   {!! $errors->first('folder_id', '<span class ="help-block">:message</span> ') !!}
                 </div> 
 
@@ -115,6 +118,10 @@
                       <option data-tokens="{{$organization->id }}" value="{{$organization->id }}" {{(old('organization_id') == $organization->id ) ? 'selected="selected"': '' }} >{{$organization->name }}</option>
                     @endforeach
                   </select>
+                  <a href="" class="add-input text-info" data-target="#addOrganizationModal" data-toggle="modal" >
+                    {{__('common.add')}} {{trans_choice('common.organization',1)}}
+                  </a>
+
                   {!! $errors->first('organization_id', '<span class ="help-block">:message</span> ') !!}
                 </div>  
 
@@ -141,9 +148,63 @@
     
   </div>
   <!-- /Row -->
+
+   {{--  Add Organization Modal--}}
+  <div class="modal fade" id="addOrganizationModal" tabindex="-1" role="dialog" aria-labelledby="Add new Organization">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h5 class="modal-title" >{{__('common.add')}} {{trans_choice('common.organization',1)}}</h5>
+        </div>
+        <div class="modal-body">
+          @include('organizations._form',['modal'=>true,'route' =>['organization.store']])
+           
+        </div>
+
+      </div>
+    </div>
+  </div>
+  {{-- /Add Organizaion Modal --}}
+
+  {{-- Add Folder Modal --}}
+  <div class="modal fade" id="addFolderModal" tabindex="-1" role="dialog" aria-labelledby="Add New Folder">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h5 class="modal-title">{{__('common.add')}} {{trans_choice('common.folder',1)}}</h5>
+        </div>
+        <div class="modal-body">
+          {!! Form::open( ['route' => null,'id'=>'addFolder','method'=>'patch'])!!}
+            <div class="form-group{{ $errors->has('ref') ? ' has-error' : '' }}">
+              {!!Form::label('ref', __('common.ref'), ['class' => 'control-label mb-10 '])!!}
+              {!!Form::text('ref',null, ['class'=>'form-control', 'placeholder'=> __('common.ref').' ( 00-01 )', 'required'=>'required'] )!!}
+              {!! $errors->first('ref', '<span class ="help-block">:message</span> ') !!}
+            </div>
+            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+              {!!Form::label('name', trans_choice('common.name',1), ['class' => 'control-label mb-10 '])!!}
+              {!!Form::text('name',null, ['class'=>'form-control', 'placeholder'=> trans_choice('common.name',1), 'required'=>'required'] )!!}
+              {!! $errors->first('name', '<span class ="help-block">:message</span> ') !!}
+            </div> 
+            <div class="form-group{{ $errors->has('desc') ? ' has-error' : '' }}">
+              {!!Form::label('desc', trans_choice('common.desc',1), ['class' => 'control-label mb-10 '])!!}
+              {!!Form::textarea('desc',null, ['class'=>'form-control', 'placeholder'=> trans_choice('common.desc',1), 'rows'=> '4'] )!!}
+              {!! $errors->first('desc', '<span class ="help-block">:message</span> ') !!}
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            {!!Form::submit(__('common.save'), ['class'=>'btn btn-primary'])!!}
+        </div>
+        {!! Form::close()!!}
+
+      </div>
+    </div>
+  </div> 
+  {{-- /Add Folder Modal --}}
   
 @endsection
-
 
 @push('vendorStyles')
     <link href="{{asset('css/datatable.min.css')}}" rel="stylesheet" type="text/css">

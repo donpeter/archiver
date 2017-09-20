@@ -41,14 +41,22 @@ class DocumentController extends Controller
      */
     public function index(Request $request)
     {
-        $folders = Folder::all();
-        $organizations = Organization::all();
+        $trash = false;
+        $folders = [];
+        $organizations = [];
         $users = User::all();
         $documents = Document::orderBy('created_at', 'desc')->get();
+        //dd($folders);
         foreach ($documents as $document) {
-            $document->parse();
+            $organizations[] = $document->organization;
+            $folders[] = $document->folder;
         }
-        return view('documents.index', compact('documents','organizations','folders','users'));
+        $folders = array_unique($folders);
+        $organizations = array_unique($organizations);
+        //dd($organizations);
+        //dd($documents);
+
+        return view('documents.index', compact('documents','organizations','folders','users', 'trash'));
     }
 
 
@@ -59,9 +67,9 @@ class DocumentController extends Controller
      */
     public function create()
     {
-        $organizations = Organization::all();
-        $folders = Folder::all();
-        $users = User::all();
+        $organizations = Organization::orderBy('name', 'asc')->get();
+        $folders = Folder::orderBy('name', 'asc')->get();
+        $users = User::orderBy('name', 'asc')->get();
         return view('documents.create', compact('organizations','folders','users'));
     }
 
@@ -239,18 +247,16 @@ class DocumentController extends Controller
      */
     public function destroy(Document $document)
     {
-        //return response($document->files);
-        //Delete all related Files
         $this->authorize('delete', $document);
 
-        $files=[];
-        foreach ($document->files as $file) {
+        /*foreach ($document->files as $file) {//Delete all related Files
+            //Keeps  all Files Only Soft Delete 
             if(Storage::disk('s3')->exists($file->slug)) {
                 Storage::disk('s3')->delete($file->slug);
             }
             $file->delete();
-        }
-        $name = $document->name;
+        }*/
+        $name = $document->title;
 
         $document->delete();
 
@@ -259,6 +265,34 @@ class DocumentController extends Controller
             'title' => __('common.deleted')
             ],200);        
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trash(Request $request)
+    {
+        $trash = true;
+        $folders = Folder::withTrashed()->orderBy('name', 'asc')->get();
+        $organizations = Organization::withTrashed()->orderBy('name', 'asc')->get();
+        $users = User::all();
+        $documents = Document::onlyTrashed()->orderBy('deleted_at', 'desc')->get();
+        // foreach ($documents as $document) {
+        //     $organizations[] = $document->organization;
+        //     $folders[] = $document->folder;
+        // }
+        // $folders = array_unique($folders);
+        // $organizations = array_unique($organizations);
+        //dd($organizations);
+        //dd($documents);
+
+        return view('documents.index', compact('documents','organizations','folders','users', 'trash'));
+    }
+
+    
+    
+
 
     private static function fileId($file)
     {

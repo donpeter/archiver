@@ -26,10 +26,10 @@ class RouteServiceProvider extends ServiceProvider
     {
         //
 
-        parent::boot();
+        parent::boot();/*
         Route::bind('folder', function($ref){
             return Folder::where('ref',$ref)->first();
-        });
+        });*/
     }
 
     /**

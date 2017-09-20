@@ -36,7 +36,7 @@ return [
     'createdName' => ':Name Successfully Created',
     'updatedName' => ':Name Updated Successfully',
     'date' => 'Date',
-    'view' => 'view',
+    'view' => 'View',
     'delete'=>'Delete',
     'deleted' => 'Deleteted',
     'updated' => 'Updated',
@@ -60,7 +60,10 @@ return [
     'to' => 'to',
     'addNew'=> 'Add New',
     'logout' => 'Logout',
-    'reset' => 'Reset'
+    'reset' => 'Reset',
+    'restore'=> 'Restore',
+    'restored'=> 'Restored',
+    'trash' => 'Trash'
 
 
 ];

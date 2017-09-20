@@ -3,7 +3,18 @@ $(function(){
 
     var newDocument = $('#addDocument');
     if (newDocument.length) {
-        $("#files").fileinput();
+        $("#files").fileinput({
+          allowedFileExtensions: ["jpg", "jpeg", "gif", "png"],
+          browseClass: "btn btn-success",
+          browseLabel: "Pick Image",
+          browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+          removeClass: "btn btn-danger",
+          removeLabel: "Delete",
+          removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+          uploadClass: "btn btn-info hide",
+
+          uploadUrl: '/',
+        });
 
         /*Prevent Multiple Form Submission*/
         newDocument.submit(function( event ) {
@@ -79,8 +90,7 @@ $(function(){
 
              var title = $(this).text().trim().toLowerCase();
              var id  =$(this).data('name') ? $(this).data('name').trim().toLowerCase() + 's' : '';
-            console.log('ids ', id);
-             if(title !== 'Action'){
+             if(title !== 'action'){
                var className = 'search-filter';
                $(this).html( '<input type="text" class="form-control '+className+'return "  placeholder="Search  '+title+'" id="'+id +'" />' );
              }      
@@ -290,7 +300,7 @@ $(function(){
         });
 
         /* CRUD (DELETE) */
-        $(document).on('click','.sa-warning',function(e){
+        $(document).on('click','.sa-delete',function(e){
           var row = $(this).parents('tr');
           datas = table.row(row).data();
           var id = row.data('id');
@@ -298,7 +308,7 @@ $(function(){
           var title = datas[1]// $(this).data('title') // Extract info from data-* attributes
           swal({   
                title: "Are you sure?",   
-               text: "You will not be able to recover "+title+"!",   
+               text: "You are about to delete  "+title+"!",   
                type: "warning",   
                showCancelButton: true,   
                confirmButtonColor: "red",   
@@ -323,7 +333,7 @@ $(function(){
                     console.log(err);
                     swal({
                       title: "Error!",
-                      text: name +" Archive could not be deleted",
+                      text: name +" could not be DELETED",
                       timer: 4500,
                       type: 'error',
                       showConfirmButton: true
@@ -336,6 +346,53 @@ $(function(){
         });
         /* END CRUD (DELETE) */
 
+        /* CRUD (RESTORE) */
+        $(document).on('click','.sa-restore',function(e){
+          var row = $(this).parents('tr');
+          datas = table.row(row).data();
+          var id = row.data('id');
+          var ref = datas[0] //$(this).data('ref') // Extract info from data-* attributes
+          var title = datas[1]// $(this).data('title') // Extract info from data-* attributes
+          swal({   
+               title: "Are you sure?",   
+               text: "Do you want to restore"+title+"!",   
+               type: "info",   
+               showCancelButton: true,   
+               confirmButtonColor: "#05AF4B",   
+               confirmButtonText: "Yes, restore it!",   
+               closeOnConfirm: true,
+               //showLoaderOnConfirm: true,
+           }, function(){ 
+               axios.get('/trash/document/'+id+'/restore')
+                 .then(function (res) {
+                   swal({
+                     title: res.data.title,
+                     type: 'success',
+                     text: res.data.message,
+                     timer: 4500,
+                     showConfirmButton: true
+                   }); 
+                   table.row( row )
+                     .remove()
+                     .draw();
+                 })
+                 .catch(function (err) {
+                    console.log(err);
+                    swal({
+                      title: "Error!",
+                      text: name +" Documet could not be restored",
+                      timer: 4500,
+                      type: 'error',
+                      showConfirmButton: true
+                    }); 
+                    setTimeout(window.location.reload(), 4500);
+                 }); 
+           });
+
+          return false;
+        });
+        /* END CRUD (RESTORE) */
+
 
         /*Fliter Datatable*/
 
@@ -345,6 +402,13 @@ $(function(){
         //Filter base on Document Organization
         dataTableFilters.find('#organization').change( function () {
             $('tfoot #organizations')
+              .val(this.value)
+              .keyup();;
+        });
+
+        //Filter base on Document Owner
+        dataTableFilters.find('#user').change( function () {
+            $('tfoot #users')
               .val(this.value)
               .keyup();;
         });
@@ -389,6 +453,153 @@ $(function(){
         //         .search( this.value )
         //         .draw();
         // });
+    }else{
+      /* CRUD (Add Organization) */
+      $('#addOrgranization').submit(function(event) {
+        //Prevent the Form from submitting
+        event.preventDefault();
+        var form = $(this);
+        removeFormErrors(form);
+        $('input[type="submit"]').attr('disabled','disabled');
+        //Fetching the Form datas
+        var organization = {
+
+          _token: form.find('input[name=_token]').val(),
+          name: form.find('input[name=name]').val(),
+          email: form.find('input[name=email]').val(),
+          location: form.find('input[name=location]').val(),
+          country: form.find('input[name=country]').val()
+        };
+
+        //Submitting the form data using axios
+        
+       $.ajax({
+           type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+           url         : '/organization', // the url where we want to POST
+           data        : organization, // our data object
+           
+       })
+       .done(function(response) {
+        addOption('organization_id', response.organization.name, response.organization.id);
+        form[0].reset(); //Reset the form
+        $('#addOrganizationModal').modal('hide');
+         swal({
+              title:response.message.title.toUpperCase(),
+              text: response.message.desc,
+              timer: 1500,
+              showConfirmButton: true
+            });   
+
+       })
+       // here we will handle errors and validation messages
+       .fail(function(err){
+          console.log(err);
+          if(err.status ===422){
+            var errors = err.responseJSON;
+            $.map(errors ,function(error, value){
+              addErrorClass('#addOrgranization',value,error);
+            }) 
+          }else{
+            setTimeout(window.location.reload(), 4500)
+          }
+
+        })
+       //Reset all form input and reenable submit
+       .always(function() {
+           $('input[type="submit"]').removeAttr('disabled');
+         });
+       
+      });
+      
+      /* END CRUD (Add Organization) */
+
+      /* CRUD (Add Folder) */
+      $('#addFolder').submit(function(event) {
+        //Prevent the Form from submitting
+        event.preventDefault();
+        var form = $(this);
+        removeFormErrors(form);
+        $('input[type="submit"]').attr('disabled','disabled');
+        //Fetching the Form datas
+        var folder = {
+
+          _token: form.find('input[name=_token]').val(),
+          name: form.find('input[name=name]').val(),
+          ref: form.find('input[name=ref]').val(),
+          desc: form.find('input[name=desc]').val(),
+        };
+
+        //Submitting the form data using axios
+        
+       $.ajax({
+           type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+           url         : '/folder', // the url where we want to POST
+           data        : folder, // our data object
+           
+       })
+       .done(function(response) {
+        console.log(response);
+        addOption('folder_id', response.folder.name, response.folder.id);
+        form[0].reset(); //Reset the form
+        $('#addFolderModal').modal('hide');   
+         swal({
+              title:response.message.title.toUpperCase(),
+              text: response.message.desc,
+              timer: 1500,
+              showConfirmButton: true
+            });
+       })
+       // here we will handle errors and validation messages
+       .fail(function(err){
+          console.log(err);
+          if(err.status ===422){
+            var errors = err.responseJSON;
+            $.map(errors ,function(error, value){
+              addErrorClass('#addFolder',value,error);
+            }) 
+          }else{
+            setTimeout(window.location.reload(), 4500)
+          }
+
+        })
+       //Reset all form input and reenable submit
+       .always(function() {
+           $('input[type="submit"]').removeAttr('disabled');
+         });
+       
+      });
+      
+      /* END CRUD (Add Folder) */
     }
 
 });
+
+
+function addErrorClass(ref,inputId, error=''){
+  var parent = $(ref +' #'+inputId).parent( ".form-group" );
+  parent.addClass('has-error');
+  parent.append('<span class ="help-block">'+ error+'</span>');
+
+}
+//Remove Any Existig Error 
+function removeFormErrors(form){
+  form.find('.form-group').removeClass('has-error');
+  form.find('.help-block').remove();
+}
+/* END HELPER FUNTIONS*/
+
+function addOption(id, name, value) {
+  var select = document.getElementById(id);
+  if (select) {
+    var options = select.options;
+    var option = new Option(name, value);
+
+    try{
+      select.add(option, options[0]);
+    }catch (err){
+      select.add(option,0);
+    }
+    select.options[0].selected=true;
+  }
+ 
+}

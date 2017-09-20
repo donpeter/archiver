@@ -27,6 +27,8 @@ Route::get('/locale/{locale}', 'LanguageController@setLocale')->name('setLocale'
 |
 */
 Route::resource('folder', 'FolderController');
+Route::get('folders/trash', 'FolderController@trash')->name('folder.trash');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +65,7 @@ Route::resource('file', 'FileController');
 Route::resource('document', 'DocumentController', ['except' => [
      'edit'
 ]]);
+Route::get('documents/trash', 'DocumentController@trash')->name('document.trash');
 Route::get('documents', 'DocumentController@getApi');
 Route::post('document/{document}/email', 'DocumentController@email');
 
@@ -81,5 +84,15 @@ Route::get('user/auth', 'UserController@getAuthUser');
 Route::get('users', 'UserController@getAllApi');
 Route::get('logout', 'UserController@logout');
 Route::get('user/{id}/documents', 'UserController@index');
+
+/*
+|--------------------------------------------------------------------------
+| Trash Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for the User 
+|
+*/
+Route::get('trash/document/{id}/restore', 'TrashController@restoreDocument');
 
 

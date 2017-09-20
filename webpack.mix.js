@@ -30,13 +30,13 @@ mix.scripts([
   ],'public/js/editabletable.js', 'public/js');*/
 
 
-/*mix.scripts([
+mix.scripts([
   'resources/assets/js/custom/datatable/datatable.min.js',
   'resources/assets/js/custom/datatable/datatable.js',
   'resources/assets/bower/axios/dist/axios.min.js',
   'resources/assets/bower/sweetalert/dist/sweetalert.min.js',
   'resources/assets/js/custom/folder.js',
-  ],'public/js/folder.min.js', 'public/js');*/
+  ],'public/js/folder.min.js', 'public/js');
 
 // mix.scripts([
 // 'resources/assets/bower/jquery/dist/jquery.min.js',
@@ -56,23 +56,23 @@ mix.scripts([
 
 
 
-mix.scripts([
-  'resources/assets/bower/axios/dist/axios.min.js',
-  'resources/assets/bower/bootstrap-fileinput/js/fileinput.min.js',
-  'resources/assets/js/custom/datatable/datatable.min.js',
-  'resources/assets/bower/sweetalert/dist/sweetalert.min.js',
-  //'resources/assets/bower/moment/min/moment-with-locales.min.js'
-  'node_modules/lightbox2/dist/js/lightbox.min.js',
-  'resources/assets/bower/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js',
-  'resources/assets/js/custom/functions.js',
-  'resources/assets/js/custom/document-create.js',
-  ],'public/js/document.min.js', 'public/js') /*
-  .styles([
-    'resources/assets/bower/bootstrap-fileinput/css/fileinput.min.css',
-    'resources/assets/bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
-    'resources/assets/bower/sweetalert/dist/sweetalert.css',
-    'node_modules/lightbox2/dist/css/lightbox.min.css',
-    ],'public/css/document.min.css' );
+  /*mix.babel([
+    'resources/assets/bower/axios/dist/axios.min.js',
+    'resources/assets/bower/bootstrap-fileinput/js/fileinput.min.js',
+    'resources/assets/js/custom/datatable/datatable.min.js',
+    'resources/assets/bower/sweetalert/dist/sweetalert.min.js',
+    //'resources/assets/bower/moment/min/moment-with-locales.min.js'
+    'node_modules/lightbox2/dist/js/lightbox.min.js',
+    'resources/assets/bower/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js',
+    'resources/assets/js/custom/functions.js',
+    'resources/assets/js/custom/document-create.js',
+    ],'public/js/document.min.js', 'public/js') 
+    .styles([
+      'resources/assets/bower/bootstrap-fileinput/css/fileinput.min.css',
+      'resources/assets/bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+      'resources/assets/bower/sweetalert/dist/sweetalert.css',
+      'node_modules/lightbox2/dist/css/lightbox.min.css',
+      ],'public/css/document.min.css' );*/
 
   //   mix.js([
   //   'resources/assets/js/custom/document.js'
