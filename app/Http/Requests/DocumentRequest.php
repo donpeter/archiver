@@ -24,7 +24,7 @@ class DocumentRequest extends FormRequest
     public function rules()
     {
         return [
-            'ref' => 'required|max:255|min:3',
+            'ref' => 'required|max:255|min:3|unique:documents',
             'title' => 'required|max:255|min:5',
             'desc' => 'nullable|min:5',
             'files' => 'required',

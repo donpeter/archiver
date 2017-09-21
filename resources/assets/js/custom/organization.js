@@ -187,23 +187,22 @@ $(function(){
 
   /* CRUD (DELETE) */
 
-  $(document).on('click','#sa-warning,.sa-warning',function(e){
+  $(document).on('click','.sa-delete',function(e){
     var row = $(this).parents('tr');
     var id = $(this).data('id') // Extract info from data-* attributes
     var name = $(this).data('name') // Extract info from data-* attributes
     swal({   
           title: "Are you sure?",   
-          text: "You will not be able to recover "+name+"!",   
+          text: "Do you really want to trash "+name+"!",   
           type: "warning",   
           showCancelButton: true,   
           confirmButtonColor: "red",   
-          confirmButtonText: "Yes, delete it!",   
+          confirmButtonText: "Yes, trash it!",   
           closeOnConfirm: true,
           //showLoaderOnConfirm: true,
       }, function(){ 
           axios.delete('/organization/'+id)
             .then(function (res) {
-              console.log(res);
               swal({
                 title: res.data.title,
                 type: 'success',
@@ -214,12 +213,11 @@ $(function(){
               table.row( row )
                 .remove()
                 .draw();
-              console.log(res.data.message );
             })
             .catch(function (err) {
                swal({
                  title: "Error!",
-                 text: name +" Archive Could Not Be Deleted",
+                 text: name +" Could Not Be Trashed",
                  timer: 4500,
                  type: 'error',
                  showConfirmButton: true
@@ -233,6 +231,53 @@ $(function(){
   });
 
   /* END CRUD (DELETE) */
+
+  /* CRUD (RESTORE) */
+
+  $(document).on('click','.sa-restore',function(e){
+    e.preventDefault;
+    var row = $(this).parents('tr');
+    var id = $(this).data('id') // Extract info from data-* attributes
+    var name = $(this).data('name') // Extract info from data-* attributes
+    swal({   
+          title: "Are you sure?",   
+          text: "You're about to  recover "+name+"!",   
+          type: "info",   
+          showCancelButton: true,   
+          confirmButtonColor: "#05AF4B",   
+          confirmButtonText: "Yes, restore it!",   
+          closeOnConfirm: true,
+          //showLoaderOnConfirm: true,
+      }, function(){ 
+          $.get('/trash/organization/'+id+'/restore')
+            .done(function (res) {
+              swal({
+                title: res.title,
+                type: 'success',
+                text: res.message,
+                timer: 1800,
+                showConfirmButton: true
+              }); 
+              table.row( row )
+                .remove()
+                .draw();
+            })
+            .fail(function (err) {
+               swal({
+                 title: "Error!",
+                 text: name +" Could Not Be Restored",
+                 timer: 1800,
+                 type: 'error',
+                 showConfirmButton: true
+               }); 
+            });
+          
+      });
+
+  return false;
+  });
+
+  /* END CRUD (RESTORE) */
 
 
   /*HELPER FUNTIONS*/

@@ -41,6 +41,8 @@ Route::get('folders/trash', 'FolderController@trash')->name('folder.trash');
 Route::resource('organization', 'OrganizationController', ['except' => [
      'edit'
 ]]);
+Route::get('organizations/trash', 'OrganizationController@trash')->name('organization.trash');
+
 Route::get('organizations', 'OrganizationController@getAllApi');
 
 
@@ -93,6 +95,9 @@ Route::get('user/{id}/documents', 'UserController@index');
 | Here is where you can register web routes for the User 
 |
 */
-Route::get('trash/document/{id}/restore', 'TrashController@restoreDocument');
+Route::get('trash/document/{id}/restore', 'TrashController@restoreDocument')->name('document.restore');
+Route::get('trash/file/{id}/restore', 'TrashController@restoreFile')->name('file.restore');
+Route::get('trash/folder/{id}/restore', 'TrashController@restoreFolder')->name('folder.restore');
+Route::get('trash/organization/{id}/restore', 'TrashController@restoreOrganization')->name('organization.restore');
 
 

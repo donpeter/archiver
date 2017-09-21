@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 use Auth;
 use Mail;
 use DateTime;
@@ -42,17 +44,17 @@ class DocumentController extends Controller
     public function index(Request $request)
     {
         $trash = false;
-        $folders = [];
-        $organizations = [];
+        $folders = Folder::all();
+        $organizations = Organization::all();
         $users = User::all();
         $documents = Document::orderBy('created_at', 'desc')->get();
         //dd($folders);
-        foreach ($documents as $document) {
+        /*foreach ($documents as $document) {
             $organizations[] = $document->organization;
             $folders[] = $document->folder;
         }
         $folders = array_unique($folders);
-        $organizations = array_unique($organizations);
+        $organizations = array_unique($organizations);*/
         //dd($organizations);
         //dd($documents);
 
@@ -141,6 +143,8 @@ class DocumentController extends Controller
             }
 
             $document->files()->attach(array_map("static::fileId", $images));
+            $user = Auth::user();
+            Log::info("Document({$document->id}): {$document->title} Created by {$user->username}");
         }
         $documents = Document::orderBy('created_at', 'desc')->get();
         if($request->ajax()){
@@ -157,10 +161,16 @@ class DocumentController extends Controller
      * @param  \App\Document  $document
      * @return \Illuminate\Http\Response
      */
-    public function show(Document $document)
+    public function show(Document $document, Request $request)
     {
-        $document->parse();
-        return response()->json(['data'=>$document],200);
+        if($request->ajax()){
+            $document->parse();
+
+            return response()->json(['data'=>$document],200);
+        }else {
+            flash(__('common.error').': Docucment was not be updated')->success()->important();
+            return redirect()->back();
+        }
     }
 
     /**
@@ -183,6 +193,7 @@ class DocumentController extends Controller
     public function update(DocumentUpddateRequest $request, Document $document)
     {
         $images = [];
+
         if($request->hasFile('files')){
 
             /*$path= "files/".date('m-y')."/";
@@ -235,6 +246,8 @@ class DocumentController extends Controller
             $document->files()->attach(array_map("static::fileId", $images));
         }
         $document->update($request->all());
+        $user = Auth::user();
+        Log::info("Document({$document->id}): {$document->title} Updated by {$user->username}");
         flash(__('common.updatedName', ['name' => $document->title]))->success()->important();
         return redirect()->route('document.index');
     }
@@ -245,7 +258,7 @@ class DocumentController extends Controller
      * @param  \App\Document  $document
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Document $document)
+    public function destroy(Document $document, Request $request)
     {
         $this->authorize('delete', $document);
 
@@ -256,12 +269,15 @@ class DocumentController extends Controller
             }
             $file->delete();
         }*/
-        $name = $document->title;
-
-        $document->delete();
+        $title = $document->title;
+        $id = $document->id;
+        if($document->delete()){
+            $user = Auth::user();
+            Log::info("Document({$id}): {$title} Restored by {$user->username}");
+        }
 
         return response()->json([
-            'message'=> $name.' '.__('common.deleted'),
+            'message'=> $title.' '.__('common.deleted'),
             'title' => __('common.deleted')
             ],200);        
     }

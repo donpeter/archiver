@@ -40,24 +40,24 @@
                 <td tabindex="1">{{$folder->desc}}</td>
               @if($editable)
                 <td tabindex="1">
-                  <a href="{{$folder->ref}}" class="text-inverse pr-5 sa-view" title="view" data-target="tooltip" data-toggle="tooltip" data-original-title="View"   >
-                  <i class="zmdi zmdi-eye txt-success"></i>
-                  </a>
                   @if(!$trash)
+                    <a href="{{ route('folder.show', ['folder' => $folder->id], false)}}" class="text-inverse pr-5 sa-view" title="view" data-target="tooltip" data-toggle="tooltip" data-original-title="View"   >
+                    <i class="zmdi zmdi-eye txt-success"></i>
+                    </a>
                     @can('update',$folder)
-                      <a href="" class="text-inverse pr-10" title="edit" data-id="{{$folder->id}}" data-target="#editModal" data-toggle="modal" data-original-title="Edit" data-ref="{{$folder->ref}}" data-name="{{$folder->name}}" data-desc="{{$folder->desc}}">
+                      <a href="JavaScript:Void(0)" class="text-inverse pr-10" title="edit" data-id="{{$folder->id}}" data-target="#editModal" data-toggle="modal" data-original-title="Edit" data-ref="{{$folder->ref}}" data-name="{{$folder->name}}" data-desc="{{$folder->desc}}">
                       <i class="zmdi zmdi-edit txt-warning"></i>
                       </a>
                     @endcan
 
                     @can('delete',$folder)
-                      <a href="" class="text-inverse sa-warning" title="" data-id="{{$folder->id}}" data-ref="{{$folder->ref}}" data-name="{{$folder->name}}" data-toggle="tooltip" data-original-title="Delete">
+                      <a href="JavaScript:Void(0)" class="text-inverse sa-delete" title="" data-id="{{$folder->id}}" data-ref="{{$folder->ref}}" data-name="{{$folder->name}}" data-toggle="tooltip" data-original-title="Delete">
                       <i class="zmdi zmdi-delete txt-danger"></i>
                       </a>
                     @endcan
                   @else
                     @can('restore',$folder)
-                      <a href=""  class="text-inverse sa-restore" data-toggle="tooltip"  data-original-title="{{__('common.restore')}}">
+                      <a href="{{ route('folder.restore', ['id' => $folder->id], false)}}"   data-id="{{$folder->id}}" class="text-inverse sa-restore" data-toggle="tooltip"  data-original-title="{{__('common.restore')}}">
                         <i class="zmdi zmdi-undo text-warning zmdi-hc-lg"></i>
                       </a>
                     @endcan

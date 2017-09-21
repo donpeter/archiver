@@ -74,16 +74,17 @@ $(document).ready(function() {
   }
 
   //Deleting an  folder
-  $('#sa-warning,.sa-warning').on('click',function(e){
+  $('.sa-delete').on('click',function(e){
+    e.preventDefault;
     var row = $(this).parents('tr');
     var id = $(this).data('id') // Extract info from data-* attributes
     var name = $(this).data('name') // Extract info from data-* attributes
     swal({   
           title: "Are you sure?",   
-          text: "You will not be able to recover "+name+"!",   
+          text: "You are about to delete "+name+"!",   
           type: "warning",   
           showCancelButton: true,   
-          confirmButtonColor: "#fec107",   
+          confirmButtonColor: "#ff004a",   
           confirmButtonText: "Yes, delete it!",   
           closeOnConfirm: true,
           //showLoaderOnConfirm: true,
@@ -93,6 +94,7 @@ $(document).ready(function() {
                   swal({
                   title: res.data.title,
                   text: res.data.message,
+                  type: 'success',
                   timer: 4500,
                   showConfirmButton: true
                 }); 
@@ -116,4 +118,53 @@ $(document).ready(function() {
 
   return false;
   });
+
+  /* /Delete*/
+
+  /* RESTORE*/
+  $('.sa-restore').on('click',function(e){
+    e.preventDefault;
+    var row = $(this).parents('tr');
+    var id = $(this).data('id') // Extract info from data-* attributes
+    var name = $(this).data('name') // Extract info from data-* attributes
+    swal({   
+          title: "Are you sure?",   
+          text: "You're about to recover "+name+"!",   
+          type: "info",   
+          showCancelButton: true,   
+          confirmButtonColor: "#05AF4B",   
+          confirmButtonText: "Yes, restore it!",   
+          closeOnConfirm: true,
+          //showLoaderOnConfirm: true,
+      }, function(){ 
+          $.get('/trash/folder/'+id+'/restore')
+            .done(function (res) {
+              console.log('res', res);
+              swal({
+              title: res.title,
+              text: res.message,
+              type: 'success',
+              timer: 1500,
+              showConfirmButton: true
+            }); 
+              table.row( row )
+                .remove()
+                .draw();
+            })
+            .fail(function (err) {
+               swal({
+                 title: "Error!",
+                 text: name +" Folder could not be restored",
+                 timer: 1500,
+                 type: 'error',
+                 showConfirmButton: true
+               }); 
+               console.log(err);
+            });
+          
+      });
+
+  return false;
+  });
+
 });

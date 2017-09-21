@@ -363,29 +363,29 @@ $(function(){
                closeOnConfirm: true,
                //showLoaderOnConfirm: true,
            }, function(){ 
-               axios.get('/trash/document/'+id+'/restore')
-                 .then(function (res) {
+               $.get('/trash/document/'+id+'/restore')
+                 .done(function (res) {
+                  console.log('res', res);
                    swal({
-                     title: res.data.title,
+                     title: res.title,
                      type: 'success',
-                     text: res.data.message,
-                     timer: 4500,
+                     text: res.message,
+                     timer: 1500,
                      showConfirmButton: true
                    }); 
                    table.row( row )
                      .remove()
                      .draw();
                  })
-                 .catch(function (err) {
+                 .fail(function (err) {
                     console.log(err);
                     swal({
                       title: "Error!",
                       text: name +" Documet could not be restored",
-                      timer: 4500,
+                      timer: 1500,
                       type: 'error',
                       showConfirmButton: true
                     }); 
-                    setTimeout(window.location.reload(), 4500);
                  }); 
            });
 

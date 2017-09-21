@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
+use Auth;
+
+use App\Http\Requests\OrganizationRequest;
 use App\Organization;
 use App\Folder;
-use Illuminate\Http\Request;
-use App\Http\Requests\OrganizationRequest;
-
 
 class OrganizationController extends Controller
 {
@@ -31,9 +33,22 @@ class OrganizationController extends Controller
     {
         $folders = Folder::all();
         $organizations = Organization::all();
-        return view('organizations.index', compact('folders','organizations')); 
+        $trash = false;
+        return view('organizations.index', compact('folders','organizations','trash')); 
     }
     
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trash(Request $request)
+    {
+        $organizations = Organization::onlyTrashed()->orderBy('deleted_at', 'desc')->get();;
+        $trash = true;
+        return view('organizations.index', compact('organizations','trash')); 
+    }
+
     public function getAllApi()
     {
         $organizations = Organization::all();
@@ -80,6 +95,8 @@ class OrganizationController extends Controller
          $organization = [Organization::create($request->all())];
          $organization = $this->parser($organization)[0];
         $name = $request->input('name');
+        $user = Auth::user();
+        Log::info("Organization({$organization->id}): {$organization->name} Craeted by {$user->username}");
         if($request->ajax()){
             return response()->json(['message'=>['title' => __('created').'!', 'desc' => $name.' Created Succesfully'],'organization'=>$organization], 200);
         }else {
@@ -98,6 +115,10 @@ class OrganizationController extends Controller
     {
         $this->authorize('update', $organization);
         $organization->update($request->all());
+
+        $user = Auth::user();
+        Log::info("Organization({$organization->id}): {$organization->name} Updated by {$user->username}");
+        
         $updatedOrg = [Organization::where('id', $organization->id)->first()];
         $updatedOrg = $this->parser($updatedOrg)[0];
         if($request->ajax()){
@@ -123,7 +144,14 @@ class OrganizationController extends Controller
         $this->authorize('delete', $organization);
 
         $name = $organization->name;
-        $organization->delete();
+        $id = $organization->id;
+        $organization->documents()->delete();
+        if($organization->delete()){
+            $user = Auth::user();
+            Log::info("Organization({$id}): {$name} Deleted by {$user->username}");
+        }
+
+
 
         return response()->json([
             'message'=> $name.' '.__('common.deleted'),

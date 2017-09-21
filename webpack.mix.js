@@ -30,13 +30,14 @@ mix.scripts([
   ],'public/js/editabletable.js', 'public/js');*/
 
 
-mix.scripts([
+/*mix.scripts([
   'resources/assets/js/custom/datatable/datatable.min.js',
   'resources/assets/js/custom/datatable/datatable.js',
   'resources/assets/bower/axios/dist/axios.min.js',
   'resources/assets/bower/sweetalert/dist/sweetalert.min.js',
   'resources/assets/js/custom/folder.js',
   ],'public/js/folder.min.js', 'public/js');
+*/
 
 // mix.scripts([
 // 'resources/assets/bower/jquery/dist/jquery.min.js',
@@ -45,14 +46,14 @@ mix.scripts([
 
 // ],'public/js/bundle.min.js', 'public/js');
 
-/*mix.scripts([
+mix.scripts([
   'resources/assets/bower/sweetalert/dist/sweetalert.min.js',
   'resources/assets/bower/axios/dist/axios.min.js',
   'resources/assets/js/custom/datatable/datatable.min.js',
   'resources/assets/js/custom/functions.js',
   'resources/assets/js/custom/organization.js',
 
-  ],'public/js/organization.min.js', 'public/js');*/
+  ],'public/js/organization.min.js', 'public/js');
 
 
 

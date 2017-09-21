@@ -87,9 +87,10 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
-        if(Storage::disk('s3')->exists($file->slug)) {
+        /*if(Storage::disk('s3')->exists($file->slug)) {
             Storage::disk('s3')->delete($file->slug);
-        }
+        }*/
+        $file->delete();
         return response()->json(['message' => 'File deleted'], 200);
     }
 }

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
+use Auth;
+
 use App\Http\Requests\StoreFolderRequest;
 use App\Folder;
 use App\Organization;
@@ -76,6 +80,8 @@ class FolderController extends Controller
     public function store(StoreFolderRequest $request)
     {
         $folder = Folder::create($request->all());
+        $user = Auth::user();
+        Log::info("Folder({$folder->id}): {$folder->name} Craeted by {$user->username}");
         $name = $request->input('name');
         if($request->ajax()){
             return response()->json(['message'=>['title' => __('created').'!', 'desc' => $name.' Created Succesfully'],'folder'=> $folder], 200);
@@ -127,6 +133,8 @@ class FolderController extends Controller
     public function update(Request $request, Folder $folder)
     {
         $folder->update(['ref' => $folder->ref,'desc'=>$request->desc, 'name' => $request->name]);
+        $user = Auth::user();
+        Log::info("Folder({$folder->id}): {$folder->name} Updated by {$user->username}");
         return $folder;
      }
 
@@ -141,6 +149,7 @@ class FolderController extends Controller
         $this->authorize('delete', $folder);
 
         $name = $folder->name;
+        $id = $folder->id;
         /*foreach ($document->files as $file) {//Delete all related Files
             //Keeps  all Files Only Soft Delete 
             if(Storage::disk('s3')->exists($file->slug)) {
@@ -150,7 +159,10 @@ class FolderController extends Controller
         }*/
         $folder->documents()->delete();
 
-        $folder->delete();
+        if($folder->delete()){
+            $user = Auth::user();
+            Log::info("Folder({$id}): {$name} Deleted by {$user->username}");
+        }
 
         return response()->json([
             'message'=> $name.' '.__('common.deleted'),

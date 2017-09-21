@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'pgsql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return [
             'engine' => null,
         ],
         
-        'pgsql' => [
+       /* 'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', 'localhost'),
             'database' => env('DB_DATABASE', 'forge'),
@@ -64,8 +64,8 @@ return [
             'prefix' => '',
             'schema' => 'public',
             'sslmode' => 'require',
-        ],
-/*
+        ],*/
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host'     => parse_url(getenv("DATABASE_URL"))["host"],
@@ -76,7 +76,7 @@ return [
             'prefix' => '',
             'schema' => 'public',
             'sslmode' => 'require',
-        ],*/
+        ],
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',

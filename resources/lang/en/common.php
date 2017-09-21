@@ -63,7 +63,10 @@ return [
     'reset' => 'Reset',
     'restore'=> 'Restore',
     'restored'=> 'Restored',
-    'trash' => 'Trash'
+    'trash' => 'Trash',
+    'error' => 'Error',
+    'incomming' => 'Incomming',
+    'outgoing' => 'Outgoing'
 
 
 ];

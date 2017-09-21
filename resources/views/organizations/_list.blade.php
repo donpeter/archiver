@@ -62,6 +62,7 @@
               <td tabindex="1">{{$organization->country}}</td>
             @if($editable)
               <td tabindex="1">
+              @if(!$trash)
                 <a href="organization/{{$organization->id}}" class="text-inverse pr-5" data-toggle="tooltip" data-original-title="{{__('common.view')}}">
                 <i class="zmdi zmdi-eye txt-success"></i>
                 </a>
@@ -77,11 +78,17 @@
                 @endcan
 
                 @can('delete', $organization)
-                <a href="javascript:void(0)" class="text-inverse sa-warning" data-id="{{$organization->id}}"
+                <a href="javascript:void(0)" class="text-inverse sa-delete" data-id="{{$organization->id}}"
                 data-name="{{$organization->name}}" data-toggle="tooltip" data-original-title="{{__('common.delete')}}">
                 <i class="zmdi zmdi-delete txt-danger"></i>
                 </a>
                 @endcan
+
+              @else
+                <a href="{{ route('organization.restore', ['id' => $organization->id], false)}}"   data-id="{{$organization->id}}" class="text-inverse sa-restore" data-toggle="tooltip"  data-original-title="{{__('common.restore')}}">
+                  <i class="zmdi zmdi-undo text-warning zmdi-hc-lg"></i>
+                </a>
+              @endif
               </td>
             @endif
             </tr>

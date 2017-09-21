@@ -88,7 +88,13 @@
                       <td tabindex="1" class="sorting_1">{{$document->ref}}</td>
                       
                       <td tabindex="1">{{$document->title}}</td>
-                      <td tabindex="1">{{$document->organization->name }} </td>
+                      <td tabindex="1">
+                        @if(isset($document->organization->name ))
+                          {{$document->organization->name }}
+                        @else
+                          <del> Deleted</del>
+                        @endif
+                      </td>
                       <td tabindex="1">
                         @if(isset($document->folder->name))
                           {{$document->folder->name}}
