@@ -103,7 +103,13 @@
                         @endif
                       </td>
                       <td tabindex="1" class="dateTable">{{$document->written_on}}</td>
-                      <td tabindex="1">{{$document->user->name}}</td>
+                      <td tabindex="1">
+                        @if(isset($document->user->name))
+                          {{$document->user->name}}
+                        @else
+                          <del> Deleted</del>
+                        @endif
+                      </td>
                       <td tabindex="1" class="sorting_1">
                         @if($document->type == 'incomming')
                           <i class="fa fa-paper-plane text-success" title="Incomming" data-target="tooltip" data-toggle="tooltip" data-original-title="Incomming"></i>
