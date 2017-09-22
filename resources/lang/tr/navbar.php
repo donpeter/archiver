@@ -26,6 +26,7 @@ return [
     'setting' => 'Ayar|Ayarlar',
     'all' => 'Her',
     'trash' => 'Çöp Kutusu',
+    'manage' => 'Tüm'
 
 
 

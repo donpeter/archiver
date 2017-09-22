@@ -46,7 +46,7 @@ return [
     'location' => 'Konum',
     'country' =>'Memleket',
     'type' => 'Tür',
-    'manage' => 'Yönetmek',
+    'manage' => 'Tüm',
     'sender' => 'Gönderici',
     'reciever' => 'Alıcı',
     'prepaired' => 'Evrak Tarihi',
@@ -67,7 +67,9 @@ return [
     'verify' => 'Doğrula',
     'profile' => 'Profil',
     'summary' => 'Özet',
-    'myDocument' => 'Benim Evrak'
+    'myDocument' => 'Benim Evrak',
+    'all' => 'Hep',
+    'upload' => 'Yükleme'
 
 
 ];

@@ -5,8 +5,8 @@
 
 @section('breadcrumb')
   <li><a href="{{route('home')}}">{{trans_choice('navbar.dashboard',1) }}</a></li>
-  <li><a href="{{route('document.index')}}"><span>{{trans_choice('navbar.file',2)}}</span></a></li>
-  <li class="active"><span>{{__('common.manage').' ' .trans_choice('navbar.file',1)}}</span></li>
+  <li><a href="{{route('document.index')}}"><span>{{trans_choice('navbar.document',2)}}</span></a></li>
+  <li class="active"><span>{{__('common.upload').' ' .trans_choice('navbar.document',1)}}</span></li>
 @endsection
 @section('content')
   <!-- Row -->
@@ -77,12 +77,12 @@
         <div class="panel-wrapper collapse in">
           <div class="panel-body">
             <div class="col-sm-12 col-xs-12">
-              <button class="btn btn-success btn-block mb-10" type="submit">{{__('upload').' '.trans_choice('common.file',2)}}</button>
+              <button class="btn btn-success btn-block mb-10" type="submit">{{__('common.upload').' '.trans_choice('common.document',2)}}</button>
               <div class="form-wrap">
                 
                 <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
                   {!!Form::label('type', trans_choice('common.type',1), ['class' => 'control-label mb-10 '])!!}
-                  {!!Form::select('type', ['incomming' => 'Incomming', 'outgoing' => 'Outgoing'], 'incomming', ['placeholder' => trans_choice('common.type',1), 'class' => 'form-control'])!!}
+                  {!!Form::select('type', ['incomming' => __('common.incomming'), 'outgoing' => __('common.outgoing')], 'incomming', ['placeholder' => trans_choice('common.type',1), 'class' => 'form-control'])!!}
                   {!! $errors->first('type', '<span class ="help-block">:message</span> ') !!}
                 </div>
 

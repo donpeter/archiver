@@ -70,7 +70,8 @@ return [
     'verify' => 'Verify',
     'profile' => 'Profile',
     'summary' => 'Summary',
-    'myDocument' => 'My Documents'
+    'myDocument' => 'My Documents',
+    'all' => 'All'
 
 
 ];
