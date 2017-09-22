@@ -13,8 +13,8 @@
                 <div class="row">
                   <div class="col-sm-12 col-xs-12">
                     <div class="mb-30">
-                      <h3 class="text-center txt-dark mb-10">Sign in to Lefke Belediyesi Archive</h3>
-                      <h6 class="text-center nonecase-font txt-grey">Enter your details below</h6>
+                      <h3 class="text-center txt-dark mb-10">Lefke Belediyesi Archive</h3>
+                      <h6 class="text-center nonecase-font txt-grey">Sign in: Enter your details below</h6>
                     </div>  
                     <div class="form-wrap">
                     @if ($errors->any())

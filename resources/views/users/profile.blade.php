@@ -84,7 +84,7 @@
             <h5 class="text-success inline mr-10 ">{{__('common.role')}}:</h5> <span>
              {{Auth::user()->role }}</span><br /><br />
 
-             <a class="btn btn-info text-right" href="{{route('user.documents',['user' => Auth::user()->id ])}}">View Documents</a>
+             <a class="btn btn-info text-right" href="{{route('user.documents',['user' => Auth::user()->id ])}}">{{__('common.myDocument')}}/a>
           </div>
         </div>
       </div>  

@@ -69,7 +69,8 @@ return [
     'outgoing' => 'Outgoing',
     'verify' => 'Verify',
     'profile' => 'Profile',
-    'summary' => 'Summary'
+    'summary' => 'Summary',
+    'myDocument' => 'My Documents'
 
 
 ];

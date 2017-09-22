@@ -13,7 +13,7 @@ return [
     */
 
     'dashboard' => 'Gösterge Paneli',
-    'reference' => 'Referans',
+    'reference' => 'Sayi',
     'archive' => 'Arşiv|Arşiv',
     'media' => 'Media|Medias',
     'category' => 'Kategori|kategoriler',
@@ -22,9 +22,10 @@ return [
     'setting' => 'Ayar|Ayarlar',
     'language' => 'Dil|Diller',
     'folder' => 'Dosya|Dosyalar',
-    'document' => 'Evrakl|Evraklar',
+    'document' => 'Evrak|Evraklar',
     'setting' => 'Ayar|Ayarlar',
-    'all' => 'Her'
+    'all' => 'Her',
+    'trash' => 'Çöp Kutusu',
 
 
 

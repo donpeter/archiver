@@ -195,10 +195,10 @@
                     </select>
                   </div>
 
-                  <div class="form-group">
+                  {{-- <div class="form-group">
                     {!!Form::label('date', trans_choice('common.written',1), ['class' => 'control-label mb-10 '])!!}
                     {!!Form::text('date',null, ['class'=>'form-control datetimepicker', 'placeholder'=> trans_choice('common.date',1)] )!!}
-                  </div>
+                  </div> --}}
                   <button class="btn btn-info btn-block mb-10" id="resetFilters">{{__('common.reset').' '.__('common.filter')}}</button>
                 </div>
               </div>

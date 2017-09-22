@@ -32,7 +32,7 @@
         </li>
         <li>
           <a href="{{route('document.trash')}}" class="{{activePage('documents/trash') ? 'active-page' :''}}">
-            {{__('common.view').' '.trans_choice('navbar.trash', 1) }}
+            {{trans_choice('navbar.trash', 1) }}
           </a>
         </li>
       </ul>
@@ -47,7 +47,7 @@
         </li>
         <li>
           <a href="{{route('organization.trash')}}" class="{{activePage('organizations/trash') ? 'active-page' :''}}">
-            {{__('navbar.trash').' '.trans_choice('navbar.organization', 2) }}
+            {{__('navbar.trash')}}
           </a>
         </li>
         
@@ -80,7 +80,7 @@
         </li>
         <li>
           <a href="{{route('folder.trash')}}" class="{{activePage('folders/trash') ? 'active-page' :''}}">
-            {{__('navbar.trash').' '.trans_choice('navbar.folder', 2) }}
+            {{__('navbar.trash') }}
           </a>
         </li>
         
