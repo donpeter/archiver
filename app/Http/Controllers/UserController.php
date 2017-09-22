@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 use Auth;
 
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+
 use App\User;
+use App\Folder;
+use App\Organization;
 
 class UserController extends Controller
 {
@@ -27,10 +31,25 @@ class UserController extends Controller
      */
     public function index()
     {
+        if(!Auth::user()->isStaff()){
+            return redirect()->route('user.edit', ['user' => Auth::user()->id]);
+        }
         $users = User::all();
         //dd($users);
 
         return view('users.index', compact('users'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function profile()
+    {
+        
+        return view('users.profile');
     }
 
     /**
@@ -59,11 +78,15 @@ class UserController extends Controller
      * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->role = $request->role;
+        $this->authorize('update', $user);
+        $user->name = ($request->name) ? $request->name :  $user->name;
+        if(Auth::user()->isAdmin()){
+            $user->role = ($request->role) ? $request->role :  $user->role;
+        }
+        $user->password = ($request->password) ? bcrypt($request->password) :  $user->password;
+        
         $user->save();
         if($request->ajax()){
             $updated = __('common.updated');
@@ -72,8 +95,26 @@ class UserController extends Controller
                 'message'=>['title' => $updated.'!', 'desc' => $user->name.' '.__('common.success',['action'=>$updated])],
                 'data'=>$user], 200);
         }else {
+            if($user->id === Auth::user()->id && isset($request->password) ){
+                Auth::logout();
+            }
             return redirect()->back();
         }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function documents(User $user)
+    {
+        $folders = Folder::all();
+        $trash = false;
+        $users = User::all();
+        $organizations = Organization::all();
+        $documents = $user->documents;
+        return view('documents.index', compact('documents','organizations','folders','users','trash'));
     }
 
     /**

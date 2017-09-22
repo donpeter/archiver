@@ -10,90 +10,98 @@
 @section('content')
     <!-- Row -->
     <div class="row mt-0">
-      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-        <div class="panel panel-default card-view pa-0">
-          <div class="panel-wrapper collapse in">
-            <div class="panel-body pa-0">
-              <div class="sm-data-box bg-red">
-                <div class="container-fluid">
-                  <div class="row">
-                    <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                      <span class="txt-light block counter"><span class="counter-anim">{{$userCount}}</span></span>
-                      <span class="weight-500 uppercase-font txt-light block font-13">{{trans_choice('common.user', 2)}}</span>
-                    </div>
-                    <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-                      <i class="zmdi zmdi-male-female txt-light data-right-rep-icon"></i>
-                    </div>
-                  </div>	
+      <a href="{{route('user.index')}}">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+          <div class="panel panel-default card-view pa-0">
+            <div class="panel-wrapper collapse in">
+              <div class="panel-body pa-0">
+                <div class="sm-data-box bg-red">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+                        <span class="txt-light block counter"><span class="counter-anim">{{$userCount}}</span></span>
+                        <span class="weight-500 uppercase-font txt-light block font-13">{{trans_choice('common.user', 2)}}</span>
+                      </div>
+                      <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+                        <i class="zmdi zmdi-male-female txt-light data-right-rep-icon"></i>
+                      </div>
+                    </div>	
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-        <div class="panel panel-default card-view pa-0">
-          <div class="panel-wrapper collapse in">
-            <div class="panel-body pa-0">
-              <div class="sm-data-box bg-yellow">
-                <div class="container-fluid">
-                  <div class="row">
-                    <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                      <span class="txt-light block counter"><span class="counter-anim">{{$folderCount}}</span></span>
-                      <span class="weight-500 uppercase-font txt-light block">{{trans_choice('common.folder',2) }}</span>
-                    </div>
-                    <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-                      <i class="icon-folder-alt txt-light data-right-rep-icon"></i>
-                    </div>
-                  </div>	
+      </a>
+      <a href="{{route('folder.index')}}">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+          <div class="panel panel-default card-view pa-0">
+            <div class="panel-wrapper collapse in">
+              <div class="panel-body pa-0">
+                <div class="sm-data-box bg-yellow">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+                        <span class="txt-light block counter"><span class="counter-anim">{{$folderCount}}</span></span>
+                        <span class="weight-500 uppercase-font txt-light block">{{trans_choice('common.folder',2) }}</span>
+                      </div>
+                      <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+                        <i class="icon-folder-alt txt-light data-right-rep-icon"></i>
+                      </div>
+                    </div>	
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-        <div class="panel panel-default card-view pa-0">
-          <div class="panel-wrapper collapse in">
-            <div class="panel-body pa-0">
-              <div class="sm-data-box bg-green">
-                <div class="container-fluid">
-                  <div class="row">
-                    <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                      <span class="txt-light block counter"><span class="counter-anim">{{$documentCount}}</span></span>
-                      <span class="weight-500 uppercase-font txt-light block">{{trans_choice('common.document',2)}}</span>
-                    </div>
-                    <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-                      <i class="zmdi zmdi-file txt-light data-right-rep-icon"></i>
-                    </div>
-                  </div>	
+      </a>
+      <a href="{{route('document.index')}}">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+          <div class="panel panel-default card-view pa-0">
+            <div class="panel-wrapper collapse in">
+              <div class="panel-body pa-0">
+                <div class="sm-data-box bg-green">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+                        <span class="txt-light block counter"><span class="counter-anim">{{$documentCount}}</span></span>
+                        <span class="weight-500 uppercase-font txt-light block">{{trans_choice('common.document',2)}}</span>
+                      </div>
+                      <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+                        <i class="zmdi zmdi-file txt-light data-right-rep-icon"></i>
+                      </div>
+                    </div>	
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-        <div class="panel panel-default card-view pa-0">
-          <div class="panel-wrapper collapse in">
-            <div class="panel-body pa-0">
-              <div class="sm-data-box bg-blue">
-                <div class="container-fluid">
-                  <div class="row">
-                    <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                      <span class="txt-light block counter"><span class="counter-anim">{{$organizationCount}}</span></span>
-                      <span class="weight-500 uppercase-font txt-light block">{{trans_choice('common.organization',2)}}</span>
-                    </div>
-                    <div class="col-xs-6 text-center  pl-0 pr-0 pt-25  data-wrap-right">
-                      <i class="pe-7s-culture txt-light data-right-rep-icon"></i>
-                    </div>
-                  </div>	
+      </a>
+      <a href="{{route('organization.index')}}">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+          <div class="panel panel-default card-view pa-0">
+            <div class="panel-wrapper collapse in">
+              <div class="panel-body pa-0">
+                <div class="sm-data-box bg-blue">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+                        <span class="txt-light block counter"><span class="counter-anim">{{$organizationCount}}</span></span>
+                        <span class="weight-500 uppercase-font txt-light block">{{trans_choice('common.organization',2)}}</span>
+                      </div>
+                      <div class="col-xs-6 text-center  pl-0 pr-0 pt-25  data-wrap-right">
+                        <i class="pe-7s-culture txt-light data-right-rep-icon"></i>
+                      </div>
+                    </div>	
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </a>
     </div>
 
     <!-- Row -->

@@ -11,7 +11,7 @@
           <div class="row">
             <div class="col-sm-12 col-xs-12">
               <div class="mb-30">
-                <h3 class="text-center txt-dark mb-10">Sign up to Belediyesi Archiver</h3>
+                <h3 class="text-center txt-dark mb-10">Sign up Lefke Belediyesi Archiver</h3>
                 <h6 class="text-center nonecase-font txt-grey">Enter your details below</h6>
                 <div class="alert alert-danger">
                   <span class="glyphicon glyphicon-info-sign"></span>

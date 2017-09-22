@@ -20,7 +20,12 @@ class FilePolicy
      */
     public function delete(User $user, File $file)
     {
-       return $user->id === $file->user_id;
+       return $user->isStaff();
+    }
+
+    public function restore(User $user, File $file)
+    {
+        return $user->isStaff();
     }
 
     public function before($user, $ability)
@@ -29,4 +34,6 @@ class FilePolicy
             return true;
         }
     }
+
+
 }

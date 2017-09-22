@@ -34,7 +34,8 @@ class CreateUserRequest extends FormRequest
             'email' => 'required|email|unique:users|max:255|min:5',
             'username' => 'required|string|unique:users|max:255|min:3',
             'password' => 'required|string|unique:users|max:255|min:6',
-            'role' => 'required|string|max:5|min:4',
+            'password_confirmation' => 'required|string|min:6|same:password',
+            'role' => 'required|string|max:6|min:4',
 
         ];
     }

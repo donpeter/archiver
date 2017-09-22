@@ -43,4 +43,16 @@ class User extends Authenticatable
     {
         return $this->role === 'admin' || $this->role === 'staff';
     }
+
+
+    /**
+     * Eloquent Model Relation
+     *
+     *@var App\Organization::class
+     */
+    public function  documents()
+    {
+        return $this->hasMany('App\Document');
+    }
+
 }

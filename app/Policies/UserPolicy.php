@@ -3,12 +3,21 @@
 namespace App\Policies;
 
 use App\User;
-use App\Organization;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class OrganizationPolicy
+class UserPolicy
 {
     use HandlesAuthorization;
+
+    /**
+     * Create a new policy instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
 
     /**
      * Determine whether the user can update the organization.
@@ -17,19 +26,18 @@ class OrganizationPolicy
      * @param  \App\Organization  $organization
      * @return mixed
      */
-    public function update(User $user, Organization $organization)
+    public function update(User $user, User $model)
     {
-        return $user->isStaff();
+        return $user->id === $model->id;
     }
 
     /**
      * Determine whether the user can delete the organization.
      *
      * @param  \App\User  $user
-     * @param  \App\Organization  $organization
      * @return mixed
      */
-    public function delete(User $user, Organization $organization)
+    public function delete(User $user)
     {
        return $user->isAdmin();
     }
@@ -38,18 +46,12 @@ class OrganizationPolicy
      * Determine whether the user can delete the folder.
      *
      * @param  \App\User  $user
-     * @param  \App\Organization $organization
      * @return Boolean
      */
-    public function restore(User $user, Organization $organization)
+    public function restore(User $user)
     {
-        if ($user->isStaff()) {
-            return true;
-        }else {
-            return $user->id === $folder->user_id;
-        }
+        $user->isStaff();
     }
-
     public function before($user, $ability)
     {
         if ($user->isAdmin()) {

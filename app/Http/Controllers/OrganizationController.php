@@ -9,6 +9,7 @@ use Auth;
 use App\Http\Requests\OrganizationRequest;
 use App\Organization;
 use App\Folder;
+use App\User;
 
 class OrganizationController extends Controller
 {
@@ -65,9 +66,11 @@ class OrganizationController extends Controller
     public function show(Organization $organization)
     {
         $folders = Folder::all();
+        $trash = false;
+        $users = User::all();
         $organizations = Organization::all();
         $documents = $organization->documents;
-        return view('documents.index', compact('documents','organizations','folders'));
+        return view('documents.index', compact('documents','organizations','folders','users','trash'));
         
     }
 

@@ -66,7 +66,10 @@ return [
     'trash' => 'Trash',
     'error' => 'Error',
     'incomming' => 'Incomming',
-    'outgoing' => 'Outgoing'
+    'outgoing' => 'Outgoing',
+    'verify' => 'Verify',
+    'profile' => 'Profile',
+    'summary' => 'Summary'
 
 
 ];

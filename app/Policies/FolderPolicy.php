@@ -46,7 +46,7 @@ class FolderPolicy
         if ($user->isStaff()) {
             return true;
         }else {
-            return $user->id === $document->user_id;
+            return $user->id === $folder->user_id;
         }
     }
 

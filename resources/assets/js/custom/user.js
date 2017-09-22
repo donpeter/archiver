@@ -48,6 +48,7 @@ $(function(){
       email: form.find('#email').val(),
       username: form.find('#username').val(),
       password: form.find('#password').val(),
+      password_confirmation: form.find('#password_confirmation').val(),
       role: form.find('#role').val()
     };
     console.log('New User' ,user);
@@ -106,19 +107,16 @@ $(function(){
         var edit = $(event.relatedTarget) // edit that triggered the modal
         var id = edit.data('id') // Extract info from data-* attributes
         var name = data[0];
-        var username = data[1];
-        var email = data[2];
         var role = data[3];
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
         modal.find('.modal-title').text('Edit ' + name)
+        modal.find('form')[0].reset();
         modal.attr('current', id);
 
         // Fill The Edit Form With Users Information
         modal.find('.modal-body #name').val(name)
-        modal.find('.modal-body #email').val(email)
-        modal.find('.modal-body #username').val(username)
         modal.find('.modal-body #role').val(role)
       })
       .submit(function(eventObj) {
@@ -132,18 +130,19 @@ $(function(){
         var id = modal.attr('current') // Extract info from data-* attributes
         var name = modal.find('.modal-body #name').val();
         var email =  modal.find('.modal-body #email').val();
-        var username = modal.find('.modal-body #username').val();
+        var password =  modal.find('.modal-body #password').val();
+        var password_confirmation = modal.find('.modal-body #password_confirmation').val();
         var role = modal.find('.modal-body #role').val();
         var user = {
                     _token: _token,
                     _method : _method,
                     name: name,
                     email : email,
-                    username : username,
+                    password : password,
+                    password_confirmation : password_confirmation,
                     role : role
                   };
-        //Send Update Request for the user 
-        console.log('user', user);
+
         $.ajax({
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
             url         : '/user/'+id, // the url where we want to POST
@@ -172,8 +171,8 @@ $(function(){
             type: 'error',
             showConfirmButton: true
           });
-          console.log(err);
-          setTimeout(window.username.reload(), 4500)
+          console.log('User Error:' ,err);
+          setTimeout(window.location.reload(), 4500)
         })
         .always(function() {
           $("input[type=submit]").removeAttr('disabled'); //Disable Mutiple Submittions
@@ -223,7 +222,7 @@ $(function(){
                  type: 'error',
                  showConfirmButton: true
                }); 
-               setTimeout(window.username.reload(), 4500)
+               setTimeout(window.location.reload(), 4500)
             });
           
       });

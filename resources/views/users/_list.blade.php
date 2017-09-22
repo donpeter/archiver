@@ -54,7 +54,7 @@
               <td tabindex="1">{{$user->role}}</td>
             @if($editable)
               <td tabindex="1">
-                <a href="/user/{{$user->id}}/documents" class="text-inverse pr-5" data-toggle="tooltip" data-original-title="{{__('common.view')}}">
+                <a href="{{route('user.documents', ['user' => $user->id])}}" class="text-inverse pr-5" data-toggle="tooltip" data-original-title="{{__('common.view')}}">
                 <i class="zmdi zmdi-eye txt-success"></i>
                 </a>
                 <a href="javascript:void(0)" class="text-inverse pr-5" title="{{__('common.edit')}}" data-target="#editModal" data-toggle="modal" data-original-title="{{__('common.edit')}}" data-id="{{$user->id}}" >

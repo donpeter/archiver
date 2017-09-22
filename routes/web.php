@@ -82,10 +82,11 @@ Route::post('document/{document}/email', 'DocumentController@email');
 Route::resource('user', 'UserController', ['only' => [
     'index', 'store','update', 'destroy'
 ]]);
+Route::get('user/profile', 'UserController@profile')->name('user.profile');
 Route::get('user/auth', 'UserController@getAuthUser');
 Route::get('users', 'UserController@getAllApi');
 Route::get('logout', 'UserController@logout');
-Route::get('user/{id}/documents', 'UserController@index');
+Route::get('user/{user}/documents', 'UserController@documents')->name('user.documents');
 
 /*
 |--------------------------------------------------------------------------
