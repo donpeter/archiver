@@ -32,7 +32,7 @@ class Document extends Model
     *
     */
     public function setWrittenOnAttribute($date){
-      $this->attributes['written_on'] = Carbon::createFromFormat('m/d/y',$date);
+      $this->attributes['written_on'] = Carbon::createFromFormat('d/m/Y',$date);
     }
 
     /**
@@ -43,7 +43,7 @@ class Document extends Model
         if (is_null($date)) {
             $this->attributes['signed_on'] = null;
         }else {
-            $this->attributes['signed_on'] = Carbon::createFromFormat('m.d.Y',$date);
+            $this->attributes['signed_on'] = Carbon::createFromFormat('d/m/Y',$date);
         }
     }
 
