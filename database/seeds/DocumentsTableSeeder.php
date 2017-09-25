@@ -79,6 +79,17 @@ class DocumentsTableSeeder extends Seeder
           ])
         }*/
 
+        $admin = User::where('username','admin')->first();
+        //Create Document User if doesn't exist
+        if(!$admin){
+          $admin = User::create([
+         'username' => 'admin',
+         'email' => 'admin@lefkebelediyesi.com',
+         'password' => bcrypt('123456'),
+         'name' => 'Admin',
+         'role' => 'admin'
+        ]);
+        }
         /*Outgoing Documents*/
         //dd($oDocuments);
         foreach ($oDocuments as $document) {
@@ -130,5 +141,6 @@ class DocumentsTableSeeder extends Seeder
 
           ]);
         }
+        
     }
 }
