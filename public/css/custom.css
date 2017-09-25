@@ -8,6 +8,11 @@ div .alert{
 .fixed-sidebar-left .side-nav > li > ul > li a {
     color: #ddd;
 }
+footer p {
+    display: block;
+    font-size: 1.3em;
+    line-height: 40px;
+}
 
 .img-preview, .img-preview i {
       position: relative;

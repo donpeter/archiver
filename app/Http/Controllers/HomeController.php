@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $folders = Folder::all();
+        $folders = Folder::orderBy('created_at', 'desc')->take(5)->get();
         $folderCount = Folder::count();
         $organizationCount = Organization::count();
         $documentCount = Document::count();

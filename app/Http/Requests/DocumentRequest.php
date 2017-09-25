@@ -27,7 +27,7 @@ class DocumentRequest extends FormRequest
             'ref' => 'required|max:255|min:3|unique:documents',
             'title' => 'required|max:255|min:5',
             'desc' => 'nullable|min:5',
-            'files' => 'required',
+            'files' => 'nullable',
             'organization_id' => 'required|integer',
             'folder_id' => 'required|integer',
             'type' => 'required|string',

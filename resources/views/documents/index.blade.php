@@ -15,7 +15,11 @@
       <div class="panel panel-default card-view ">
         <div class="panel-heading">
           <div class="pull-left">
-            <h6 class="panel-title txt-dark">{{upfirst(__('common.all').' '.trans_choice('navbar.document',2))}}</h6>
+            @if($trash)
+              <h6 class="panel-title txt-dark">{{__('common.trash').' '.__('common.documents')}}</h6>
+            @else
+              <h6 class="panel-title txt-dark">{{upfirst(__('common.all').' '.__('common.documents'))}}</h6>
+            @endif
             </div>
           <div class="clearfix"></div>
         </div>
@@ -92,14 +96,14 @@
                         @if(isset($document->organization->name ))
                           {{$document->organization->name }}
                         @else
-                          <del> Deleted</del>
+                          <del> {{__('common.deleted')}}</del>
                         @endif
                       </td>
                       <td tabindex="1">
                         @if(isset($document->folder->name))
                           {{$document->folder->name}}
                         @else
-                          <del> Deleted</del>
+                          <del> {{__('common.deleted')}}</del>
                         @endif
                       </td>
                       <td tabindex="1" class="dateTable">{{$document->written_on}}</td>
@@ -107,7 +111,7 @@
                         @if(isset($document->user->name))
                           {{$document->user->name}}
                         @else
-                          <del> Deleted</del>
+                          <del> {{__('common.deleted')}}</del>
                         @endif
                       </td>
                       <td tabindex="1" class="sorting_1">
@@ -119,10 +123,12 @@
                         <span class="sr-only">{{$document->type}}</span>
                       </td>
                         <td tabindex="1">
-                          <a href="javascript:void(0)" class="text-inverse pr-5 sa-view"  data-target="tooltip" data-toggle="tooltip" data-original-title="{{__('common.view')}}"   >
-                          <i class="zmdi zmdi-eye txt-success"></i>
-                          </a>
-                          @if(!$trash)                         
+                          
+                          @if(!$trash)  
+                            <a href="javascript:void(0)" class="text-inverse pr-5 sa-view"  data-target="tooltip" data-toggle="tooltip" data-original-title="{{__('common.view')}}"   >
+                            <i class="zmdi zmdi-eye txt-success"></i>
+                            </a>
+
                             @can('update',$document)
                             <a href="javascript:void(0)" class="text-inverse pr-5 sa-edit" data-target="tooltip" data-toggle="tooltip" data-original-title="{{__('common.edit')}}" >
                             <i class="zmdi zmdi-edit txt-warning"></i>

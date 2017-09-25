@@ -128,14 +128,17 @@ $(function(){
             var doc;
             $.getJSON( "/document/"+id, function( res ) {
               doc = res.data;
+              var user = doc.user || {};
+              var folder = doc.folder || {};
+              var organization = doc.organization || {};
               var imgsHtml = [];
               //Select The Modal 
              viewDocumentModal.find('#docRef').text(doc.ref);
              viewDocumentModal.find('#docTitle').text(doc.title);
              viewDocumentModal.find('#docDesc').text(doc.desc);
-             viewDocumentModal.find('#docUser').text(doc.user.name);
-             viewDocumentModal.find('#docFolder').text(doc.folder.name);
-             viewDocumentModal.find('#docTarget').text(doc.organization.name);
+             viewDocumentModal.find('#docUser').text(user.name || 'Deleted (Silindi)');
+             viewDocumentModal.find('#docFolder').text(folder.name || 'Deleted (Silindi)');
+             viewDocumentModal.find('#docTarget').text(organization.name || 'Deleted (Silindi)');
              viewDocumentModal.find('#docWritten').text(moment(doc.written_on).format('DD-MM-YYYY'));
              viewDocumentModal.find('#docSigned').text(moment(doc.signed_on).format('DD-MM-YYYY'));
              viewDocumentModal.find('#docCreated').text(moment(doc.created_at).format('DD-MM-YYYY'));

@@ -12,7 +12,7 @@
       <a href="javascript:void(0);" class="{{activePath('document') ? 'active' :''}}" data-toggle="collapse" data-target="#nav_document">
         <div class="pull-left">
           <i class=" ti-archive mr-20"></i>
-          <span class="right-nav-text">{{trans_choice('navbar.document',2)}} </span>
+          <span class="right-nav-text">{{__('navbar.documents')}} </span>
         </div>
         <div class="pull-right">
           <i class="zmdi zmdi-caret-down"></i>
@@ -22,7 +22,7 @@
       <ul id="nav_document" class="collapse collapse-level-1">
         <li>
           <a href="{{route('document.index')}}" class="{{activePage('document') ? 'active-page' :''}}">
-            {{__('navbar.manage').' '.trans_choice('navbar.document', 2) }}
+            {{__('navbar.manage').' '.__('navbar.documents') }}
           </a>
         </li>
         <li>
@@ -38,11 +38,11 @@
       </ul>
     </li>
     <li>
-      <a href="javascript:void(0);" class="{{activePath('organization') ? 'active' :''}}" data-toggle="collapse" data-target="#nav_organization"><div class="pull-left"><i class="pe-7s-culture mr-20"></i><span class="right-nav-text">{{trans_choice('navbar.organization',2)}} </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+      <a href="javascript:void(0);" class="{{activePath('organization') ? 'active' :''}}" data-toggle="collapse" data-target="#nav_organization"><div class="pull-left"><i class="pe-7s-culture mr-20"></i><span class="right-nav-text">{{__('navbar.organizations')}} </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
       <ul id="nav_organization" class="collapse collapse-level-1">
         <li>
           <a href="{{route('organization.index')}}" class="{{activePage('organization') ? 'active-page' :''}}">
-            {{__('navbar.manage').' '.trans_choice('navbar.organization', 2) }}
+            {{__('navbar.manage').' '.__('navbar.organizations') }}
           </a>
         </li>
         <li>
@@ -71,11 +71,11 @@
       </ul>
     </li> --}}
     <li>
-      <a class="{{activePath('folder') ? 'active' :''}} " href="javascript:void(0);" data-toggle="collapse" data-target="#nav_folder"><div class="pull-left"><i class="icon-folder-alt mr-20"></i><span class="right-nav-text">{{trans_choice('navbar.folder',2)}} </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+      <a class="{{activePath('folder') ? 'active' :''}} " href="javascript:void(0);" data-toggle="collapse" data-target="#nav_folder"><div class="pull-left"><i class="icon-folder-alt mr-20"></i><span class="right-nav-text">{{__('navbar.folders')}} </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
       <ul id="nav_folder" class="collapse collapse-level-1">
         <li>
           <a href="{{route('folder.index')}}" class="{{activePage('folder') ? 'active-page' :''}}">
-            {{__('navbar.manage').' '.trans_choice('navbar.folder', 2) }}
+            {{__('navbar.manage').' '.__('navbar.folders') }}
           </a>
         </li>
         <li>
@@ -90,11 +90,11 @@
     @if(Auth::user()->role === 'admin')
     <li><hr class="light-grey-hr mb-10"/></li>
     <li class="navigation-header">
-      <span>{{trans_choice('navbar.setting',2)}}</span> 
+      <span>{{__('navbar.settings')}}</span> 
       <i class="zmdi zmdi-more"></i>
     </li>
     <li>
-      <a href="{{route('user.index')}}" class="{{activePath('user') ? 'active' :''}} data-toggle="collapse" data-target="#ui_dr"><div class="pull-left"><i class="icon-people mr-20"></i><span class="right-nav-text">{{trans_choice('navbar.user',2)}}</span></div> <div class="clearfix"></div></a>
+      <a href="{{route('user.index')}}" class="{{activePath('user') ? 'active' :''}} data-toggle="collapse" data-target="#ui_dr"><div class="pull-left"><i class="icon-people mr-20"></i><span class="right-nav-text">{{__('navbar.users')}}</span></div> <div class="clearfix"></div></a>
     </li>
    
     <li><hr class="light-grey-hr mb-10"/></li>

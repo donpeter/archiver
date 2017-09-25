@@ -1,13 +1,13 @@
 <div class="panel panel-default card-view">
   <div class="panel-heading">
     <div class="pull-left">
-      <h6 class="panel-title txt-dark">{{__('common.edit').' '.trans_choice('folder.title',1)}}</h6>
+      <h6 class="panel-title txt-dark">{{__('common.edit').' '.__('common.organizations')}}</h6>
     </div>
     <div class="clearfix"></div>
   </div>
   <div class="panel-wrapper collapse in">
     <div class="panel-body">
-      <p class="text-muted">{{trans('folder.subtitle')}}</p>
+      <p class="text-muted">{{trans('common.organizations')}}</p>
       <div class="table-wrap mt-20">
         <div class="table-responsive">
           <table id="organizations" class="table table-hover display mb-30 dataTable no-footer" style="cursor: pointer;" role="grid">

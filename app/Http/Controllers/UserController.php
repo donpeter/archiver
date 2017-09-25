@@ -32,7 +32,7 @@ class UserController extends Controller
     public function index()
     {
         if(!Auth::user()->isStaff()){
-            return redirect()->route('user.edit', ['user' => Auth::user()->id]);
+            return redirect()->route('user.profile');
         }
         $users = User::all();
         //dd($users);
