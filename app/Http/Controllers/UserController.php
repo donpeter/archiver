@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Auth;
 
 use App\Http\Requests\CreateUserRequest;
@@ -65,6 +66,8 @@ class UserController extends Controller
         $user = User::make($request->all());
         $user->password = bcrypt($user->password);
         $user->save();
+        $u = Auth::user();
+        Log::info("User({$user->id}): {$user->name} Created by {$u->username}");
         if($request->ajax()){
             return response()->json(['message'=>['title' => __('created').'!', 'desc' =>'User Created Succesfully'],'user'=>$user], 200);
         }else {
@@ -89,6 +92,8 @@ class UserController extends Controller
         $user->password = ($request->password) ? bcrypt($request->password) :  $user->password;
         
         $user->save();
+        $u = Auth::user();
+        Log::info("User({$user->id}): {$user->name} Updated by {$u->username}");
         if($request->ajax()){
             $updated = __('common.updated');
             return response()
@@ -127,8 +132,10 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $name = $user->name;
+        $id = $user->id;
         $user->delete();
-
+        $u = Auth::user();
+        Log::info("User({$id}): {$name} Deleted by {$u->username}");
         return response()->json([
             'message'=> $name.' '.__('common.deleted'),
             'title' => __('common.deleted')

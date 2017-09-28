@@ -154,6 +154,8 @@ class TrashController extends Controller
         $this->authorize('restore', $user);
         $user->restore();
         
+        $u = Auth::user();
+        Log::info("User({$user->id}): {$user->name} Restored by {$u->username}");
         if($request->ajax()){
             return response()->json([
                 'message'=> $user->name.' '.__('common.restored'),
