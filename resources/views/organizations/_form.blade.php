@@ -23,7 +23,7 @@
   <div class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">
     {!!Form::label('country', trans_choice('common.country',1), ['class' => 'control-label mb-10 '])!!}
     <select id='country' name="country" class="selectpicker form-control" data-style="btn-primary btn-outline" tabindex="-98">
-      <option data-tokens="K.K.T.C" value="K.K.T.C" selected="selected">Kibris (KKTC)</option>
+      <option data-tokens="K.K.T.C" value="K.K.T.C" selected="selected">Kıbrıs (K.K.T.C)</option>
       <option data-tokens="Turkey" value="Turkey">Turkey (Türkiye)</option>
       <option data-tokens="Others" value="Others">Others (Diğerleri)</option>
     </select>

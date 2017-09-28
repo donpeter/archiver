@@ -94,7 +94,20 @@
       <i class="zmdi zmdi-more"></i>
     </li>
     <li>
-      <a href="{{route('user.index')}}" class="{{activePath('user') ? 'active' :''}} data-toggle="collapse" data-target="#ui_dr"><div class="pull-left"><i class="icon-people mr-20"></i><span class="right-nav-text">{{__('navbar.users')}}</span></div> <div class="clearfix"></div></a>
+      <a href="javascript:void(0);" class="{{activePath('user') ? 'active' :''}}" data-toggle="collapse" data-target="#nav_user"><div class="pull-left"><i class="icon-people mr-20"></i><span class="right-nav-text">{{__('navbar.users')}}</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+      <ul id="nav_user" class="collapse collapse-level-1">
+        <li>
+          <a href="{{route('user.index')}}" class="{{activePage('user') ? 'active-page' :''}}">
+            {{__('navbar.manage').' '.__('navbar.users') }}
+          </a>
+        </li>
+        <li>
+          <a href="{{route('user.trash')}}" class="{{activePage('users/trash') ? 'active-page' :''}}">
+            {{__('navbar.trash') }}
+          </a>
+        </li>
+        
+      </ul>
     </li>
    
     <li><hr class="light-grey-hr mb-10"/></li>

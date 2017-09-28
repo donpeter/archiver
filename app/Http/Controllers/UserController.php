@@ -34,10 +34,11 @@ class UserController extends Controller
         if(!Auth::user()->isStaff()){
             return redirect()->route('user.profile');
         }
+        $trash =false;
         $users = User::all();
         //dd($users);
 
-        return view('users.index', compact('users'));
+        return view('users.index', compact('users','trash'));
     }
 
     /**
@@ -132,6 +133,21 @@ class UserController extends Controller
             'message'=> $name.' '.__('common.deleted'),
             'title' => __('common.deleted')
             ],200);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trash(Request $request)
+    {
+        $trash = true;
+        $users = User::onlyTrashed()->orderBy('deleted_at')->get();
+        //dd($users);
+
+        return view('users.index', compact('users','trash'));
+    
     }
 
     public function logout()

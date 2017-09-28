@@ -11,6 +11,7 @@ use App\Document;
 use App\Folder; 
 use App\Organization; 
 use App\File; 
+use App\User; 
 
 class TrashController extends Controller
 {
@@ -140,5 +141,28 @@ class TrashController extends Controller
             flash($document->title.' '.__('common.restored'))->success()->important();
             return redirect()->back();
         }     
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function restoreUser(Request $request, $id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $this->authorize('restore', $user);
+        $user->restore();
+        
+        if($request->ajax()){
+            return response()->json([
+                'message'=> $user->name.' '.__('common.restored'),
+                'title' => __('common.restored')
+                ],200);
+        }else {
+            flash($user->name.' '.__('common.restored'))->success()->important();
+            return redirect()->back();
+        }  
+
     }
 }

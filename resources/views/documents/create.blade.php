@@ -15,7 +15,7 @@
       <div class="panel panel-default card-view ">
         <div class="panel-heading">
           <div class="pull-left">
-            <h6 class="panel-title txt-dark">{{__('common.add').' ' .trans_choice('common.file',1)}}</h6>
+            <h6 class="panel-title txt-dark">{{__('common.add').' ' .trans_choice('common.document',1)}}</h6>
           </div>
           <div class="clearfix"></div>
         </div>
@@ -127,7 +127,7 @@
 
                 <div class="form-group{{ $errors->has('written_on') ? ' has-error' : '' }}">
                   {!!Form::label('written_on', trans_choice('common.written',1), ['class' => 'control-label mb-10 '])!!}
-                  {!!Form::text('written_on',null, ['class'=>'form-control datetimepicker', 'placeholder'=> trans_choice('common.prepaired',1)] )!!}
+                  {!!Form::text('written_on',null, ['class'=>'form-control datetimepicker', 'placeholder'=> trans_choice('common.written',1)] )!!}
                   {!! $errors->first('written_on', '<span class ="help-block">:message</span> ') !!}
                 </div>    
 

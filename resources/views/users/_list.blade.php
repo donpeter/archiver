@@ -1,13 +1,16 @@
 <div class="panel panel-default card-view">
   <div class="panel-heading">
     <div class="pull-left">
-      <h6 class="panel-title txt-dark">{{__('common.manage').' ' .trans_choice('common.user',1)}}</h6>
+      @if($trash)
+        <h6 class="panel-title txt-dark">{{__('common.trash').' '.__('common.users')}}</h6>
+      @else
+        <h6 class="panel-title txt-dark">{{__('common.manage').' '.__('common.users')}}</h6>
+      @endif
     </div>
     <div class="clearfix"></div>
   </div>
   <div class="panel-wrapper collapse in">
     <div class="panel-body">
-      <p class="text-muted">{{trans('folder.subtitle')}}</p>
       <div class="table-wrap mt-20">
         <div class="table-responsive">
           <table id="users" class="table table-hover display mb-30 dataTable no-footer" style="cursor: pointer;" role="grid">
@@ -54,15 +57,28 @@
               <td tabindex="1">{{$user->role}}</td>
             @if($editable)
               <td tabindex="1">
+                @if(!$trash)
                 <a href="{{route('user.documents', ['user' => $user->id])}}" class="text-inverse pr-5" data-toggle="tooltip" data-original-title="{{__('common.view')}}">
                 <i class="zmdi zmdi-eye txt-success"></i>
                 </a>
-                <a href="javascript:void(0)" class="text-inverse pr-5" title="{{__('common.edit')}}" data-target="#editModal" data-toggle="modal" data-original-title="{{__('common.edit')}}" data-id="{{$user->id}}" >
-                <i class="zmdi zmdi-edit txt-warning"></i>
-                </a>
-                <a href="javascript:void(0)" class="text-inverse sa-warning" data-id="{{$user->id}}" data-toggle="tooltip" data-original-title="{{__('common.delete')}}">
-                <i class="zmdi zmdi-delete txt-danger"></i>
-                </a>
+                @can('update',$user)
+                  <a href="javascript:void(0)" class="text-inverse pr-5" title="{{__('common.edit')}}" data-target="#editModal" data-toggle="modal" data-original-title="{{__('common.edit')}}" data-id="{{$user->id}}" >
+                  <i class="zmdi zmdi-edit txt-warning"></i>
+                  </a>
+                @endcan
+                @can('delete',$user)
+                  <a href="javascript:void(0)" class="text-inverse sa-delete" data-id="{{$user->id}}" data-toggle="tooltip" data-original-title="{{__('common.delete')}}">
+                  <i class="zmdi zmdi-delete txt-danger"></i>
+                  </a>
+                @endcan
+                @else
+
+                  @can('restore',$user)
+                    <a href="javascript:void(0)"  class="text-inverse sa-restore" data-id="{{$user->id}}" data-toggle="tooltip"  data-original-title="{{__('common.restore')}}">
+                    <i class="zmdi zmdi-undo text-warning zmdi-hc-lg"></i>
+                    </a>
+                  @endcan
+                @endif
               </td>
             @endif
             </tr>

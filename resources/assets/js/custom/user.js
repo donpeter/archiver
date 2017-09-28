@@ -184,18 +184,18 @@ $(function(){
 
   /* CRUD (DELETE) */
 
-  $(document).on('click','#sa-warning,.sa-warning',function(e){
+  $(document).on('click','.sa-delete',function(e){
     //var row = $(this).parents('tr');
     var row = table.row( $(this).parents('tr') );    
     var id = $(this).data('id'); // Extract info from data-* attributes
     var name = row.data()[0]; // Extract info from data-* attributes
     swal({   
           title: "Are you sure?",   
-          text: "You will not be able to recover  this user"+name+"!",   
+          text: "Do you want to move "+name+" to Trash!",   
           type: "warning",   
           showCancelButton: true,   
           confirmButtonColor: "red",   
-          confirmButtonText: "Yes, delete it!",   
+          confirmButtonText: "Yes, trash user!",   
           closeOnConfirm: true,
           //showLoaderOnConfirm: true,
       }, function(){ 
@@ -212,7 +212,6 @@ $(function(){
               table.row( row )
                 .remove()
                 .draw();
-              console.log(res.data.message );
             })
             .catch(function (err) {
                swal({
@@ -232,6 +231,55 @@ $(function(){
 
   /* END CRUD (DELETE) */
 
+  /* CRUD (RESTORE) */
+
+  $(document).on('click','.sa-restore',function(e){
+    e.preventDefault();
+    //var row = $(this).parents('tr');
+    var row = table.row( $(this).parents('tr') );    
+    var id = $(this).data('id'); // Extract info from data-* attributes
+    var name = row.data()[0]; // Extract info from data-* attributes
+    swal({   
+          title: "Are you sure?",   
+          text: "You're about to restore "+name+"!",   
+          type: "info",   
+          showCancelButton: true,   
+          confirmButtonColor: "green",   
+          confirmButtonText: "Yes, restore user!",   
+          closeOnConfirm: true,
+          //showLoaderOnConfirm: true,
+      }, function(){ 
+          $.get('/trash/user/'+id+'/restore')
+            .done(function (res) {
+              console.log(res);
+              swal({
+                title: res.title,
+                type: 'success',
+                text: res.message,
+                timer: 1800,
+                showConfirmButton: true
+              }); 
+              table.row( row )
+                .remove()
+                .draw();
+            })
+            .fail(function (err) {
+               swal({
+                 title: "Error!",
+                 text: name +" User could not be restored",
+                 timer: 1800,
+                 type: 'error',
+                 showConfirmButton: true
+               }); 
+               setTimeout(window.location.reload(), 1900)
+            });
+          
+      });
+
+  return false;
+  });
+
+  /* END CRUD (RESTORE) */
 
   /*HELPER FUNTIONS*/
 

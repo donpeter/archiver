@@ -57,7 +57,7 @@ mix.scripts([
 
 
 
-  mix.babel([
+ /* mix.babel([
     'resources/assets/bower/axios/dist/axios.min.js',
     'resources/assets/bower/bootstrap-fileinput/js/fileinput.min.js',
     'resources/assets/js/custom/datatable/datatable.min.js',
@@ -67,7 +67,7 @@ mix.scripts([
     'resources/assets/bower/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js',
     'resources/assets/js/custom/functions.js',
     'resources/assets/js/custom/document-create.js',
-    ],'public/js/document.min.js', 'public/js'); /*
+    ],'public/js/document.min.js', 'public/js') 
     .styles([
       'resources/assets/bower/bootstrap-fileinput/css/fileinput.min.css',
       'resources/assets/bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
@@ -80,13 +80,13 @@ mix.scripts([
   // ], 'public/js/documents');
 
 
- /* mix.scripts([
+  mix.scripts([
     'resources/assets/bower/sweetalert/dist/sweetalert.min.js',
     'resources/assets/bower/axios/dist/axios.min.js',
     'resources/assets/js/custom/datatable/datatable.min.js',
     'resources/assets/js/custom/user.js',
 
-    ],'public/js/user.min.js', 'public/js');*/
+    ],'public/js/user.min.js', 'public/js');
 
 
 /*    mix.sass('public/src/scss/style.scss', 'public/css');*/

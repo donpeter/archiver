@@ -16,7 +16,7 @@
       <div class="panel panel-default card-view ">
         <div class="panel-heading">
           <div class="pull-left">
-            <h6 class="panel-title txt-dark">{{__('common.edit').' ' .trans_choice('common.profile',1)}}</h6>
+            <h6 class="panel-title txt-dark">{{trans_choice('common.profile',1).' '.__('common.edit')}}</h6>
           </div>
           <div class="clearfix"></div>
         </div>
@@ -44,8 +44,8 @@
                      {!! $errors->first('password', '<span class ="help-block">:message</span> ') !!}
                    </div>
                    <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                     {!!Form::label('password_confirmation', __('common.verify').' '.__('common.password'), ['class' => 'control-label mb-10'])!!}
-                     {!!Form::password('password_confirmation',['class'=>'form-control', 'placeholder'=> __('common.verify').' '.__('common.password')] )!!}
+                     {!!Form::label('password_confirmation', __('common.password').' '.__('common.verify'), ['class' => 'control-label mb-10'])!!}
+                     {!!Form::password('password_confirmation',['class'=>'form-control', 'placeholder'=> __('common.password').' '.__('common.verify')] )!!}
                      {!! $errors->first('password_confirmation', '<span class ="help-block">:message</span> ') !!}
                    </div>
 

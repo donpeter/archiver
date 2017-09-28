@@ -5,8 +5,8 @@
 
 @section('breadcrumb')
   <li><a href="{{route('home')}}">{{trans_choice('navbar.dashboard',1) }}</a></li>
-  <li><a href="{{route('document.index')}}"><span>{{trans_choice('navbar.document',2)}}</span></a></li>
-  <li class="active"><span>{{__('common.manage').' ' .trans_choice('navbar.document',1)}}</span></li>
+  <li><a href="{{route('document.index')}}"><span>{{__('common.documents')}}</span></a></li>
+  <li class="active"><span>{{__('common.manage').' ' .__('common.documents')}}</span></li>
 @endsection
 @section('content')
   <!-- Row -->
@@ -18,7 +18,7 @@
             @if($trash)
               <h6 class="panel-title txt-dark">{{__('common.trash').' '.__('common.documents')}}</h6>
             @else
-              <h6 class="panel-title txt-dark">{{upfirst(__('common.all').' '.__('common.documents'))}}</h6>
+              <h6 class="panel-title txt-dark">{{upfirst(__('common.manage').' '.__('common.documents'))}}</h6>
             @endif
             </div>
           <div class="clearfix"></div>
@@ -165,7 +165,7 @@
       <div class="panel panel-default card-view ">
         <div class="panel-heading">
           <div class="pull-left">
-            <h6 class="panel-title txt-dark">{{__('common.manage').' ' .trans_choice('common.file',2)}}</h6>
+            <h6 class="panel-title txt-dark">{{__('common.manage').' ' .__('common.documents')}}</h6>
           </div>
           <div class="clearfix"></div>
         </div>

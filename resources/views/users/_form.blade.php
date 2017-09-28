@@ -26,8 +26,8 @@
     {!! $errors->first('password', '<span class ="help-block">:message</span> ') !!}
   </div>
   <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-    {!!Form::label('password_confirmation', __('common.verify').' '.__('common.password'), ['class' => 'control-label mb-10 '])!!}
-    {!!Form::password('password_confirmation',['class'=>'form-control', 'placeholder'=> __('common.verify').' '.__('common.password'), 'required'=>'required'] )!!}
+    {!!Form::label('password_confirmation', __('common.password').' '.__('common.verify'), ['class' => 'control-label mb-10 '])!!}
+    {!!Form::password('password_confirmation',['class'=>'form-control', 'placeholder'=>  __('common.password').' '.__('common.verify'), 'required'=>'required'] )!!}
     {!! $errors->first('password_confirmation', '<span class ="help-block">:message</span> ') !!}
   </div>
 
@@ -41,8 +41,8 @@
     {!! $errors->first('password', '<span class ="help-block">:message</span> ') !!}
   </div>
   <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-    {!!Form::label('password_confirmation', __('common.verify').' '.__('common.password'), ['class' => 'control-label mb-10 '])!!}
-    {!!Form::password('password_confirmation',['class'=>'form-control', 'placeholder'=> __('common.verify').' '.__('common.password')] )!!}
+    {!!Form::label('password_confirmation',  __('common.password').' '.__('common.verify'), ['class' => 'control-label mb-10 '])!!}
+    {!!Form::password('password_confirmation',['class'=>'form-control', 'placeholder'=> __('common.password').' '.__('common.verify')] )!!}
     {!! $errors->first('password_confirmation', '<span class ="help-block">:message</span> ') !!}
   </div>
   @endif

@@ -1,7 +1,7 @@
 <div class="panel panel-default card-view">
   <div class="panel-heading">
     <div class="pull-left">
-      <h6 class="panel-title txt-dark">{{__('common.edit').' '.__('common.organizations')}}</h6>
+      <h6 class="panel-title txt-dark">{{__('common.organizations').' '.__('common.edit')}}</h6>
     </div>
     <div class="clearfix"></div>
   </div>
@@ -26,7 +26,7 @@
                   {{trans_choice('common.country',1)}}
                 </th>
               @if($editable)
-                <th class="sorting" style="width: 10%;">Action</th>
+                <th class="sorting" style="width: 15%;">{{__('common.action')}}</th>
               @endif
               </tr>
             </thead>

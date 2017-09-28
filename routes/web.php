@@ -83,6 +83,8 @@ Route::resource('user', 'UserController', ['only' => [
     'index', 'store','update', 'destroy'
 ]]);
 Route::get('user/profile', 'UserController@profile')->name('user.profile');
+Route::get('users/trash', 'UserController@trash')->name('user.trash');
+
 Route::get('user/auth', 'UserController@getAuthUser');
 Route::get('users', 'UserController@getAllApi');
 Route::get('logout', 'UserController@logout');
@@ -100,5 +102,6 @@ Route::get('trash/document/{id}/restore', 'TrashController@restoreDocument')->na
 Route::get('trash/file/{id}/restore', 'TrashController@restoreFile')->name('file.restore');
 Route::get('trash/folder/{id}/restore', 'TrashController@restoreFolder')->name('folder.restore');
 Route::get('trash/organization/{id}/restore', 'TrashController@restoreOrganization')->name('organization.restore');
+Route::get('trash/user/{id}/restore', 'TrashController@restoreUser')->name('user.restore');
 
 

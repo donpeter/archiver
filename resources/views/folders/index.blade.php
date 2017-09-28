@@ -6,8 +6,8 @@
 
 @section('breadcrumb')
   <li><a href="{{route('home')}}">{{trans_choice('navbar.dashboard',1) }}</a></li>
-  <li><a href="{{route('folder.index')}}"><span>{{trans_choice('folder.title',2)}}</span></a></li>
-  <li class="active"><span>{{__('common.add').' ' .trans_choice('folder.title',1)}}</span></li>
+  <li><a href="{{route('folder.index')}}"><span>{{trans_choice('common.folder',2)}}</span></a></li>
+  <li class="active"><span>{{__('common.add').' ' .trans_choice('common.folder',1)}}</span></li>
 @endsection
 
 
@@ -18,7 +18,7 @@
       <div class="panel panel-default card-view ">
         <div class="panel-heading">
           <div class="pull-left">
-            <h6 class="panel-title txt-dark">{{__('common.add').' ' .trans_choice('folder.title',1)}}</h6>
+            <h6 class="panel-title txt-dark">{{__('common.add').' ' .trans_choice('common.folder',1)}}</h6>
           </div>
           <div class="clearfix"></div>
         </div>
